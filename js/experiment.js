@@ -1,9 +1,7 @@
 // participant variables
-var age;
-var gender;
-var country;
 var subjectID;
 var condition;
+var demographics;
 
 // experimental variables 
 var currTrainTrial = 0;
@@ -37,15 +35,54 @@ $(document).ready(function() {
     // TODO: randomize experimental conditions
     
     // after initializating variables above, display the experiment instructions
-    // TODO: display form to get participant demographic information
-    showInstructions();
+    showDemographics();
 })
+
+function showDemographics() {
+    $('#next').unbind();
+
+	// modify here if you want to get different demographic information
+	// DEFAULT: username, age, gender, country
+    $('#demographics').html('<form><label for="user">Unique User ID:</label><input name="user" /><br>\
+							<label for="age">Age:</label><input name="age" /><br>\
+							<label for="gender">Gender:</label><input type="radio" name="gender" value="male" />Male <input type="radio" name="gender" value="female" />Female<br>\
+							<label for="country">Country:</label><input name="country" /></form>');
+
+	$('#next').click(validateDemographics)
+    
+}
+
+function validateDemographics() {
+    $('#next').unbind();
+
+	demographics = $('form').serializeArray();
+
+	var ok = true;
+	for (var i = 0; i < demographics.length; i++) {
+		// test to only include alphanumeric characters
+		if( /[^a-zA-Z0-9]/.test( demographics[i]["value"] ) ) {
+		       alert('Please only use alphanumeric characters.');
+		       ok = false;
+		    }
+		// test for empty answers
+		if (demographics[i]["value"] == "") {
+	       alert('Please fill out all fields.');
+	       ok = false;
+		}
+	}
+	
+	if (!ok) {
+		showDemographics();
+	}
+	else {
+		$('#demographics').hide();
+		showInstructions();
+	}
+}
 
 // experiment functions
 
 // TODO: input options
-
-// TODO: demographics form
 
 // displays experiment instructions
 function showInstructions() {
@@ -120,6 +157,8 @@ function finishExperiment() {
 // save experiment data with ajax
 function saveData(args) {
     var data = args;
+
+	// TODO: add demographics info to data
 
     // TODO: fill in details here, i.e. database table information (replace "experiment" with your own database table name in the data section)
     $.ajax({
