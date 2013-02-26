@@ -13,8 +13,8 @@ var maxTestTrial = 5;
 var maxBlock = 3;
 
 // TODO: fill in numbers
-var trainTrialStimuli = [];
-var testTrialStimuli = [];
+var trainTrialStimuli = [130, -130, -20, 50, -10, -20, 70, 170, 120, 100, -120, 10, -30, 160, 140];
+var testTrialStimuli = [160, -150, 120, -50, -150, 130, -80, -10, -40, 170, -120, 20, 20, -50, -170];
 
 // experimental conditions
 var colourCondition;
@@ -36,20 +36,25 @@ $(document).ready(function() {
     // hide canvas drawing for now, otherwise it takes up space
     $('#drawing').hide();
 
+    // hide buttons
+    $('#blue').hide();
+    $('#green').hide();
+
     // generate a subject ID by generating a random number between 1 and 1000000
     subjectID = Math.round(Math.random()*1000000);
 
     // randomize experimental conditions
+    // TODO: fix colour/buttons etc.
     r = Math.ceil(Math.random()*2); // generate random number
     if(r == 1) {
-	colourCondition = 'green';
+	colourCondition = 'red';
     }
     else if(r == 2) {
 	colourCondition = 'blue';
     }
 
     // after initializating variables above, display the experiment instructions
-    // showDemographics(); TODO: remove later
+    // showDemographics(); TODO: put this back later
 
     showInstructions();
 })
@@ -80,9 +85,12 @@ function validateDemographics() {
 	    alert('Please only use alphanumeric characters.');
 	    ok = false;
 	}
+
+	// TODO: validate age
+
 	// test for empty answers
 	if (demographics[i]["value"] == "") {
-	    alert('Please fill out all fields.');
+	    alert('Please fill out all fields.'); // TODO: make alert only pop-up once
 	    ok = false;
 	}
     }
@@ -109,18 +117,33 @@ function showInstructions() {
     $('#next').click(trainTrial)
 }
 
-// TODO: instruction checks
-
 function trainTrial() {
+    imageClear();
+
+    // unbind buttons
     $('#next').unbind();
+    $('#blue').unbind();
+    $('#green').unbind();
+
+    // hide response buttons
+    $('#blue').hide();
+    $('#green').hide();
+
+    // show next button
+    $('#next').show();
 
     // display training trial instructions
-    $('#instructions').text('Here are some training stimuli.');
+    $('#instructions').text('Here are some lines.');
 
     // draw training stimuli in canvas
     $('#drawing').show();
     // TODO: add line parameters
-    drawLine(180, 'blue');
+    var currAngle = trainTrialStimuli[5*currBlock + currTrainTrial];
+
+    if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
+	drawLine(currAngle, colourCondition);
+    else
+	drawLine(currAngle, 'green');
     
     // increment training trial counter
     currTrainTrial++;
@@ -132,12 +155,27 @@ function trainTrial() {
 }
 
 function testTrial() {
+    imageClear();
+
+    // unbind buttons, necessary to do so otherwise multiple calls will be made each time the button is clicked!
     $('#next').unbind();
+    $('#blue').unbind();
+    $('#green').unbind();
+
+    // hide next button
+
+    $('#next').hide();
+
+    // show response buttons
+    $('#blue').show();
+    $('#green').show();
 
     // display test trial instructions
-    $('#instructions').text('What is this stimuli?');
+    $('#instructions').text('What colour should this line be?');
 
     // TODO: draw test stimuli in canvas
+    var currAngle = testTrialStimuli[5*currBlock + currTestTrial];
+    drawLine(currAngle, 'black');
 
     // TODO: response option
 
@@ -148,7 +186,8 @@ function testTrial() {
     
     // TODO: embed this inside the next click function?
     if(currTestTrial < maxTestTrial) {
-	$('#next').click(testTrial);
+	$('#blue').click(testTrial);
+	$('#green').click(testTrial);
     }
     else {
 	// increment block 
@@ -157,7 +196,8 @@ function testTrial() {
 	if(currBlock < maxBlock) {
 	    currTrainTrial = 0;
 	    currTestTrial = 0;
-	    $('#next').click(trainTrial)
+	    $('#blue').click(trainTrial);
+	    $('#green').click(trainTrial);
 	}
 	else {
 	    finishExperiment();
@@ -166,8 +206,13 @@ function testTrial() {
 }
 
 function finishExperiment() {
-    $('#drawing').hide(); // hide canvas element
-    $('#next').hide(); // hide next button
+    // hide canvas element
+    $('#drawing').hide();
+
+    // hide buttons
+    $('#next').hide(); 
+    $('#blue').hide();
+    $('#green').hide();
 
     $('#instructions').text('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
 }
