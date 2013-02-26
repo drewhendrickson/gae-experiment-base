@@ -12,6 +12,10 @@ var maxTrainTrial = 5;
 var maxTestTrial = 5;
 var maxBlock = 3;
 
+// TODO: fill in numbers
+var trainTrialStimuli = [];
+var testTrialStimuli = [];
+
 // experimental conditions
 var colourCondition;
 
@@ -45,49 +49,51 @@ $(document).ready(function() {
     }
 
     // after initializating variables above, display the experiment instructions
-    showDemographics();
+    // showDemographics(); TODO: remove later
+
+    showInstructions();
 })
 
 function showDemographics() {
     $('#next').unbind();
 
-	// modify here if you want to get different demographic information
-	// DEFAULT: username, age, gender, country
-    $('#demographics').html('<form><label for="user">Unique User ID:</label><input name="user" /><br>\
-							<label for="age">Age:</label><input name="age" /><br>\
-							<label for="gender">Gender:</label><input type="radio" name="gender" value="male" />Male <input type="radio" name="gender" value="female" />Female<br>\
-							<label for="country">Country:</label><input name="country" /></form>');
+    // modify here if you want to get different demographic information
+    // DEFAULT: username, age, gender, country
+    $('#demographics').html('<form><label for="user">Unique User ID:</label><input name="user" /><br /><br />\
+<label for="age">Age:</label><input name="age" /><br /><br />\
+<label for="gender">Gender:</label><input type="radio" name="gender" value="male" /> Male &nbsp; <input type="radio" name="gender" value="female" /> Female<br /><br />\
+<label for="country">Country:</label><input name="country" /></form>');
 
-	$('#next').click(validateDemographics)
+    $('#next').click(validateDemographics)
     
 }
 
 function validateDemographics() {
     $('#next').unbind();
 
-	demographics = $('form').serializeArray();
+    demographics = $('form').serializeArray();
 
-	var ok = true;
-	for (var i = 0; i < demographics.length; i++) {
-		// test to only include alphanumeric characters
-		if( /[^a-zA-Z0-9]/.test( demographics[i]["value"] ) ) {
-		       alert('Please only use alphanumeric characters.');
-		       ok = false;
-		    }
-		// test for empty answers
-		if (demographics[i]["value"] == "") {
-	       alert('Please fill out all fields.');
-	       ok = false;
-		}
+    var ok = true;
+    for (var i = 0; i < demographics.length; i++) {
+	// test to only include alphanumeric characters
+	if( /[^a-zA-Z0-9]/.test( demographics[i]["value"] ) ) {
+	    alert('Please only use alphanumeric characters.');
+	    ok = false;
 	}
-	
-	if (!ok) {
-		showDemographics();
+	// test for empty answers
+	if (demographics[i]["value"] == "") {
+	    alert('Please fill out all fields.');
+	    ok = false;
 	}
-	else {
-		$('#demographics').hide();
-		showInstructions();
-	}
+    }
+    
+    if (!ok) {
+	showDemographics();
+    }
+    else {
+	$('#demographics').hide();
+	showInstructions();
+    }
 }
 
 // experiment functions
@@ -111,9 +117,11 @@ function trainTrial() {
     // display training trial instructions
     $('#instructions').text('Here are some training stimuli.');
 
-    // TODO: draw training stimuli in canvas
+    // draw training stimuli in canvas
     $('#drawing').show();
-
+    // TODO: add line parameters
+    drawLine(180, 'blue');
+    
     // increment training trial counter
     currTrainTrial++;
 
@@ -168,7 +176,7 @@ function finishExperiment() {
 function saveData(args) {
     var data = args;
 
-	// TODO: add demographics info to data
+    // TODO: add demographics info to data
 
     // TODO: fill in details here, i.e. database table information (replace "experiment" with your own database table name in the data section)
     $.ajax({
@@ -189,14 +197,21 @@ function imageClear() {
     canvas.width = canvas.width; // clears the canvas 
 }
 
-// draw experimental stimuli
+// draw experimental stimuli using canvas functions
 function drawLine(degrees, colour) {
     var radians = degrees * (Math.PI/180)
     var length = 200;
 
+    // set width of line
+    context.lineWidth = 5;
+    
+    // set line colour
+    context.strokeStyle = colour;
+
+    // draw line
     context.beginPath();
-    context.moveTo(width/2, height/2);
-    context.lineTo(width, height);
+    context.moveTo(width/2 - length*Math.cos(radians), height/2 - length*Math.sin(radians));
+    context.lineTo(width/2 + length*Math.cos(radians), height/2 + length*Math.sin(radians));
     context.closePath();
     context.stroke();
 }
