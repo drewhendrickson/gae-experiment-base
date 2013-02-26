@@ -12,8 +12,11 @@ var maxTrainTrial = 5;
 var maxTestTrial = 5;
 var maxBlock = 3;
 
+// experimental conditions
+var colourCondition;
+
 // canvas cariables
-var width = 1000;
+var width = 800;
 var height = 400;
 var context;
 var canvas;
@@ -32,8 +35,15 @@ $(document).ready(function() {
     // generate a subject ID by generating a random number between 1 and 1000000
     subjectID = Math.round(Math.random()*1000000);
 
-    // TODO: randomize experimental conditions
-    
+    // randomize experimental conditions
+    r = Math.ceil(Math.random()*2); // generate random number
+    if(r == 1) {
+	colourCondition = 'green';
+    }
+    else if(r == 2) {
+	colourCondition = 'blue';
+    }
+
     // after initializating variables above, display the experiment instructions
     showDemographics();
 })
@@ -151,7 +161,7 @@ function finishExperiment() {
     $('#drawing').hide(); // hide canvas element
     $('#next').hide(); // hide next button
 
-    $('#instructions').text('You have completed the experiment!');
+    $('#instructions').text('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
 }
 
 // save experiment data with ajax
@@ -177,4 +187,16 @@ function imageClear() {
     context.fillStyle = '#ffffff'; // work around for Chrome
     context.fillRect(0, 0, canvas.width, canvas.height); // fill in the canvas with white
     canvas.width = canvas.width; // clears the canvas 
+}
+
+// draw experimental stimuli
+function drawLine(degrees, colour) {
+    var radians = degrees * (Math.PI/180)
+    var length = 200;
+
+    context.beginPath();
+    context.moveTo(width/2, height/2);
+    context.lineTo(width, height);
+    context.closePath();
+    context.stroke();
 }
