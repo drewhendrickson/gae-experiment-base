@@ -53,20 +53,32 @@ $(document).ready(function() {
 	colourCondition = 'blue';
     }
 
+    // first present the input options for the experiment (for debugging purposes)
     // TODO: uncomment this when complete
-    // showInputOptions();
+    showInputOptions();
 
-    // after initializating variables above, display the experiment instructions
-    // showDemographics(); TODO: put this back later
+    // showDemographics();
 
-    showInstructions();
+    // showInstructions();
 });
 
+// experiment functions
 function showInputOptions() {
+    // TODO: move input options to a separate html file
+    $('#inputoptions').html('<h3>Experiment options</h3><p>Stimuli Colour</p><select id="colour"><option value="red">Red</option><option value="blue">Blue</option></select>');
     
+    $('#next').click(function() {
+	// process input options here
+	colourCondition = $('#colour').val();
+
+	// showDemographics(); TODO: replace this 
+	showInstructions();
+    });
 }
 
 function showDemographics() {
+    $('#inputoptions').hide();
+    
     $('#next').unbind();
 
     // modify here if you want to get different demographic information
@@ -111,12 +123,10 @@ function validateDemographics() {
     }
 }
 
-// experiment functions
-
-// TODO: input options
-
 // displays experiment instructions
 function showInstructions() {
+    $('#inputoptions').hide();
+
     $('#next').unbind();
 
     $('#instructions').text('Here are the experiment instructions.');
