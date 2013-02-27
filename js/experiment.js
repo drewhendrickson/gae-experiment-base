@@ -46,19 +46,13 @@ $(document).ready(function() {
     }
 
     // first present the input options for the experiment (for debugging purposes)
-    // TODO: uncomment this when complete
     showInputOptions();
-
-    // showDemographics();
-
-    // showInstructions();
 });
 
 // experiment functions
 function showInputOptions() {
-    // TODO: move input options to a separate html file
-    $('#inputoptions').show();
-    $('#inputoptions').html('<h3>Experiment options</h3><p>Stimuli Colour</p><select id="colour"><option value="red">Red</option><option value="blue">Blue</option></select>');
+    $('#input-options').show();
+    $('#input-options').load('html/input-options.html');
     
     $('#next').show();
     $('#next').click(function() {
@@ -66,7 +60,6 @@ function showInputOptions() {
 	colourCondition = $('#colour').val();
 
 	showDemographics(); 
-	// showInstructions();
     });
 }
 
@@ -86,9 +79,9 @@ function validateDemographics() {
     demographics = $('form').serializeArray();
 
     var ok = true;
-    for (var i = 0; i < demographics.length; i++) {
+    for(var i = 0; i < demographics.length; i++) {
 	// test to only include alphanumeric characters
-	if( /[^a-zA-Z0-9]/.test( demographics[i]["value"] ) ) {
+	if(/[^a-zA-Z0-9]/.test( demographics[i]["value"])) {
 	    alert('Please only use alphanumeric characters.');
 	    ok = false;
 	}
@@ -96,14 +89,14 @@ function validateDemographics() {
 	// TODO: validate age
 
 	// test for empty answers
-	if (demographics[i]["value"] == "") {
+	if(demographics[i]["value"] == "") {
 	    alert('Please fill out all fields.'); // TODO: make alert only pop-up once
 	    ok = false;
 	    break;
 	}
     }
     
-    if (!ok) {
+    if(!ok) {
         showDemographics();
     }
     else {
@@ -132,15 +125,14 @@ function showInstructions() {
 function showInstructionChecks() {
     hideElements();
 
-    // TODO: Move to html file
     $('#instructions').show();
     $('#instructions').text('Here are some questions to check if you have read the instructions correctly. If you answer all the questions correct you will begin the experiment, otherwise you will be redirected to the instructions page again.');
 
-    // TODO: put html inside separate page
-    // TODO: left align radio buttons
-    $('#instructionchecks').show();
-    $('#instructionchecks').html('<form><label for="question1">Question 1:</label><input type="radio" name="question1" value="correct" /> Correct <br /><input type="radio" name="question1" value="incorrect" /> Incorrect<br /><br /><label for="question2">Question 2:</label><input type="radio" name="question2" value="correct" /> Correct <br /><input type="radio" name="question2" value="incorrect" /> Incorrect<br /><br /><label for="question3">Question 3:</label><input type="radio" name="question3" value="correct" /> Correct <br /><input type="radio" name="question3" value="incorrect" /> Incorrect</form>');
 
+    // TODO: left align radio buttons
+    $('#instruction-checks').show();
+    $('#instruction-checks').load('html/instruction-checks.html');
+    
     $('#next').show();
     $('#next').click(validateInstructionChecks);
 }
