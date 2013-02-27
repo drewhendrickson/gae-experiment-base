@@ -84,8 +84,6 @@ function showDemographics() {
 
 function validateDemographics() {
     demographics = $('form').serializeArray();
-    console.log(demographics);
-    
 
     var ok = true;
     for (var i = 0; i < demographics.length; i++) {
@@ -109,7 +107,7 @@ function validateDemographics() {
         showDemographics();
     }
     else {
-        $('#demographics').hide();
+	// remove demographics form
         $('#demographics').html('');
         showInstructions();
     }
@@ -162,10 +160,10 @@ function validateInstructionChecks() {
     }
 
     if(!ok) {
-        showInstructions();
+        showInstructions(); // go back to instruction screen
     }
     else {
-        trainTrial();
+        trainTrial(); // start experiment
     }
 }
 
