@@ -84,6 +84,8 @@ function showDemographics() {
 
 function validateDemographics() {
     demographics = $('form').serializeArray();
+    console.log(demographics);
+    
 
     var ok = true;
     for (var i = 0; i < demographics.length; i++) {
@@ -104,12 +106,12 @@ function validateDemographics() {
     }
     
     if (!ok) {
-	showDemographics();
+        showDemographics();
     }
     else {
-	$('#demographics').hide();
-	$('#demographics').html('');
-	showInstructions();
+        $('#demographics').hide();
+        $('#demographics').html('');
+        showInstructions();
     }
 }
 
@@ -146,22 +148,24 @@ function showInstructionChecks() {
 }
 
 function validateInstructionChecks() {
+    $('#next').unbind();
+    
     // TODO: fix validation
     instructionChecks = $('form').serializeArray();
 
     var ok = true;
     for(var i = 0; i < instructionChecks.length; i++) {
-	// check for incorrect responses
-	if(instructionChecks[i]["value"] != "correct") {
-	    ok = false;
-	}
+        // check for incorrect responses
+        if(instructionChecks[i]["value"] != "correct") {
+            ok = false;
+        }
     }
 
     if(!ok) {
-	showInstructions();
+        showInstructions();
     }
     else {
-	trainTrial();
+        trainTrial();
     }
 }
 
@@ -233,12 +237,12 @@ function saveTestTrial() {
 	currBlock++;
 
 	if(currBlock < maxBlock) {
-	    currTrainTrial = 0; // reset trial counters
-	    currTestTrial = 0;
-	    trainTrial(); // next training block
+            currTrainTrial = 0; // reset trial counters
+            currTestTrial = 0;
+            trainTrial(); // next training block
 	}
 	else {
-	    finishExperiment(); // end of experiment
+            finishExperiment(); // end of experiment
 	}
     }
 }
