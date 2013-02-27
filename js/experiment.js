@@ -2,6 +2,7 @@
 var subjectID;
 var condition;
 var demographics;
+var instructionChecks;
 
 // experimental variables 
 var currTrainTrial = 0;
@@ -12,7 +13,6 @@ var maxTrainTrial = 5;
 var maxTestTrial = 5;
 var maxBlock = 3;
 
-// TODO: fill in numbers
 var trainTrialStimuli = [130, -130, -20, 50, -10, -20, 70, 170, 120, 100, -120, 10, -30, 160, 140];
 var testTrialStimuli = [160, -150, 120, -50, -150, 130, -80, -10, -40, 170, -120, 20, 20, -50, -170];
 
@@ -53,11 +53,18 @@ $(document).ready(function() {
 	colourCondition = 'blue';
     }
 
+    // TODO: uncomment this when complete
+    // showInputOptions();
+
     // after initializating variables above, display the experiment instructions
     // showDemographics(); TODO: put this back later
 
     showInstructions();
-})
+});
+
+function showInputOptions() {
+    
+}
 
 function showDemographics() {
     $('#next').unbind();
@@ -69,8 +76,7 @@ function showDemographics() {
 <label for="gender">Gender:</label><input type="radio" name="gender" value="male" /> Male &nbsp; <input type="radio" name="gender" value="female" /> Female<br /><br />\
 <label for="country">Country:</label><input name="country" /></form>');
 
-    $('#next').click(validateDemographics)
-    
+    $('#next').click(validateDemographics)    
 }
 
 function validateDemographics() {
@@ -100,6 +106,7 @@ function validateDemographics() {
     }
     else {
 	$('#demographics').hide();
+	$('#demographics').html('');
 	showInstructions();
     }
 }
@@ -114,7 +121,38 @@ function showInstructions() {
 
     $('#instructions').text('Here are the experiment instructions.');
 
-    $('#next').click(trainTrial)
+    $('#next').click(showInstructionChecks);
+}
+
+function showInstructionChecks() {
+    $('#instructions').text('Here are some questions to check if you have read the instructions correctly. If you answer all the questions correct you will begin the experiment, otherwise you will be redirected to the instructions page again.');
+
+    // TODO: put html inside separate page
+    // TODO: left align radio buttons
+    $('#instructionchecks').html('<form><label for="question1">Question 1:</label><input type="radio" name="question1" value="correct" /> Correct <br /><input type="radio" name="question1" value="incorrect" /> Incorrect<br /><br /><label for="question2">Question 2:</label><input type="radio" name="question2" value="correct" /> Correct <br /><input type="radio" name="question2" value="incorrect" /> Incorrect<br /><br /><label for="question3">Question 3:</label><input type="radio" name="question3" value="correct" /> Correct <br /><input type="radio" name="question3" value="incorrect" /> Incorrect</form>');
+
+    $('#next').click(validateInstructionChecks);
+}
+
+function validateInstructionChecks() {
+    // TODO: fix validation
+    instructionChecks = $('form').serializeArray();
+    console.log(instructionChecks);
+
+    var ok = true;
+    for(var i = 0; i < instructionChecks.length; i++) {
+	// check for incorrect responses
+	if(instructionChecks[i]["value"] != "correct") {
+	    ok = false;
+	}
+    }
+
+    if(!ok) {
+	showInstructions();
+    }
+    else {
+	trainTrial();
+    }
 }
 
 function trainTrial() {
@@ -125,7 +163,8 @@ function trainTrial() {
     $('#blue').unbind();
     $('#green').unbind();
 
-    // hide response buttons
+    // hide elements
+    $('#instructionchecks').hide();
     $('#blue').hide();
     $('#green').hide();
 
@@ -137,7 +176,6 @@ function trainTrial() {
 
     // draw training stimuli in canvas
     $('#drawing').show();
-    // TODO: add line parameters
     var currAngle = trainTrialStimuli[5*currBlock + currTrainTrial];
 
     if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
@@ -173,36 +211,55 @@ function testTrial() {
     // display test trial instructions
     $('#instructions').text('What colour should this line be?');
 
-    // TODO: draw test stimuli in canvas
+    // draw test stimuli
     var currAngle = testTrialStimuli[5*currBlock + currTestTrial];
     drawLine(currAngle, 'black');
 
-    // TODO: response option
-
-    // TODO: save experiment data
-
     // increment test trial counter
     currTestTrial++;
-    
-    // TODO: embed this inside the next click function?
+
+    $('#blue').click(saveTestTrial);
+    $('#green').click(saveTestTrial);
+}
+
+function saveTestTrial() {
+    var exp_data = [{"subjectID": subjectID // TODO: save rest of participant/experiment variables here
+		    }];
+
+    // save trial data
+    saveData([exp_data]);
+
+    // determine which section to go to next
     if(currTestTrial < maxTestTrial) {
-	$('#blue').click(testTrial);
-	$('#green').click(testTrial);
+	testTrial(); // next test trial
     }
     else {
 	// increment block 
 	currBlock++;
 
 	if(currBlock < maxBlock) {
-	    currTrainTrial = 0;
+	    currTrainTrial = 0; // reset trial counters
 	    currTestTrial = 0;
-	    $('#blue').click(trainTrial);
-	    $('#green').click(trainTrial);
+	    trainTrial(); // next training block
 	}
 	else {
-	    finishExperiment();
+	    finishExperiment(); // end of experiment
 	}
     }
+}
+
+// save experiment data with ajax
+function saveData(args) {
+    var data = args;
+
+    // TODO: fill in details here, i.e. database table information (replace "experiment" with your own database table name in the data section)
+    $.ajax({
+	type: 'post',
+	cache: false,
+	url: 'submit_data_mysql.php',
+	data: {"table": "experiment", "json": JSON.stringify(data)},
+	success: function(data) { console.log(data); }
+    });
 }
 
 function finishExperiment() {
@@ -215,22 +272,6 @@ function finishExperiment() {
     $('#green').hide();
 
     $('#instructions').text('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
-}
-
-// save experiment data with ajax
-function saveData(args) {
-    var data = args;
-
-    // TODO: add demographics info to data
-
-    // TODO: fill in details here, i.e. database table information (replace "experiment" with your own database table name in the data section)
-    $.ajax({
-	type: 'post',
-	cache: false,
-	url: 'submit_data_mysql.php',
-	data: {"table": "experiment", "json": JSON.stringify(data)},
-	success: function(data) { console.log(data); }
-    });
 }
 
 // canvas functions
