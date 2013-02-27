@@ -28,17 +28,9 @@ var canvas;
 // this function runs automatically when the page is loaded
 $(document).ready(function() {
     // initialize canvas drawing
-    canvas = document.getElementById("drawing");
-    canvas.width = width;
-    canvas.height = height;
-    context = canvas.getContext("2d");
+    initializeCanvas();
     
-    // hide canvas drawing for now, otherwise it takes up space
-    $('#drawing').hide();
-
-    // hide buttons
-    $('#blue').hide();
-    $('#green').hide();
+    hideElements();
 
     // generate a subject ID by generating a random number between 1 and 1000000
     subjectID = Math.round(Math.random()*1000000);
@@ -65,35 +57,32 @@ $(document).ready(function() {
 // experiment functions
 function showInputOptions() {
     // TODO: move input options to a separate html file
+    $('#inputoptions').show();
     $('#inputoptions').html('<h3>Experiment options</h3><p>Stimuli Colour</p><select id="colour"><option value="red">Red</option><option value="blue">Blue</option></select>');
     
+    $('#next').show();
     $('#next').click(function() {
 	// process input options here
 	colourCondition = $('#colour').val();
 
-	// showDemographics(); TODO: replace this 
-	showInstructions();
+	showDemographics(); 
+	// showInstructions();
     });
 }
 
 function showDemographics() {
-    $('#inputoptions').hide();
+    hideElements();
     
-    $('#next').unbind();
-
     // modify here if you want to get different demographic information
-    // DEFAULT: username, age, gender, country
-    $('#demographics').html('<form><label for="user">Unique User ID:</label><input name="user" /><br /><br />\
-<label for="age">Age:</label><input name="age" /><br /><br />\
-<label for="gender">Gender:</label><input type="radio" name="gender" value="male" /> Male &nbsp; <input type="radio" name="gender" value="female" /> Female<br /><br />\
-<label for="country">Country:</label><input name="country" /></form>');
+    // DEFAULT: subjectID, age, gender, country
+    $('#demographics').show();
+    $('#demographics').load('html/demographics.html');
 
+    $('#next').show();
     $('#next').click(validateDemographics)    
 }
 
 function validateDemographics() {
-    $('#next').unbind();
-
     demographics = $('form').serializeArray();
 
     var ok = true;
@@ -110,6 +99,7 @@ function validateDemographics() {
 	if (demographics[i]["value"] == "") {
 	    alert('Please fill out all fields.'); // TODO: make alert only pop-up once
 	    ok = false;
+	    break;
 	}
     }
     
@@ -125,29 +115,39 @@ function validateDemographics() {
 
 // displays experiment instructions
 function showInstructions() {
-    $('#inputoptions').hide();
+    hideElements();
 
-    $('#next').unbind();
+    $('#instructions').show();
+    if(colourCondition == 'red') {
+	$('#instructions').load('html/instructions-red.html');
+    }
+    else if(colourCondition == 'blue') {
+	$('#instructions').load('html/instructions-blue.html');
+    }
 
-    $('#instructions').text('Here are the experiment instructions.');
-
+    $('#next').show();
     $('#next').click(showInstructionChecks);
 }
 
 function showInstructionChecks() {
+    hideElements();
+
+    // TODO: Move to html file
+    $('#instructions').show();
     $('#instructions').text('Here are some questions to check if you have read the instructions correctly. If you answer all the questions correct you will begin the experiment, otherwise you will be redirected to the instructions page again.');
 
     // TODO: put html inside separate page
     // TODO: left align radio buttons
+    $('#instructionchecks').show();
     $('#instructionchecks').html('<form><label for="question1">Question 1:</label><input type="radio" name="question1" value="correct" /> Correct <br /><input type="radio" name="question1" value="incorrect" /> Incorrect<br /><br /><label for="question2">Question 2:</label><input type="radio" name="question2" value="correct" /> Correct <br /><input type="radio" name="question2" value="incorrect" /> Incorrect<br /><br /><label for="question3">Question 3:</label><input type="radio" name="question3" value="correct" /> Correct <br /><input type="radio" name="question3" value="incorrect" /> Incorrect</form>');
 
+    $('#next').show();
     $('#next').click(validateInstructionChecks);
 }
 
 function validateInstructionChecks() {
     // TODO: fix validation
     instructionChecks = $('form').serializeArray();
-    console.log(instructionChecks);
 
     var ok = true;
     for(var i = 0; i < instructionChecks.length; i++) {
@@ -166,28 +166,18 @@ function validateInstructionChecks() {
 }
 
 function trainTrial() {
-    imageClear();
-
-    // unbind buttons
-    $('#next').unbind();
-    $('#blue').unbind();
-    $('#green').unbind();
-
-    // hide elements
-    $('#instructionchecks').hide();
-    $('#blue').hide();
-    $('#green').hide();
-
-    // show next button
-    $('#next').show();
+    hideElements();
 
     // display training trial instructions
+    // TODO: Move to separate html file
+    $('#instructions').show();
     $('#instructions').text('Here are some lines.');
 
     // draw training stimuli in canvas
     $('#drawing').show();
     var currAngle = trainTrialStimuli[5*currBlock + currTrainTrial];
 
+    // formula to figure out which colour line to display
     if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
 	drawLine(currAngle, colourCondition);
     else
@@ -196,6 +186,7 @@ function trainTrial() {
     // increment training trial counter
     currTrainTrial++;
 
+    $('#next').show();
     if(currTrainTrial < maxTrainTrial)
 	$('#next').click(trainTrial) // go to next training trial
     else
@@ -203,30 +194,24 @@ function trainTrial() {
 }
 
 function testTrial() {
-    imageClear();
-
-    // unbind buttons, necessary to do so otherwise multiple calls will be made each time the button is clicked!
-    $('#next').unbind();
-    $('#blue').unbind();
-    $('#green').unbind();
-
-    // hide next button
-
-    $('#next').hide();
-
-    // show response buttons
-    $('#blue').show();
-    $('#green').show();
+    hideElements();
 
     // display test trial instructions
+    // TODO: Move to separate html file
+    $('#instructions').show();
     $('#instructions').text('What colour should this line be?');
 
     // draw test stimuli
+    $('#drawing').show();
     var currAngle = testTrialStimuli[5*currBlock + currTestTrial];
     drawLine(currAngle, 'black');
 
     // increment test trial counter
     currTestTrial++;
+
+    // show response buttons
+    $('#blue').show();
+    $('#green').show();
 
     $('#blue').click(saveTestTrial);
     $('#green').click(saveTestTrial);
@@ -238,7 +223,7 @@ function saveTestTrial() {
 
     // save trial data
     saveData([exp_data]);
-
+    
     // determine which section to go to next
     if(currTestTrial < maxTestTrial) {
 	testTrial(); // next test trial
@@ -273,24 +258,43 @@ function saveData(args) {
 }
 
 function finishExperiment() {
-    // hide canvas element
-    $('#drawing').hide();
+    hideElements();
 
-    // hide buttons
-    $('#next').hide(); 
-    $('#blue').hide();
-    $('#green').hide();
-
+    $('#instructions').show();
     $('#instructions').text('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
 }
 
+
 // canvas functions
+function initializeCanvas() {
+    canvas = document.getElementById("drawing");
+    canvas.width = width;
+    canvas.height = height;
+    context = canvas.getContext("2d");
+}
 
 // clears the whole canvas area
 function imageClear() {
     context.fillStyle = '#ffffff'; // work around for Chrome
     context.fillRect(0, 0, canvas.width, canvas.height); // fill in the canvas with white
     canvas.width = canvas.width; // clears the canvas 
+}
+
+// hides all DOM elements from the screen and clears the canvas
+function hideElements() {
+    imageClear();
+    
+    // hides the canvas drawing
+    $('#drawing').hide();
+
+    // hides all divs
+    $('div').hide();
+
+    // hides all buttons
+    $(':button').hide();
+    
+    // unbinds all buttons
+    $(':button').unbind();
 }
 
 // draw experimental stimuli using canvas functions
