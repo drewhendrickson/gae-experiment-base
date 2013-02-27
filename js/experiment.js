@@ -47,10 +47,10 @@ $(document).ready(function() {
     // TODO: fix colour/buttons etc.
     r = Math.ceil(Math.random()*2); // generate random number
     if(r == 1) {
-	colourCondition = 'red';
+    colourCondition = 'red';
     }
     else if(r == 2) {
-	colourCondition = 'blue';
+    colourCondition = 'blue';
     }
 
     // first present the input options for the experiment (for debugging purposes)
@@ -68,8 +68,8 @@ function showInputOptions() {
     $('#inputoptions').html('<h3>Experiment options</h3><p>Stimuli Colour</p><select id="colour"><option value="red">Red</option><option value="blue">Blue</option></select>');
     
     $('#next').click(function() {
-	// process input options here
-	colourCondition = $('#colour').val();
+    // process input options here
+    colourCondition = $('#colour').val();
 
 	// showDemographics(); TODO: replace this 
 	showInstructions();
@@ -95,31 +95,33 @@ function validateDemographics() {
     $('#next').unbind();
 
     demographics = $('form').serializeArray();
+    console.log(demographics);
+    
 
     var ok = true;
     for (var i = 0; i < demographics.length; i++) {
-	// test to only include alphanumeric characters
-	if( /[^a-zA-Z0-9]/.test( demographics[i]["value"] ) ) {
-	    alert('Please only use alphanumeric characters.');
-	    ok = false;
-	}
+        // test to only include alphanumeric characters
+        if( /[^a-zA-Z0-9]/.test( demographics[i]["value"] ) ) {
+            alert('Please only use alphanumeric characters.');
+            ok = false;
+        }
 
-	// TODO: validate age
+        // TODO: validate age
 
-	// test for empty answers
-	if (demographics[i]["value"] == "") {
-	    alert('Please fill out all fields.'); // TODO: make alert only pop-up once
-	    ok = false;
-	}
+        // test for empty answers
+        if (demographics[i]["value"] == "") {
+            alert('Please fill out all fields.'); // TODO: make alert only pop-up once
+            ok = false;
+        }
     }
     
     if (!ok) {
-	showDemographics();
+        showDemographics();
     }
     else {
-	$('#demographics').hide();
-	$('#demographics').html('');
-	showInstructions();
+        $('#demographics').hide();
+        $('#demographics').html('');
+        showInstructions();
     }
 }
 
@@ -135,6 +137,8 @@ function showInstructions() {
 }
 
 function showInstructionChecks() {
+    $('#next').unbind();
+    
     $('#instructions').text('Here are some questions to check if you have read the instructions correctly. If you answer all the questions correct you will begin the experiment, otherwise you will be redirected to the instructions page again.');
 
     // TODO: put html inside separate page
@@ -145,23 +149,25 @@ function showInstructionChecks() {
 }
 
 function validateInstructionChecks() {
+    $('#next').unbind();
+    
     // TODO: fix validation
     instructionChecks = $('form').serializeArray();
     console.log(instructionChecks);
 
     var ok = true;
     for(var i = 0; i < instructionChecks.length; i++) {
-	// check for incorrect responses
-	if(instructionChecks[i]["value"] != "correct") {
-	    ok = false;
-	}
+        // check for incorrect responses
+        if(instructionChecks[i]["value"] != "correct") {
+            ok = false;
+        }
     }
 
     if(!ok) {
-	showInstructions();
+        showInstructions();
     }
     else {
-	trainTrial();
+        trainTrial();
     }
 }
 
@@ -189,17 +195,17 @@ function trainTrial() {
     var currAngle = trainTrialStimuli[5*currBlock + currTrainTrial];
 
     if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
-	drawLine(currAngle, colourCondition);
+    drawLine(currAngle, colourCondition);
     else
-	drawLine(currAngle, 'green');
+    drawLine(currAngle, 'green');
     
     // increment training trial counter
     currTrainTrial++;
 
     if(currTrainTrial < maxTrainTrial)
-	$('#next').click(trainTrial) // go to next training trial
+    $('#next').click(trainTrial) // go to next training trial
     else
-	$('#next').click(testTrial) // proceed to test trial
+    $('#next').click(testTrial) // proceed to test trial
 }
 
 function testTrial() {
@@ -234,27 +240,27 @@ function testTrial() {
 
 function saveTestTrial() {
     var exp_data = [{"subjectID": subjectID // TODO: save rest of participant/experiment variables here
-		    }];
+            }];
 
     // save trial data
     saveData([exp_data]);
 
     // determine which section to go to next
     if(currTestTrial < maxTestTrial) {
-	testTrial(); // next test trial
+    testTrial(); // next test trial
     }
     else {
-	// increment block 
-	currBlock++;
+    // increment block 
+    currBlock++;
 
-	if(currBlock < maxBlock) {
-	    currTrainTrial = 0; // reset trial counters
-	    currTestTrial = 0;
-	    trainTrial(); // next training block
-	}
-	else {
-	    finishExperiment(); // end of experiment
-	}
+    if(currBlock < maxBlock) {
+        currTrainTrial = 0; // reset trial counters
+        currTestTrial = 0;
+        trainTrial(); // next training block
+    }
+    else {
+        finishExperiment(); // end of experiment
+    }
     }
 }
 
@@ -264,11 +270,11 @@ function saveData(args) {
 
     // TODO: fill in details here, i.e. database table information (replace "experiment" with your own database table name in the data section)
     $.ajax({
-	type: 'post',
-	cache: false,
-	url: 'submit_data_mysql.php',
-	data: {"table": "experiment", "json": JSON.stringify(data)},
-	success: function(data) { console.log(data); }
+    type: 'post',
+    cache: false,
+    url: 'submit_data_mysql.php',
+    data: {"table": "experiment", "json": JSON.stringify(data)},
+    success: function(data) { console.log(data); }
     });
 }
 
