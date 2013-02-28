@@ -45,6 +45,7 @@ $(document).ready(function() {
     }
 
     // first present the input options for the experiment (for debugging purposes)
+    // allows you to set the experimental conditions instead of randomly assigning them above
     showInputOptions();
 });
 
