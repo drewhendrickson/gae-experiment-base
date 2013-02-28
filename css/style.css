@@ -5,6 +5,11 @@ body {
     text-align: center;
 }
 
+#instruction-checks {
+    width: 600px;
+    text-align: left;
+}
+
 #slider {
     width: 400px;
 }

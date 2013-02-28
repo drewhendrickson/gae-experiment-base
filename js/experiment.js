@@ -36,7 +36,6 @@ $(document).ready(function() {
     subjectID = Math.round(Math.random()*1000000);
 
     // randomize experimental conditions
-    // TODO: fix colour/buttons etc.
     r = Math.ceil(Math.random()*2); // generate random number
     if(r == 1) {
 	colourCondition = 'red';
@@ -46,8 +45,7 @@ $(document).ready(function() {
     }
 
     // first present the input options for the experiment (for debugging purposes)
-    // showInputOptions();
-    trainTrial();
+    showInputOptions();
 });
 
 // experiment functions
@@ -91,7 +89,7 @@ function validateDemographics() {
 
 	// test for empty answers
 	if(demographics[i]["value"] == "") {
-	    alert('Please fill out all fields.'); // TODO: make alert only pop-up once
+	    alert('Please fill out all fields.');
 	    ok = false;
 	    break;
 	}
@@ -129,7 +127,6 @@ function showInstructionChecks() {
     $('#instructions').show();
     $('#instructions').text('Here are some questions to check if you have read the instructions correctly. If you answer all the questions correct you will begin the experiment, otherwise you will be redirected to the instructions page again.');
 
-
     // TODO: left align radio buttons
     $('#instruction-checks').show();
     $('#instruction-checks').load('html/instruction-checks.html');
@@ -141,7 +138,6 @@ function showInstructionChecks() {
 function validateInstructionChecks() {
     $('#next').unbind();
     
-    // TODO: fix validation
     instructionChecks = $('form').serializeArray();
 
     var ok = true;
