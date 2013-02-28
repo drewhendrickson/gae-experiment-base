@@ -4,3 +4,7 @@ body {
     width: 800px;
     text-align: center;
 }
+
+#slider {
+    width: 400px;
+}

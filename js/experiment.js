@@ -46,7 +46,8 @@ $(document).ready(function() {
     }
 
     // first present the input options for the experiment (for debugging purposes)
-    showInputOptions();
+    // showInputOptions();
+    trainTrial();
 });
 
 // experiment functions
@@ -190,11 +191,6 @@ function trainTrial() {
 function testTrial() {
     hideElements();
 
-    // display test trial instructions
-    // TODO: Move to separate html file
-    $('#instructions').show();
-    $('#instructions').text('What colour should this line be?');
-
     // draw test stimuli
     $('#drawing').show();
     var currAngle = testTrialStimuli[5*currBlock + currTestTrial];
@@ -203,15 +199,48 @@ function testTrial() {
     // increment test trial counter
     currTestTrial++;
 
-    // show response buttons
-    $('#blue').show();
-    $('#green').show();
+    // response button examples
+    if(currBlock < 1) {
+	// display test trial instructions
+	// TODO: Move to separate html file
+	$('#instructions').show();
+	$('#instructions').text('What colour should this line be?');
 
-    $('#blue').click(saveTestTrial);
-    $('#green').click(saveTestTrial);
+	// show response buttons
+	$('#blue').show();
+	$('#green').show();
+
+	// TODO: register which button was clicked
+	$('#blue').click(saveTestTrial);
+	$('#green').click(saveTestTrial);
+    }
+    // slider example
+    else {
+	// TODO: Move instructions to separate html file
+	$('#instructions').show();
+	$('#instructions').text('What is the probability this line is green?');
+
+	$('#slider').slider({
+	    min: 0, 
+	    max: 100, 
+	    step: 1, 
+	    value: 50,
+	    slide: function(event, ui) {
+		$("#slider-info").html(ui.value + '%');
+	}
+    }); 
+
+	$("#slider-info").html($('#slider').slider('value') + "%"); // updates slider value
+	$('#slider-info').show();
+	$('#slider').show();
+
+	$('#next').show();
+	$('#next').click(saveTestTrial);
+    }
 }
 
 function saveTestTrial() {
+    // TODO: distinguish between slider/button responses, normally won't be necessary in an experiment with only either the slider/response button though
     var exp_data = [{"subjectID": subjectID // TODO: save rest of participant/experiment variables here
 		    }];
 
