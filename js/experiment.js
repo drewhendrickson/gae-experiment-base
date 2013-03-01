@@ -81,20 +81,27 @@ function validateDemographics() {
     var ok = true;
     for(var i = 0; i < demographics.length; i++) {
 	// test to only include alphanumeric characters
-	if(/[^a-zA-Z0-9]/.test( demographics[i]["value"])) {
+	if(/[^a-zA-Z0-9]/.test(demographics[i].value)) {
 	    alert('Please only use alphanumeric characters.');
 	    ok = false;
+	    break;
 	}
 
-	// TODO: validate age
+    // validate age
+	if ((demographics[i].name == "age") & (/[^0-9]/.test(demographics[i].value))) {
+	    alert('Please only use numbers in age.');
+	    ok = false;
+	    break;
+	}
 
 	// test for empty answers
-	if(demographics[i]["value"] == "") {
+	if(demographics[i].value == "") {
 	    alert('Please fill out all fields.');
 	    ok = false;
 	    break;
 	}
     }
+    
     
     if(!ok) {
         showDemographics();
