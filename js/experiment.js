@@ -151,9 +151,18 @@ function validateInstructionChecks() {
     var ok = true;
     for(var i = 0; i < instructionChecks.length; i++) {
         // check for incorrect responses
-        if(instructionChecks[i]["value"] != "correct") {
+        if(instructionChecks[i].value != "correct") {
             ok = false;
+    	    break;
         }
+
+    	// check for empty answers
+    	if(instructionChecks[i].value == "") {
+    	    alert('Please fill out all fields.');
+    	    ok = false;
+    	    break;
+    	}
+
     }
 
     if(!ok) {
