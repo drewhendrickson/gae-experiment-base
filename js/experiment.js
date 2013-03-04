@@ -25,10 +25,27 @@ var height = 400;
 var context;
 var canvas;
 
+// response variable
+var response;
+
+// slider variables
+var default_slider_value = 50;
+
 // this function runs automatically when the page is loaded
 $(document).ready(function() {
     // initialize canvas drawing
     initializeCanvas();
+    
+    // initialize slider if one is being used
+    $('#slider').slider({
+	    min: 0, 
+	    max: 100, 
+	    step: 1, 
+	    value: default_slider_value,
+	    slide: function(event, ui) {
+		$("#slider-info").html(ui.value + '%');
+	}
+    });
     
     hideElements();
 
@@ -212,7 +229,12 @@ function testTrial() {
     // increment test trial counter
     currTestTrial++;
 
-    // response button examples
+    // reset response variables
+    response = -1;
+    $('#slider').slider('value', default_slider_value);
+	
+
+    // response button example
     if(currBlock < 1) {
 	// display test trial instructions
 	// TODO: Move to separate html file
@@ -223,25 +245,15 @@ function testTrial() {
 	$('#blue').show();
 	$('#green').show();
 
-	// TODO: register which button was clicked
-	$('#blue').click(saveTestTrial);
-	$('#green').click(saveTestTrial);
+	$('#blue').click(function() {response = 0; saveTestTrial()});
+	$('#green').click(function() {response = 1; saveTestTrial()});
+	
     }
     // slider example
     else {
 	// TODO: Move instructions to separate html file
 	$('#instructions').show();
 	$('#instructions').text('What is the probability this line is green?');
-
-	$('#slider').slider({
-	    min: 0, 
-	    max: 100, 
-	    step: 1, 
-	    value: 50,
-	    slide: function(event, ui) {
-		$("#slider-info").html(ui.value + '%');
-	}
-    }); 
 
 	$("#slider-info").html($('#slider').slider('value') + "%"); // updates slider value
 	$('#slider-info').show();
