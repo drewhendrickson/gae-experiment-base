@@ -118,7 +118,7 @@ function validateDemographics() {
 	    break;
 	}
     }
-    
+
     
     if(!ok) {
         showDemographics();
@@ -228,7 +228,7 @@ function testTrial() {
 
     // increment test trial counter
     currTestTrial++;
-
+    
     // reset response variables
     response = -1;
     $('#slider').slider('value', default_slider_value);
@@ -265,12 +265,26 @@ function testTrial() {
 }
 
 function saveTestTrial() {
-    // TODO: distinguish between slider/button responses, normally won't be necessary in an experiment with only either the slider/response button though
-    var exp_data = [{"subjectID": subjectID // TODO: save rest of participant/experiment variables here
-		    }];
+    
+    var exp_data = {};
+    
+    for (i = 0; i < demographics.length; i++) {
+        exp_data[demographics[i].name] = demographics[i].value;
+    }
+    
+    exp_data["subjectID"] = subjectID;
+    exp_data["testTrial"] = currTestTrial;
+    exp_data["block"]     = currBlock;
+    exp_data["condition"] = condition;
+    exp_data["experiment"] = "test_experiment_v1";
+    exp_data["slider_value"] = $('#slider').slider('value');
+    exp_data["button_value"] = response;
+    
+    
+    console.log(exp_data);
 
     // save trial data
-    saveData([exp_data]);
+    saveData([[exp_data]]);
     
     // determine which section to go to next
     if(currTestTrial < maxTestTrial) {
@@ -295,12 +309,11 @@ function saveTestTrial() {
 function saveData(args) {
     var data = args;
 
-    // TODO: fill in details here, i.e. database table information (replace "experiment" with your own database table name in the data section)
     $.ajax({
 	type: 'post',
 	cache: false,
 	url: 'submit_data_mysql.php',
-	data: {"table": "experiment", "json": JSON.stringify(data)},
+	data: {"table": "test_experiment_table", "json": JSON.stringify(data)},
 	success: function(data) { console.log(data); }
     });
 }
