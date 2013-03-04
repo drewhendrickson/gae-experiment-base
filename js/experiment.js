@@ -118,7 +118,6 @@ function validateDemographics() {
 	    break;
 	}
     }
-
     
     if(!ok) {
         showDemographics();
@@ -161,6 +160,7 @@ function showInstructionChecks() {
 }
 
 function validateInstructionChecks() {
+    // TODO: maybe use hideElements() here instead?
     $('#next').unbind();
     
     instructionChecks = $('form').serializeArray();
@@ -179,7 +179,6 @@ function validateInstructionChecks() {
     	    ok = false;
     	    break;
     	}
-
     }
 
     if(!ok) {
@@ -233,7 +232,6 @@ function testTrial() {
     response = -1;
     $('#slider').slider('value', default_slider_value);
 	
-
     // response button example
     if(currBlock < 1) {
 	// display test trial instructions
@@ -268,10 +266,12 @@ function saveTestTrial() {
     
     var exp_data = {};
     
+    // add demographics data to trial output
     for (i = 0; i < demographics.length; i++) {
         exp_data[demographics[i].name] = demographics[i].value;
     }
     
+    // add trial data to trial output
     exp_data["subjectID"] = subjectID;
     exp_data["testTrial"] = currTestTrial;
     exp_data["block"]     = currBlock;
@@ -279,7 +279,6 @@ function saveTestTrial() {
     exp_data["experiment"] = "test_experiment_v1";
     exp_data["slider_value"] = $('#slider').slider('value');
     exp_data["button_value"] = response;
-    
     
     console.log(exp_data);
 
@@ -295,12 +294,12 @@ function saveTestTrial() {
 	currBlock++;
 
 	if(currBlock < maxBlock) {
-            currTrainTrial = 0; // reset trial counters
-            currTestTrial = 0;
-            trainTrial(); // next training block
+        currTrainTrial = 0; // reset trial counters
+        currTestTrial = 0;
+        trainTrial(); // next training block
 	}
 	else {
-            finishExperiment(); // end of experiment
+        finishExperiment(); // end of experiment
 	}
     }
 }
