@@ -151,7 +151,6 @@ function showInstructionChecks() {
     $('#instructions').show();
     $('#instructions').text('Here are some questions to check if you have read the instructions correctly. If you answer all the questions correct you will begin the experiment, otherwise you will be redirected to the instructions page again.');
 
-    // TODO: left align radio buttons
     $('#instruction-checks').show();
     $('#instruction-checks').load('html/instruction-checks.html');
     
@@ -160,9 +159,9 @@ function showInstructionChecks() {
 }
 
 function validateInstructionChecks() {
-    // TODO: maybe use hideElements() here instead?
-    $('#next').unbind();
+    hideElements();
     
+    $('form').show();
     instructionChecks = $('form').serializeArray();
 
     var ok = true;
@@ -193,9 +192,8 @@ function trainTrial() {
     hideElements();
 
     // display training trial instructions
-    // TODO: Move to separate html file
     $('#instructions').show();
-    $('#instructions').text('Here are some lines.');
+    $('#instructions').load('html/instruction-train.html');
 
     // draw training stimuli in canvas
     $('#drawing').show();
@@ -235,9 +233,14 @@ function testTrial() {
     // response button example
     if(currBlock < 1) {
 	// display test trial instructions
-	// TODO: Move to separate html file
 	$('#instructions').show();
-	$('#instructions').text('What colour should this line be?');
+	$('#instructions').load('html/instruction-test-button.html');
+
+	// change text value of response buttons depending on colour condition
+	if(colourCondition == "red")
+	    $('#blue').prop('value', 'Red')
+	else if(colourCondition == "blue")
+	    $('#blue').prop('value', 'Blue')
 
 	// show response buttons
 	$('#blue').show();
@@ -249,9 +252,8 @@ function testTrial() {
     }
     // slider example
     else {
-	// TODO: Move instructions to separate html file
 	$('#instructions').show();
-	$('#instructions').text('What is the probability this line is green?');
+	$('#instructions').load('html/instruction-test-slider.html');
 
 	$("#slider-info").html($('#slider').slider('value') + "%"); // updates slider value
 	$('#slider-info').show();
@@ -321,7 +323,7 @@ function finishExperiment() {
     hideElements();
 
     $('#instructions').show();
-    $('#instructions').text('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
+    $('#instructions').load('html/instruction-finish.html')
 }
 
 
