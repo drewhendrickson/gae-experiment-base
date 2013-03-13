@@ -18,4 +18,4 @@ Different sections of the experiment call each other in sequence. Currently the 
 2. point chrome to: http://localhost:8000/
 
 ### Known issues:
-1. currently does not work out of the box on server because permissions need to be configured for submit_data_mysql.php
+1. currently does not work with writing to mySQL server out of the box because permissions need to be configured for submit_data_mysql.php
