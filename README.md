@@ -19,3 +19,7 @@ Different sections of the experiment call each other in sequence. Currently the 
 
 ### Known issues:
 1. currently does not work with writing to mySQL server out of the box because permissions need to be configured for submit_data_mysql.php
+
+### Notes for modifying this code
+- all locations in experiment.js where the slider is referenced are marked with a comment SLIDER comment.
+- all locations in experiment.js where between-subject conditions are referenced are marked with CONDITION comment.

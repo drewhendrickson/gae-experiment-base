@@ -16,6 +16,7 @@ var maxBlock = 3;
 var trainTrialStimuli = [130, -130, -20, 50, -10, -20, 70, 170, 120, 100, -120, 10, -30, 160, 140];
 var testTrialStimuli = [160, -150, 120, -50, -150, 130, -80, -10, -40, 170, -120, 20, 20, -50, -170];
 
+// CONDITION 
 // experimental conditions
 var colourCondition;
 
@@ -28,6 +29,7 @@ var canvas;
 // response variable
 var response;
 
+// SLIDER
 // slider variables
 var default_slider_value = 50;
 
@@ -36,6 +38,7 @@ $(document).ready(function() {
     // initialize canvas drawing
     initializeCanvas();
     
+    // SLIDER
     // initialize slider if one is being used
     $('#slider').slider({
 	    min: 0, 
@@ -52,6 +55,7 @@ $(document).ready(function() {
     // generate a subject ID by generating a random number between 1 and 1000000
     subjectID = Math.round(Math.random()*1000000);
 
+    // CONDITION 
     // randomize experimental conditions
     r = Math.ceil(Math.random()*2); // generate random number
     if(r == 1) {
@@ -61,6 +65,7 @@ $(document).ready(function() {
 	colourCondition = 'blue';
     }
 
+    // CONDITION
     // first present the input options for the experiment (for debugging purposes)
     // allows you to set the experimental conditions instead of randomly assigning them above
     showInputOptions();
@@ -134,6 +139,8 @@ function showInstructions() {
     hideElements();
 
     $('#instructions').show();
+    
+    // CONDITION 
     if(colourCondition == 'red') {
 	$('#instructions').load('html/instructions-red.html');
     }
@@ -233,6 +240,7 @@ function testTrial() {
     
     // reset response variables
     response = -1;
+    // SLIDER
     $('#slider').slider('value', default_slider_value);
 	
     // response button example
@@ -241,6 +249,7 @@ function testTrial() {
 	$('#instructions').show();
 	$('#instructions').load('html/instruction-test-button.html');
 
+    // CONDITION 
 	// change text value of response buttons depending on colour condition
 	if(colourCondition == "red")
 	    $('#blue').prop('value', 'Red')
@@ -255,6 +264,7 @@ function testTrial() {
 	$('#green').click(function() {response = 1; saveTestTrial()});
 	
     }
+    // SLIDER
     // slider example
     else {
 	$('#instructions').show();
@@ -284,8 +294,9 @@ function saveTestTrial() {
     exp_data["block"]     = currBlock;
     exp_data["condition"] = condition;
     exp_data["experiment"] = "test_experiment_v1";
-    exp_data["slider_value"] = $('#slider').slider('value');
     exp_data["button_value"] = response;
+    // SLIDER
+    exp_data["slider_value"] = $('#slider').slider('value');
     
     console.log(exp_data);
 
