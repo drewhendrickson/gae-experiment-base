@@ -12,3 +12,10 @@ Different sections of the experiment call each other in sequence. Currently the 
     * display training trials  
     * display test trials  
 5. display thank you message and feedback for MTurk users  
+
+### How to run locally for testing (in Chrome)?
+1. In a terminal type: python -m SimpleHTTPServer
+2. point chrome to: http://localhost:8000/
+
+### Known issues:
+1. currently does not work out of the box on server because permissions need to be configured for submit_data_mysql.php
