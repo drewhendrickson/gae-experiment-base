@@ -179,6 +179,11 @@ function validateInstructionChecks() {
     	    break;
     	}
     }
+    
+    // where this is the number of questions in the instruction check
+    if (instructionChecks.length != 3) {
+        ok = false;
+    }
 
     if(!ok) {
         showInstructions(); // go back to instruction screen
