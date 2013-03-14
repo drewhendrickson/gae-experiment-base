@@ -287,6 +287,7 @@ function saveTestTrial() {
     for (i = 0; i < demographics.length; i++) {
         exp_data[demographics[i].name] = demographics[i].value;
     }
+    exp_data["age"] = parseInt(exp_data["age"]);
     
     // add trial data to trial output
     exp_data["subjectID"] = subjectID;
