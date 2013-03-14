@@ -1,7 +1,7 @@
 // participant variables
 var subjectID;
 var condition;
-var demographics;
+var demographics = [];
 var instructionChecks;
 
 // experimental variables 
