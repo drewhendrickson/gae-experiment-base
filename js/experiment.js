@@ -103,26 +103,27 @@ function validateDemographics() {
     var ok = true;
     var gender_exists = false;
     for(var i = 0; i < demographics.length; i++) {
-	// test to only include alphanumeric characters
-	if(/[^a-zA-Z0-9]/.test(demographics[i].value)) {
-	    alert('Please only use alphanumeric characters.');
-	    ok = false;
-	    break;
-	}
+        // validate age
+    	if ((demographics[i].name == "age") & (/[^0-9]/.test(demographics[i].value))) {
+    	    alert('Please only use numbers in age.');
+    	    ok = false;
+    	    break;
+    	}
+    	else {
+    	    // test to only include alphanumeric characters
+            if ((demographics[i].name != "country") & (/[^a-zA-Z0-9]/.test(demographics[i].value))) {
+        	    alert('Please only use alphanumeric characters.');
+        	    ok = false;
+        	    break;
+        	}
+        }
 
-    // validate age
-	if ((demographics[i].name == "age") & (/[^0-9]/.test(demographics[i].value))) {
-	    alert('Please only use numbers in age.');
-	    ok = false;
-	    break;
-	}
-
-	// test for empty answers
-	if(demographics[i].value == "") {
-	    alert('Please fill out all fields.');
-	    ok = false;
-	    break;
-	}
+    	// test for empty answers
+    	if(demographics[i].value == "") {
+    	    alert('Please fill out all fields.');
+    	    ok = false;
+    	    break;
+    	}
     	
     	if(demographics[i].name == "gender") {
     	    gender_exists = true;
