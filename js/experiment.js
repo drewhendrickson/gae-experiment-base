@@ -101,6 +101,7 @@ function validateDemographics() {
     demographics = $('form').serializeArray();
 
     var ok = true;
+    var gender_exists = false;
     for(var i = 0; i < demographics.length; i++) {
 	// test to only include alphanumeric characters
 	if(/[^a-zA-Z0-9]/.test(demographics[i].value)) {
@@ -122,6 +123,15 @@ function validateDemographics() {
 	    ok = false;
 	    break;
 	}
+    	
+    	if(demographics[i].name == "gender") {
+    	    gender_exists = true;
+    	}
+    }
+    
+    if (gender_exists == false) {
+        alert('Please select a gender.');
+	    ok = false;
     }
     
     if(!ok) {
