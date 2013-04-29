@@ -29,6 +29,9 @@ var canvas;
 // response variable
 var response;
 
+// timing variables
+var base_time, rt;
+
 // SLIDER
 // slider variables
 var default_slider_value = 50;
@@ -249,6 +252,9 @@ function testTrial() {
     // increment test trial counter
     currTestTrial++;
     
+    // get time of beginning of trial
+    base_time = new Date().getTime();
+
     // reset response variables
     response = -1;
     // SLIDER
@@ -292,6 +298,11 @@ function testTrial() {
 
 function saveTestTrial() {
     
+    // this would probably be more exact if it was in the test trial function
+    // but it is here for clarity
+    rt = new Date().getTime() - base_time;
+    console.log(rt);
+    
     var exp_data = {};
     
     // add demographics data to trial output
@@ -305,6 +316,7 @@ function saveTestTrial() {
     exp_data["testTrial"] = currTestTrial;
     exp_data["block"]     = currBlock;
     exp_data["condition"] = condition;
+    exp_data["rt"] = rt;
     exp_data["experiment"] = "test_experiment_v1";
     exp_data["button_value"] = response;
     // SLIDER
