@@ -133,7 +133,7 @@ function validateDemographics() {
     	}
     }
     
-    if (gender_exists == false) {
+    if ((gender_exists == false) && ok){
         alert('Please select a gender.');
 	    ok = false;
     }
