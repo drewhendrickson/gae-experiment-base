@@ -350,13 +350,7 @@ function saveTestTrial() {
 function saveData(args) {
     var data = args;
 
-    $.ajax({
-	type: 'post',
-	cache: false,
-	url: 'submit_data_mysql.php',
-	data: {"table": "test_experiment_table", "json": JSON.stringify(data)},
-	success: function(data) { console.log(data); }
-    });
+    $.post('submit', data={"exp": "test_experiment_table", "content": JSON.stringify(data)})
 }
 
 function finishExperiment() {
