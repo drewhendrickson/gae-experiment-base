@@ -32,11 +32,11 @@ def guestbook_key(guestbook_name=DEFAULT_GUESTBOOK_NAME):
     return ndb.Key('Guestbook', guestbook_name)
 
 
-class Greeting(ndb.Model):
+class DataObject(ndb.Model):
     """Models an individual Guestbook entry with author, content, and date."""
-    author = ndb.UserProperty()
-    content = ndb.StringProperty(indexed=False)
-    date = ndb.DateTimeProperty(auto_now_add=True)
+    exp = ndb.StringProperty(required=True)
+    content = ndb.TextProperty(required=True) # defaults to non-indexed
+    date = ndb.DateTimeProperty(auto_now_add=True, indexed=False)
 
 
 class MainPage(webapp2.RequestHandler):
