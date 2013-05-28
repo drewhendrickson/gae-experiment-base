@@ -36,6 +36,8 @@ var base_time, rt;
 // slider variables
 var default_slider_value = 50;
 
+var skipToTest = true;
+
 // this function runs automatically when the page is loaded
 $(document).ready(function() {
     // initialize canvas drawing
@@ -71,7 +73,10 @@ $(document).ready(function() {
     // CONDITION
     // first present the input options for the experiment (for debugging purposes)
     // allows you to set the experimental conditions instead of randomly assigning them above
-    showInputOptions();
+    if (skipToTest)
+        testTrial();
+    else
+        showInputOptions();
 });
 
 // experiment functions
