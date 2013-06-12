@@ -44,7 +44,3 @@ transformers:
       import_transform: transform.import_date_time('%Y-%m-%dT%H:%M:%S')
       export_transform: transform.export_date_time('%Y-%m-%dT%H:%M:%S')
 
-    - property: exp
-      external_name: exp
-      # Type: String Stats: 1477 properties of this type in this kind.
-

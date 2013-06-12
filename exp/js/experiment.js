@@ -355,7 +355,7 @@ function saveTestTrial() {
 function saveData(args) {
     var data = args;
 
-    $.post('submit', data={"exp": "test_experiment_table", "content": JSON.stringify(data)})
+    $.post('submit', data={"content": JSON.stringify(data)})
 }
 
 function finishExperiment() {

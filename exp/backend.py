@@ -21,7 +21,6 @@ import webapp2
 
 class DataObject(ndb.Model):
     """Models an individual Guestbook entry with author, content, and date."""
-    exp = ndb.StringProperty(required=True)
     content = ndb.TextProperty(required=True) # defaults to non-indexed
     date = ndb.DateTimeProperty(auto_now_add=True, indexed=False)
 
