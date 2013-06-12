@@ -83,7 +83,7 @@ enter this at the command line:
 appcfg.py download_data --config_file=bulkloader.yaml --filename=<app_name>.csv --kind=DataObject --url=http://<app_name>.appspot.com/_ah/remote_api
 ```
 
-The local testing in Google App Engine currently doesn't support batch download
+Note: The local testing in Google App Engine currently doesn't support batch download
 
 
 #### If you change the data being written:
