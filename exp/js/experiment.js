@@ -38,7 +38,10 @@ var base_time, rt;
 // slider variables
 var default_slider_value = 50;
 
-var skipToTest = true;
+// these are testing variables that control where the experiment starts
+// if both are set to false, the experiment starts with the condition prompt
+var skipToTest = false;
+var skipToTraining = false;
 
 // canvas functions
 function initializeCanvas() {
@@ -93,8 +96,9 @@ function hideElements() {
 
 function saveTestTrial() {
     rt = new Date().getTime() - base_time;
-    console.log(rt);
+    // console.log(rt);
 
+    // all of the data from this trial will go into this object
     var exp_data = {};
 
     // add demographics data to trial output
@@ -229,6 +233,9 @@ $(document).ready(function () {
     // allows you to set the experimental conditions instead of randomly assigning them above
     if (skipToTest) {
         testTrial();
+    }
+    else if (skipToTraining) {
+        trainTrial();
     } else {
         showInputOptions();
     }
