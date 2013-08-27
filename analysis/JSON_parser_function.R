@@ -24,7 +24,8 @@ parseJSONlist <- function(json) {
         
     # check for any row length issues:
     if (ncol(t2) != ncol(all)) {
-      print("ERROR! ENTRY", i, "NOT OF THE SAME LENGTH AS OTHER ROWS.")
+      print(paste("ERROR! ENTRY", i, "NOT OF THE SAME LENGTH AS OTHER ROWS."))
+      return(-1)
     }
     
     # add this row to the full data set
