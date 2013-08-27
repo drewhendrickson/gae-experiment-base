@@ -96,7 +96,6 @@ function hideElements() {
 
 function saveTestTrial() {
     rt = new Date().getTime() - base_time;
-    // console.log(rt);
 
     // all of the data from this trial will go into this object
     var exp_data = {};
@@ -298,7 +297,7 @@ function validateDemographics() {
         }
     }
     
-    if ((gender_exists =L== false) && ok){
+    if ((gender_exists === false) && ok){
         alert('Please select a gender.');
         ok = false;
     }
