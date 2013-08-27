@@ -1,3 +1,5 @@
+/*global $, document, console, alert */
+
 // participant variables
 var subjectID;
 var condition;
@@ -99,18 +101,18 @@ function saveTestTrial() {
     for (var i = 0; i < demographics.length; i++) {
         exp_data[demographics[i].name] = demographics[i].value;
     }
-    exp_data["age"] = parseInt(exp_data["age"]);
+    exp_data.age = parseInt(exp_data.age, 10);
 
     // add trial data to trial output
-    exp_data["subjectID"] = subjectID;
-    exp_data["testTrial"] = currTestTrial;
-    exp_data["block"]     = currBlock;
-    exp_data["condition"] = condition;
-    exp_data["rt"] = rt;
-    exp_data["experiment"] = "test_experiment_v1";
-    exp_data["button_value"] = response;
+    exp_data.subjectID = subjectID;
+    exp_data.testTrial = currTestTrial;
+    exp_data.block     = currBlock;
+    exp_data.condition = condition;
+    exp_data.rt = rt;
+    exp_data.experiment = "test_experiment_v1";
+    exp_data.button_value = response;
     // SLIDER
-    exp_data["slider_value"] = $('#slider').slider('value');
+    exp_data.slider_value = $('#slider').slider('value');
 
     console.log(exp_data);
 
@@ -173,8 +175,8 @@ function testTrial() {
         $('#blue').show();
         $('#green').show();
 
-        $('#blue').click(function () {response = 0; saveTestTrial()});
-        $('#green').click(function () {response = 1; saveTestTrial()});
+        $('#blue').click(function () {response = 0; saveTestTrial();});
+        $('#green').click(function () {response = 1; saveTestTrial();});
     }
     // SLIDER
     // slider example
@@ -230,7 +232,7 @@ $(document).ready(function () {
     } else {
         showInputOptions();
     }
-})
+});
 
 // experiment functions
 function showInputOptions() {
@@ -278,18 +280,18 @@ function validateDemographics() {
         }
 
         // test for empty answers
-        if(demographics[i].value == "") {
+        if(demographics[i].value === "") {
             alert('Please fill out all fields.');
             ok = false;
             break;
         }
         
-        if(demographics[i].name == "gender") {
+        if(demographics[i].name === "gender") {
             gender_exists = true;
         }
     }
     
-    if ((gender_exists == false) && ok){
+    if ((gender_exists =L== false) && ok){
         alert('Please select a gender.');
         ok = false;
     }
@@ -350,7 +352,7 @@ function validateInstructionChecks() {
         }
 
         // check for empty answers
-        if(instructionChecks[i].value == "") {
+        if(instructionChecks[i].value === "") {
             alert('Please fill out all fields.');
             ok = false;
             break;
@@ -392,9 +394,9 @@ function trainTrial() {
 
     $('#next').show();
     if(currTrainTrial < maxTrainTrial)
-    $('#next').click(trainTrial) // go to next training trial
+        $('#next').click(trainTrial); // go to next training trial
     else
-    $('#next').click(testTrial) // proceed to test trial
+        $('#next').click(testTrial); // proceed to test trial
 }
 
 
@@ -403,14 +405,14 @@ function trainTrial() {
 function saveData(args) {
     var data = args;
 
-    $.post('submit', data={"content": JSON.stringify(data)})
+    $.post('submit', data={"content": JSON.stringify(data)});
 }
 
 function finishExperiment() {
     hideElements();
 
     $('#instructions').show();
-    $('#instructions').load('html/instruction-finish.html')
+    $('#instructions').load('html/instruction-finish.html');
 }
 
 
