@@ -411,7 +411,9 @@ function trainTrial() {
 function saveData(args) {
     var data = args;
 
-    $.post('submit', data={"content": JSON.stringify(data)});
+    (function (d) {
+        $.post('submit', data={"content": JSON.stringify(d)});
+    })(data);
 }
 
 function finishExperiment() {
