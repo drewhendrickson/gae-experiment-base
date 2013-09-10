@@ -14,13 +14,11 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 import cgi
 import urllib
 
-#from google.appengine.api import users
 from google.appengine.ext import ndb
 
 import webapp2
 
 class DataObject(ndb.Model):
-    """Models an individual Guestbook entry with author, content, and date."""
     content = ndb.TextProperty(required=True) # defaults to non-indexed
     date = ndb.DateTimeProperty(auto_now_add=True, indexed=False)
 
@@ -37,7 +35,6 @@ class WriteDataObject(webapp2.RequestHandler):
         data = DataObject()
 
         data.content = self.request.get('content')
-        data.exp = self.request.get('exp')
         data.put()
 
 
