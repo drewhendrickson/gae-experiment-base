@@ -120,7 +120,7 @@ function saveTestTrial() {
     console.log(exp_data);
 
     // save trial data
-    saveData([[exp_data]]);
+    saveData(exp_data);
 
     // determine which section to go to next
     if(currTestTrial < maxTestTrial) {
@@ -409,11 +409,9 @@ function trainTrial() {
 
 // save experiment data with ajax
 function saveData(args) {
-    var data = args;
-
     (function (d) {
-        $.post('submit', data={"content": JSON.stringify(d)});
-    })(data);
+        $.post('submit',  {"content": JSON.stringify(d)});
+    })(args);
 }
 
 function finishExperiment() {
