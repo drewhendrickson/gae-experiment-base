@@ -13,33 +13,26 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <center>
-      <canvas id="drawing" style=""> 
-      </canvas>
-      
-      <br />
-      
-      <div id="input-options"></div>
-      <div id="demographics"></div>
-      <div id="instructions"></div>
+    <div id="input-options" class="text"></div>
+    <div id="demographics" class="text"></div>
+    <div id="instructions" class="text"></div>
+    <div id="instruction-checks" class="text"></div>
 
-      <br />
+	<div id="imageSpace">
+    	<canvas id="drawing">Your browser doesn't support the necessary html elements.</canvas>
+	</div>
 
-      <div id="instruction-checks"></div>
-
-      <br />
-
+	<div id="sliderStuff">
       <div id="slider"></div>
       <div id="slider-info"></div>
-
-      <br />
-      
+	</div>
+	
+	<div id="buttons">
       <input type="button" value="Next" id="next" onclick="" />
 
       <input type="button" value="Blue" id="blue" onclick="" />
       <input type="button" value="Green" id="green" onclick="" />
-      
-    </center>
+     </div>
     
     <script src="http://code.jquery.com/jquery-latest.min.js"
             type="text/javascript"></script>

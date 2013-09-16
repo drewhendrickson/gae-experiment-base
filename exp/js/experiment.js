@@ -22,9 +22,7 @@ var testTrialStimuli = [160, -150, 120, -50, -150, 130, -80, -10, -40, 170, -120
 // experimental conditions
 var colourCondition;
 
-// canvas cariables
-var width = 800;
-var height = 400;
+// canvas variables
 var context;
 var canvas;
 
@@ -46,8 +44,8 @@ var skipToTraining = false;
 // canvas functions
 function initializeCanvas() {
     canvas = document.getElementById("drawing");
-    canvas.width = width;
-    canvas.height = height;
+    canvas.width = $('#imageSpace').width();
+    canvas.height = $('#imageSpace').height();
     context = canvas.getContext("2d");
 }
 
@@ -59,7 +57,7 @@ function imageClear() {
 }
 
 // draw experimental stimuli using canvas functions
-function drawLine(degrees, colour) {
+function drawLine(degrees, colour, width, height) {
     var radians = degrees * (Math.PI / 180);
     var length = 200;
 
@@ -79,19 +77,34 @@ function drawLine(degrees, colour) {
 
 // hides all DOM elements from the screen and clears the canvas
 function hideElements() {
-    imageClear();
+    hideButtons();
+    hideCanvas();
+    hideSlider();
+    hideText();
+}
 
-    // hides the canvas drawing
-    $('#drawing').hide();
+function hideText() {
+    // hides all text divs
+    $('.text').hide();
+}
 
-    // hides all divs
-    $('div').hide();
-
+function hideButtons() {
     // hides all buttons
     $(':button').hide();
 
     // unbinds all buttons
     $(':button').unbind();
+}
+
+function hideCanvas() {
+    imageClear();
+
+    // hides the canvas drawing
+    $('#imageSpace').hide();
+}
+
+function hideSlider() {
+    $('#sliderStuff').hide();
 }
 
 function saveTestTrial() {
@@ -145,9 +158,9 @@ function testTrial() {
     hideElements();
 
     // draw test stimuli
-    $('#drawing').show();
+    $('#imageSpace').show();
     var currAngle = testTrialStimuli[5 * currBlock + currTestTrial];
-    drawLine(currAngle, 'black');
+    drawLine(currAngle, 'black', $('#imageSpace').width(), $('#imageSpace').height());
 
     // increment test trial counter
     currTestTrial++;
@@ -175,6 +188,7 @@ function testTrial() {
         }
 
         // show response buttons
+        $('#buttons').show();
         $('#blue').show();
         $('#green').show();
 
@@ -187,10 +201,10 @@ function testTrial() {
         $('#instructions').show();
         $('#instructions').load('html/instruction-test-slider.html');
 
+        $("#sliderStuff").show();
         $("#slider-info").html($('#slider').slider('value') + "%"); // update slider value
-        $('#slider-info').show();
-        $('#slider').show();
 
+        $('#buttons').show();
         $('#next').show();
         $('#next').click(saveTestTrial);
     }
@@ -245,6 +259,7 @@ function showInputOptions() {
     $('#input-options').show();
     $('#input-options').load('html/input-options.html');
 
+    $('#buttons').show();
     $('#next').show();
     $('#next').click(function () {
         // process input options here
@@ -261,6 +276,7 @@ function showDemographics() {
     $('#demographics').show();
     $('#demographics').load('html/demographics.html');
 
+    $('#buttons').show();
     $('#next').show();
     $('#next').click(validateDemographics);
 }
@@ -326,6 +342,7 @@ function showInstructions() {
     $('#instructions').load('html/instructions-blue.html');
     }
 
+    $('#buttons').show();
     $('#next').show();
     $('#next').click(showInstructionChecks);
 }
@@ -339,6 +356,7 @@ function showInstructionChecks() {
     $('#instruction-checks').show();
     $('#instruction-checks').load('html/instruction-checks.html');
     
+    $('#buttons').show();
     $('#next').show();
     $('#next').click(validateInstructionChecks);
 }
@@ -386,18 +404,19 @@ function trainTrial() {
     $('#instructions').load('html/instruction-train.html');
 
     // draw training stimuli in canvas
-    $('#drawing').show();
+    $('#imageSpace').show();
     var currAngle = trainTrialStimuli[5*currBlock + currTrainTrial];
 
     // formula to figure out which colour line to display
     if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
-    drawLine(currAngle, colourCondition);
+        drawLine(currAngle, colourCondition, $('#imageSpace').width(), $('#imageSpace').height());
     else
-    drawLine(currAngle, 'green');
+        drawLine(currAngle, 'green', $('#imageSpace').width(), $('#imageSpace').height());
     
     // increment training trial counter
     currTrainTrial++;
 
+    $('#buttons').show();
     $('#next').show();
     if(currTrainTrial < maxTrainTrial)
         $('#next').click(trainTrial); // go to next training trial
