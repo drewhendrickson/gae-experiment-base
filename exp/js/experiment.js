@@ -38,7 +38,7 @@ var default_slider_value = 50;
 
 // these are testing variables that control where the experiment starts
 // if both are set to false, the experiment starts with the condition prompt
-var skipToTest = false;
+var skipToTest = true;
 var skipToTraining = false;
 
 // canvas functions
@@ -222,7 +222,7 @@ $(document).ready(function () {
         max: 100,
         step: 1,
         value: default_slider_value,
-        slide: function (ui) {
+        slide: function (event, ui) {
             $("#slider-info").html(ui.value + '%');
         }
     });
