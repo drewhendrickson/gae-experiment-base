@@ -188,7 +188,7 @@ function testTrial() {
         }
 
         // show response buttons
-//        $('.buttons').show();
+        $('#buttons').show();
         $('#blue').show();
         $('#green').show();
 
