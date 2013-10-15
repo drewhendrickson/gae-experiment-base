@@ -36,8 +36,8 @@ Base experiment code for web experiments hosted on Google App Engine For Python 
     - In js folder:
         - experiment.js: guts of the experiment. Loaded by index.html, loads content from html files in html folder. Will need to be changed for your experiment.  
 - In analysis folder:
-    - read.R: read in a file named raw_data.csv (presumeably downloaded from App Engine) and parse the JSON to create (and save) an RData object
-    - JSON_parser_function.R: helper function for read.R that takes a vector or list of JSON encoded experimental variables and returns a data frame. One row for each entry in the original vector (or list) and a column for each experimental variable that existed.
+    - read.R: read in a file named raw_data.csv (presumeably downloaded from App Engine) and parse the JSON to create (and save) an RData object (calls parser.py)
+    - parser.py: parses raw GAE result into CSV file suitable to be read into R (by read.R)
 
 
 ### How to run locally for testing (in Chrome)?
@@ -75,16 +75,15 @@ Base experiment code for web experiments hosted on Google App Engine For Python 
 3. Enjoy
 
 
-### How to download data from the webpage:
+### How to download data from the GAE webpage:
 
 enter this at the command line:  
 
 ```
-appcfg.py download_data --config_file=bulkloader.yaml --filename=<app_name>.csv --kind=DataObject --url=http://<app_name>.appspot.com/_ah/remote_api
+appcfg.py download_data --config_file=bulkloader.yaml --filename=data.csv --kind=DataObject --url=http://<app_name>.appspot.com/_ah/remote_api
 ```
 
 Note: The local testing in Google App Engine currently doesn't support batch download
-
 
 #### If you change the data being written:
 
