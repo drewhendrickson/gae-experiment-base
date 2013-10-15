@@ -1,22 +1,15 @@
 import os
 import urllib
+import jinja2
+import webapp2
+import cgi
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
-import jinja2
-import webapp2
-
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'])
-
-import cgi
-import urllib
-
-from google.appengine.ext import ndb
-
-import webapp2
 
 class DataObject(ndb.Model):
     content = ndb.TextProperty(required=True) # defaults to non-indexed
