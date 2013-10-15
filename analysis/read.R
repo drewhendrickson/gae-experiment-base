@@ -1,10 +1,15 @@
-# read in data from gae export
-raw_gae_data <- read.csv(file="raw_data.csv", header=T)
+# modify this to the location of the raw CSV downloaded from Google App Engine
+input_file <- "../exp/data.csv"
 
-source('JSON_parser_function.R')
-# this can take 10+ minutes
-d <- parseJSONlist(raw_gae_data[,1])
+# this is the location you want the python parser to write the parsed CSV file
+output_file <- "tmp.csv"
 
-gae_data <- cbind(raw_gae_data[,2:3], d)
+# run 'python parser.py input_file output_file' 
+system(paste('python parser.py', input_file, output_file))
+# should print: Done parsing!
 
-save(gae_data, file="gae_data.RData")
+# read the results of parsing into R
+parsed_gae_data <- read.csv(file=output_file, header=T)
+
+# save data as a compressed RData file
+save(parsed_gae_data, file="gae_data.RData")
