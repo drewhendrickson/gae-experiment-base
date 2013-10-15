@@ -14,7 +14,11 @@ transformers:
 - kind: DataObject
   connector: csv
   connector_options:
-    # TODO: Add connector options here--these are specific to each connector.
+      # these options will create a tab delimited file
+      # we avoid comma delimited because commas are used within the JSON object
+      # double quotes are escaped with a backslash
+    export_options:
+      delimiter: "\t"
   property_map:
     - property: __key__
       external_name: key
@@ -28,4 +32,4 @@ transformers:
       external_name: date
       import_transform: transform.import_date_time('%Y-%m-%dT%H:%M:%S')
       export_transform: transform.export_date_time('%Y-%m-%dT%H:%M:%S')
-
+      
