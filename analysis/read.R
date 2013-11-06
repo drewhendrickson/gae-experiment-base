@@ -12,4 +12,4 @@ system(paste('python parser.py', input_file, output_file))
 parsed_gae_data <- read.csv(file=output_file, header=T)
 
 # save data as a compressed RData file
-save(parsed_gae_data, file="gae_data.RData")
+saveRDS(parsed_gae_data, file="gae_data.RData")
