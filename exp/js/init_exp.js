@@ -52,7 +52,7 @@ $(document).ready(function () {
             } else if (r === 2) {
                 colourCondition = 'blue';
             }
-            showDemographics();
+            showIntro();
         }
     });
 });

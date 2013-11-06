@@ -62,6 +62,9 @@ function showInputOptions() {
         
         // which section to start with:
         switch ($('#section').val()) {
+            case "intro":
+                showIntro();
+                break;
             case "demographics":
                 showDemographics();
                 break;
@@ -77,6 +80,17 @@ function showInputOptions() {
         }
     });
     
+}
+
+function showIntro() {
+    hideElements();
+
+    $('#instructions').show();
+    $('#instructions').load('html/intro.html');
+
+    $('#buttons').show();
+    $('#next').show();
+    $('#next').click(showDemographics);
 }
 
 function showDemographics() {
