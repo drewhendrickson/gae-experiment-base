@@ -265,8 +265,6 @@ function showInputOptions() {
         // process color option here
         colourCondition = $('#colour').val();
         
-        console.log($('#section').val());
-        
         // which section to start with:
         switch ($('#section').val()) {
             case "demographics":
