@@ -210,8 +210,14 @@ function testTrial() {
     }
 }
 
+
 // this function runs automatically when the page is loaded
 $(document).ready(function () {
+    // show an alert if user tries to navigate away from this page
+    window.onbeforeunload = function() {
+        return "Are you sure you want to leave this page?";
+    };
+
     // initialize canvas drawing
     initializeCanvas();
 
