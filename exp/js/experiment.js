@@ -36,10 +36,8 @@ var base_time, rt;
 // slider variables
 var default_slider_value = 50;
 
-// these are testing variables that control where the experiment starts
-// if both are set to false, the experiment starts with the condition prompt
-var skipToTest = true;
-var skipToTraining = false;
+// are we in debug mode?
+var debug = true;
 
 // canvas functions
 function initializeCanvas() {
@@ -238,40 +236,54 @@ $(document).ready(function () {
     // generate a subject ID by generating a random number between 1 and 1000000
     subjectID = Math.round(Math.random() * 1000000);
 
-    // CONDITION 
-    // randomize experimental conditions
-    var r = Math.ceil(Math.random() * 2); // generate random number
-    if (r === 1) {
-        colourCondition = 'red';
-    } else if (r === 2) {
-        colourCondition = 'blue';
-    }
 
-    // CONDITION
-    // first present the input options for the experiment (for debugging purposes)
-    // allows you to set the experimental conditions instead of randomly assigning them above
-    if (skipToTest) {
-        testTrial();
-    }
-    else if (skipToTraining) {
-        trainTrial();
-    } else {
+    if (debug) {
         showInputOptions();
+    } else {
+        // CONDITION 
+        // randomize experimental conditions
+        var r = Math.ceil(Math.random() * 2); // generate random number
+        if (r === 1) {
+            colourCondition = 'red';
+        } else if (r === 2) {
+            colourCondition = 'blue';
+        }
+        showDemographics();
     }
 });
 
-// experiment functions
 function showInputOptions() {
+    // first present the input options for the experiment (for debugging purposes)
+    // allows you to set the experimental conditions instead of randomly assigning them above
     $('#input-options').show();
     $('#input-options').load('html/input-options.html');
 
     $('#buttons').show();
     $('#next').show();
     $('#next').click(function () {
-        // process input options here
+        // CONDITION
+        // process color option here
         colourCondition = $('#colour').val();
-        showDemographics();
+        
+        console.log($('#section').val());
+        
+        // which section to start with:
+        switch ($('#section').val()) {
+            case "demographics":
+                showDemographics();
+                break;
+            case "instructions":
+                showInstructions();
+                break;
+            case "training":
+                trainTrial();
+                break;
+            case "testing":
+                testTrial();
+                break;
+        }
     });
+    
 }
 
 function showDemographics() {
