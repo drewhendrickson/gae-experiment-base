@@ -34,11 +34,37 @@ Base experiment code for web experiments hosted on Google App Engine For Python 
     - In html folder:
         - many files that are loaded by experiment.js during the experiment
     - In js folder:
-        - experiment.js: guts of the experiment. Loaded by index.html, loads content from html files in html folder. Will need to be changed for your experiment.  
+        - init_exp.js: only javascript file loaded by index.html (except for JQuery), loads all other javascript files. This file is unlikely to require changes (unless you want to remove the slider).
+        - support_fcns.js: routine javascript functions to handle loading and reading the demographics information, loading the instructions, checking the instruction comprehension questions, writing the data to the server, and clearing/displaying the canvas and buttons. This file is unlikely to require changes.
+        - exp_logic.js: guts of the experiment. Will need to be changed for your experiment.
+          
 - In analysis folder:
-    - read.R: read in a file named raw_data.csv (presumeably downloaded from App Engine) and parse the JSON to create (and save) an RData object (calls parser.py)
-    - parser.py: parses raw GAE result into CSV file suitable to be read into R (by read.R)
+    - read.R: read in the raw file downloaded from App Engine and parse the JSON to create (and save) an RData object (calls parser.py). You might need to change input_file (line 2) to match the name of the file you download it from Google App Engine if the name gets changed.
+    - parser.py: parses raw GAE result (it assumes a tab-delimited file) into CSV file suitable to be read into R (by read.R). Takes two parameters: the file to read and the name of the file to write the results to.
 
+
+# Notes about the experiment code
+
+### How does the experiment code work?
+
+Different sections of the experiment call each other in sequence. Currently the order is:  
+1. ask for the user to specify what condition to use (this is when in debugging mode)
+10. show introduction
+10. collect demographics information  
+10. provide instructions  
+10. test instruction comprehension  
+10. for each block within the experiment:  
+        - display training trials  
+        - display test trials  
+10. display thank you message and feedback for MTurk users  
+
+
+### Notes for modifying the experiment code
+- all locations in the javascript files where the slider is referenced are marked with a comment SLIDER comment.
+- all locations in the javascript files where between-subject conditions are referenced are marked with CONDITION comment.
+
+
+# Running the experiment code:
 
 ### How to run locally for testing (in Chrome)?
 
@@ -74,6 +100,7 @@ Base experiment code for web experiments hosted on Google App Engine For Python 
 2. Click Datastore Viewer (under Data in the left bar)
 3. Enjoy
 
+# After running the experiment:
 
 ### How to download data from the GAE webpage:
 
@@ -87,29 +114,11 @@ Note: The local testing in Google App Engine currently doesn't support batch dow
 
 #### If you change the data being written:
 
-1. you'll have to re-create the download data file (bulkloader.yaml)
+- you'll have to re-create the download data file (bulkloader.yaml)
 
 ```
 appcfg.py create_bulkloader_config --filename=bulkloader.yaml --url=http://<app_name>.appspot.com/_ah/remote_api
 ```
 
-Then set the line in the new bulkloader.yaml `connector:` to `connector: csv`
+- Then set the line in the new bulkloader.yaml `connector:` to `connector: csv` and set the delimiter to tab-based.
  
-
-# Notes about the experiment code
-
-### How does the experiment code work?
-
-Different sections of the experiment call each other in sequence. Currently the order is:  
-1. collect demographics information  
-2. provide instructions  
-3. test instruction comprehension  
-4. for each block within the experiment:  
-        - display training trials  
-        - display test trials  
-5. display thank you message and feedback for MTurk users  
-
-
-### Notes for modifying the experiment code
-- all locations in experiment.js where the slider is referenced are marked with a comment SLIDER comment.
-- all locations in experiment.js where between-subject conditions are referenced are marked with CONDITION comment.
