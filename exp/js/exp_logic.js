@@ -13,7 +13,7 @@ var currBlock = 0;
 
 var maxTrainTrial = 5;
 var maxTestTrial = 5;
-var maxBlock = 3;
+var maxBlock = 2;
 
 var trainTrialStimuli = [130, -130, -20, 50, -10, -20, 70, 170, 120, 100, -120, 10, -30, 160, 140];
 var testTrialStimuli = [160, -150, 120, -50, -150, 130, -80, -10, -40, 170, -120, 20, 20, -50, -170];
