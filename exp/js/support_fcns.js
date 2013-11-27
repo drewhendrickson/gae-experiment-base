@@ -190,7 +190,7 @@ function validateInstructionChecks() {
     hideElements();
     
     $('form').show();
-    instructionChecks = $('form').serializeArray();
+    var instructionChecks = $('form').serializeArray();
 
     var ok = true;
     for(var i = 0; i < instructionChecks.length; i++) {
@@ -214,6 +214,7 @@ function validateInstructionChecks() {
     }
 
     if(!ok) {
+        alert("You didn't answer all the questions correctly. Please read through the instructions and take the quiz again to continue.");
         showInstructions(); // go back to instruction screen
     }
     else {
