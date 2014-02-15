@@ -46,7 +46,6 @@ function start () {
     // initialize the slider
     initializeSlider(100);
     
-    
     hideElements();
     
     // generate a subject ID by generating a random number between 1 and 1000000
@@ -192,7 +191,7 @@ function testTrial() {
         $('#next').show();
         $('#next').click(saveTestTrial);
     }
-}
+};
 
 function trainTrial() {
     hideElements();
@@ -221,5 +220,5 @@ function trainTrial() {
     else
         currTrial = 0; // reset trial counter
         $('#next').click(testTrial); // proceed to test trial
-}
+};
 
