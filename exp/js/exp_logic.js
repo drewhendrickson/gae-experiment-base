@@ -6,8 +6,8 @@ var condition;
 var demographics = [];
 
 // experimental variables 
-var currTrainTrial = 0;
-var currTestTrial = 0;
+var currTrial = 0;
+var currTrial = 0;
 var currBlock = 0;
 
 var maxTrainTrial = 5;
@@ -117,7 +117,7 @@ function saveTestTrial() {
     saveData(exp_data);
 
     // determine which section to go to next
-    if(currTestTrial < maxTestTrial) {
+    if(currTrial < maxTestTrial) {
         testTrial(); // next test trial
     }
     else {
@@ -125,8 +125,7 @@ function saveTestTrial() {
         currBlock++;
 
         if(currBlock < maxBlock) {
-            currTrainTrial = 0; // reset trial counters
-            currTestTrial = 0;
+            currTrial = 0; // reset trial counter
             trainTrial(); // next training block
         }
         else {
@@ -140,11 +139,11 @@ function testTrial() {
 
     // draw test stimuli
     $('#imageSpace').show();
-    var currAngle = testTrialStimuli[5 * currBlock + currTestTrial];
+    var currAngle = testTrialStimuli[5 * currBlock + currTrial];
     drawLine(currAngle, 'black', $('#imageSpace').width(), $('#imageSpace').height());
 
     // increment test trial counter
-    currTestTrial++;
+    currTrial++;
 
     // get time of beginning of trial
     base_time = new Date().getTime();
@@ -200,7 +199,7 @@ function trainTrial() {
 
     // draw training stimuli in canvas
     $('#imageSpace').show();
-    var currAngle = trainTrialStimuli[5*currBlock + currTrainTrial];
+    var currAngle = trainTrialStimuli[5*currBlock + currTrial];
 
     // formula to figure out which colour line to display
     if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
@@ -209,13 +208,14 @@ function trainTrial() {
         drawLine(currAngle, 'green', $('#imageSpace').width(), $('#imageSpace').height());
     
     // increment training trial counter
-    currTrainTrial++;
+    currTrial++;
 
     $('#buttons').show();
     $('#next').show();
-    if(currTrainTrial < maxTrainTrial)
+    if(currTrial < maxTrainTrial)
         $('#next').click(trainTrial); // go to next training trial
     else
+        currTrial = 0; // reset trial counter
         $('#next').click(testTrial); // proceed to test trial
 }
 
