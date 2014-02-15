@@ -99,10 +99,11 @@ The structure of the code:
 This project is designed so you need to modify the fewest number of files to change the experiment for your own task. These files will likely need to be changed:
   - most files in the html folder to reflect your instructions, conditions, thanks, etc.
   - the file js/exp_logic.js
+    - you will likely need to change some of the global variables at the top of the file
     - you will likely need to change the functions testTrial and trainTrial
     - you will probably need to replace drawLine with a function to draw your stimuli
-    - you might need to add different information being written to the data in the saveTestTrial function
-    - you will likely need to change some of the global variables at the top of the file
+    - you might need to add different information being written to the data in the saveTestTrial function  
+  - you might need to modify index.html if you add new buttons or input types
 
 Notes: 
   - all locations in the javascript files where the slider is referenced are marked with a comment SLIDER comment.
