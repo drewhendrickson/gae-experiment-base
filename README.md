@@ -34,9 +34,9 @@ Base experiment code for web experiments hosted on Google App Engine For Python 
     - In html folder:
         - many files that are loaded by experiment.js during the experiment
     - In js folder:
-        - init_exp.js: only javascript file loaded by index.html (except for JQuery), loads all other javascript files. This file is unlikely to require changes (unless you want to remove the slider).
+        - init_exp.js: only javascript file loaded by index.html (except for JQuery), loads all other javascript files. This file is unlikely to require changes.
         - support_fcns.js: routine javascript functions to handle loading and reading the demographics information, loading the instructions, checking the instruction comprehension questions, writing the data to the server, and clearing/displaying the canvas and buttons. This file is unlikely to require changes.
-        - exp_logic.js: guts of the experiment. Will need to be changed for your experiment.
+        - exp_logic.js: guts of the experiment. Will need to be changed for your experiment, see details below.
           
 - In analysis folder:
     - read.R: read in the raw file downloaded from App Engine and parse the JSON to create (and save) an RData object (calls parser.py). You might need to change input_file (line 2) to match the name of the file you download it from Google App Engine if the name gets changed.
@@ -45,28 +45,73 @@ Base experiment code for web experiments hosted on Google App Engine For Python 
 
 # Notes about the experiment code
 
-### How does the experiment code work?
+### How is the experiment structured:
 
-Different sections of the experiment call each other in sequence. Currently the order is:  
-1. ask for the user to specify what condition to use (this is when in debugging mode)
-10. show introduction
-10. collect demographics information  
-10. provide instructions  
-10. test instruction comprehension  
-10. for each block within the experiment:  
-        - display training trials  
-        - display test trials  
-10. display thank you message and feedback for MTurk users  
+The structure of the code:
+- When a user goes to index.html a few things happen
+  - a number of html divs and buttons are added to the screen
+  - some support js files (jquery especially) are loaded
+  - the js file js/init_exp.js is loaded
+- js/init_exp.js loads all other js files needed
+  - when they are finished loading, it calls the function start (which is in js/exp_logic.js)
+- start sets up many things for the experiment:  
+    - it builds the canvas the experiment draws stimuli on, 
+    - it builds the slider,
+    - it generates a random subjectID for this user
+    - it determines which random condition this subject is in
+- when done initializing everything, start calls showIntro (which is in js/support_fcns.js
+- showIntro displays the experiment introduction (html/intro.html) and calls the function showDemographics when the user clicks next.
+- showDemographics displays a form on the screen (html/demographics.html) and calls the function validateDemographics when the user clicks next
+- validateDemographics checks that the user wrote reasonable things for their demographics information. If they did it calls showInstructions, if they did not give reasonable info, it alerts the user and calls showDemographics again.
+- showInstructions displays the experiment instructions (one of 2 files) and calls the function showInstructionChecks when the user clicks next
+- showInstructionChecks displays a form on the screen (html/instruction-checks.html) and calls the function validateInstructionChecks when the user clicks next.
+- validateInstructionChecks checks if the user answered all questions correctly, if they did it calls the function trainTrial (js/exp_logic.js), if they did not it calls showInstructions again
+- trainTrial does multiple things:
+    - it determines which line to draw (based on the current trial, block number, and trainTrialStimuli)
+    - calls the function drawLine to draw that line
+        - the function drawLine draws a line on the canvas
+    - displays the next button
+    - increases the trial number (currTrial variable)
+    - when the user clicks next either 
+        - calls testTrial if all training trials are done (maxTrainTrial)
+        - or calls trainTrial (to show the next training trial)
+- testTrial does multiple things also:
+    - it determines which line to draw (based on current trial, block number, and testTrialStimuli)
+    - calls the function drawLine to draw that line
+    - displays the next button and either two button options or the slider (depending on which block the user is in)
+    - increases the trial number (currTrial variable)
+    - starts a timer to measure RT
+    - records what response the user makes
+    - calls the function saveTestTrial
+- saveTestTrial does multiple things:
+    - computes the RT of the subject
+    - builds an object (exp_data) which contains all demographic data of the user, condition info, trial and block number, stimuli info, and response information
+    - calls the function saveData
+        - the function saveData takes the data passed to it and writes it to the server
+    - determines what should happen next:
+        - if all blocks have been completed, call funishExperiment function
+            - the function finishExperiment removes all buttons and displays the final thankyou message (html/instruction-finish.html)
+        - if all trials in the current block have been completed, call trainTrial (to start the next block)
+        - otherwise call testTrial to do the next trial in this block
 
+### To modify this code for your own experiment:
 
-### Notes for modifying the experiment code
-- all locations in the javascript files where the slider is referenced are marked with a comment SLIDER comment.
-- all locations in the javascript files where between-subject conditions are referenced are marked with CONDITION comment.
+This project is designed so you need to modify the fewest number of files to change the experiment for your own task. These files will likely need to be changed:
+    - most files in the html folder to reflect your instructions, thanks, etc.
+    - the file js/exp_logic.js
+        - you will likely need to change the functions testTrial and trainTrial
+        - you will probably need to replace drawLine with a function to draw your stimuli
+        - you might need to add different information being written to the data in the saveTestTrial function
+        - you will likely need to change some of the global variables at the top of the file
+
+Notes: 
+    - all locations in the javascript files where the slider is referenced are marked with a comment SLIDER comment.
+    - all locations in the javascript files where between-subject conditions are referenced are marked with CONDITION comment.
 
 
 # Running the experiment code:
 
-### How to run locally for testing (in Chrome)?
+### How to run locally for testing (in Chrome):
 
 1. Open Google AppEngineLauncher
 2. File -> Add Existing Application
