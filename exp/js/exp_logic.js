@@ -204,12 +204,14 @@ function trainTrial() {
     $('#imageSpace').show();
     var currAngle = trainTrialStimuli[5*currBlock + currTrial];
 
-    // formula to figure out which colour line to display
-    if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
-        drawLine(currAngle, colourCondition, $('#imageSpace').width(), $('#imageSpace').height());
-    else
-        drawLine(currAngle, 'green', $('#imageSpace').width(), $('#imageSpace').height());
     
+    // if the line has a positive slope, draw it green
+    // otherwise draw it with the color of the condition
+    var colour = 'green';
+    if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
+        colour = colourCondition;
+    drawLine(currAngle, colour, $('#imageSpace').width(), $('#imageSpace').height());
+
     // increment training trial counter
     currTrial++;
 
