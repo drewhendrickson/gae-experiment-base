@@ -35,9 +35,6 @@ var base_time, rt;
 // slider variables
 var default_slider_value = 50;
 
-// are we in debug mode?
-var debug = true;
-
 // 
 function start () {
     // initialize canvas drawing
@@ -52,7 +49,8 @@ function start () {
     // generate a subject ID by generating a random number between 1 and 1000000
     subjectID = Math.round(Math.random() * 1000000);
     
-    if (debug) {
+    if (false) {
+        // allow user to select where to start the experiment
         showInputOptions();
     } else {
         // CONDITION 
