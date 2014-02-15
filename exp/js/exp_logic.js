@@ -104,16 +104,17 @@ function saveTestTrial() {
     exp_data.age = parseInt(exp_data.age, 10);
 
     // add trial data to trial output
-    exp_data.subjectID = subjectID;
-    exp_data.testTrial = currTestTrial;
-    exp_data.block     = currBlock;
-    exp_data.condition = condition;
-    exp_data.rt = rt;
-    exp_data.experiment = "test_experiment_v1";
-    exp_data.button_value = response;
+    exp_data.subjectID      = subjectID;
+    exp_data.testTrial      = currTrial;
+    exp_data.block          = currBlock;
+    exp_data.condition      = condition;
+    exp_data.rt             = rt;
+    exp_data.experiment     = "test_experiment_v1";
+    exp_data.button_value   = response;
     // SLIDER
     exp_data.slider_value = $('#slider').slider('value');
 
+    // print the data to console for debugging
     console.log(exp_data);
 
     // save trial data
