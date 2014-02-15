@@ -53,17 +53,21 @@ function start () {
         // allow user to select where to start the experiment
         showInputOptions();
     } else {
-        // CONDITION 
-        // r    andomize experimental conditions
-        var r = Math.ceil(Math.random() * 2); // generate random number
-        if (r === 1) {
-            colourCondition = 'red';
-        } else if (r === 2) {
-            colourCondition = 'blue';
-        }
+        // randomize experimental conditions
+        initializeCondition();
         showIntro();
     }
 };
+
+function initializeCondition () {
+    var r = Math.ceil(Math.random() * 2); // generate random number
+    if (r === 1) {
+        colourCondition = 'red';
+    } else if (r === 2) {
+        colourCondition = 'blue';
+    }
+};
+    
 
 // draw experimental stimuli using canvas functions
 function drawLine(degrees, colour, width, height) {
