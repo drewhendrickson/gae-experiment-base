@@ -48,25 +48,25 @@ Base experiment code for web experiments hosted on Google App Engine For Python 
 ### How is the experiment structured:
 
 The structure of the code:
-- When a user goes to index.html a few things happen
+1. When a user goes to index.html a few things happen
   - a number of html divs and buttons are added to the screen
   - some support js files (jquery especially) are loaded
   - the js file js/init_exp.js is loaded
-- js/init_exp.js loads all other js files needed
+2. js/init_exp.js loads all other js files needed
   - when they are finished loading, it calls the function start (which is in js/exp_logic.js)
-- start sets up many things for the experiment:  
+3. the function start sets up many things for the experiment:  
     - it builds the canvas the experiment draws stimuli on, 
     - it builds the slider,
     - it generates a random subjectID for this user
     - it determines which random condition this subject is in
-- when done initializing everything, start calls showIntro (which is in js/support_fcns.js
-- showIntro displays the experiment introduction (html/intro.html) and calls the function showDemographics when the user clicks next.
-- showDemographics displays a form on the screen (html/demographics.html) and calls the function validateDemographics when the user clicks next
-- validateDemographics checks that the user wrote reasonable things for their demographics information. If they did it calls showInstructions, if they did not give reasonable info, it alerts the user and calls showDemographics again.
-- showInstructions displays the experiment instructions (one of 2 files) and calls the function showInstructionChecks when the user clicks next
-- showInstructionChecks displays a form on the screen (html/instruction-checks.html) and calls the function validateInstructionChecks when the user clicks next.
-- validateInstructionChecks checks if the user answered all questions correctly, if they did it calls the function trainTrial (js/exp_logic.js), if they did not it calls showInstructions again
-- trainTrial does multiple things:
+4. when done initializing everything, start calls showIntro (which is in js/support_fcns.js
+5. showIntro displays the experiment introduction (html/intro.html) and calls the function showDemographics when the user clicks next.
+6. showDemographics displays a form on the screen (html/demographics.html) and calls the function validateDemographics when the user clicks next
+7. validateDemographics checks that the user wrote reasonable things for their demographics information. If they did it calls showInstructions, if they did not give reasonable info, it alerts the user and calls showDemographics again.
+8. showInstructions displays the experiment instructions (one of 2 files) and calls the function showInstructionChecks when the user clicks next
+9. showInstructionChecks displays a form on the screen (html/instruction-checks.html) and calls the function validateInstructionChecks when the user clicks next.
+10. validateInstructionChecks checks if the user answered all questions correctly, if they did it calls the function trainTrial (js/exp_logic.js), if they did not it calls showInstructions again
+11. trainTrial does multiple things:
     - it determines which line to draw (based on the current trial, block number, and trainTrialStimuli)
     - calls the function drawLine to draw that line
         - the function drawLine draws a line on the canvas
@@ -75,7 +75,7 @@ The structure of the code:
     - when the user clicks next either 
         - calls testTrial if all training trials are done (maxTrainTrial)
         - or calls trainTrial (to show the next training trial)
-- testTrial does multiple things also:
+12. testTrial does multiple things also:
     - it determines which line to draw (based on current trial, block number, and testTrialStimuli)
     - calls the function drawLine to draw that line
     - displays the next button and either two button options or the slider (depending on which block the user is in)
@@ -83,7 +83,7 @@ The structure of the code:
     - starts a timer to measure RT
     - records what response the user makes
     - calls the function saveTestTrial
-- saveTestTrial does multiple things:
+13. saveTestTrial does multiple things:
     - computes the RT of the subject
     - builds an object (exp_data) which contains all demographic data of the user, condition info, trial and block number, stimuli info, and response information
     - calls the function saveData
@@ -97,7 +97,7 @@ The structure of the code:
 ### To modify this code for your own experiment:
 
 This project is designed so you need to modify the fewest number of files to change the experiment for your own task. These files will likely need to be changed:
-    - most files in the html folder to reflect your instructions, thanks, etc.
+    - most files in the html folder to reflect your instructions, conditions, thanks, etc.
     - the file js/exp_logic.js
         - you will likely need to change the functions testTrial and trainTrial
         - you will probably need to replace drawLine with a function to draw your stimuli
