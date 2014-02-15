@@ -42,19 +42,11 @@ var debug = true;
 function start () {
     // initialize canvas drawing
     initializeCanvas();
-    
-    // SLIDER
-    // initialize slider if one is being used
-    $('#slider').slider({
-        min: 0,
-        max: 100,
-        step: 1,
-        value: default_slider_value,
-        slide: function (event, ui) {
-            $("#slider-info").html(ui.value + '%');
-        }
-    });
 
+    // initialize the slider
+    initializeSlider(100);
+    
+    
     hideElements();
     
     // generate a subject ID by generating a random number between 1 and 1000000

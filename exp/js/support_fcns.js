@@ -8,6 +8,19 @@ function initializeCanvas() {
     context = canvas.getContext("2d");
 }
 
+function initializeSlider(max) {
+    // initialize slider if one is being used
+    $('#slider').slider({
+        min: 0,
+        max: 100,
+        step: 1,
+        value: default_slider_value,
+        slide: function (event, ui) {
+            $("#slider-info").html(ui.value + '%');
+        }
+    });
+};
+
 // clears the whole canvas area
 function imageClear() {
     context.fillStyle = '#ffffff'; // work around for Chrome
