@@ -10,17 +10,6 @@ var currTrial = 0;
 var currTrial = 0;
 var currBlock = 0;
 
-var maxTrainTrial = 5;
-var maxTestTrial = 5;
-var maxBlock = 2;
-
-var trainTrialStimuli = [130, -130, -20, 50, -10, -20, 70, 170, 120, 100, -120, 10, -30, 160, 140];
-var testTrialStimuli = [160, -150, 120, -50, -150, 130, -80, -10, -40, 170, -120, 20, 20, -50, -170];
-
-// CONDITION 
-// experimental conditions
-var colourCondition;
-
 // canvas variables
 var context;
 var canvas;
@@ -35,7 +24,21 @@ var base_time, rt;
 // slider variables
 var default_slider_value = 50;
 
-// 
+/* Variables you likely will need to change are below */
+
+var maxTrainTrial = 5;
+var maxTestTrial = 5;
+var maxBlock = 2;
+
+var trainTrialStimuli = [130, -130, -20, 50, -10, -20, 70, 170, 120, 100, -120, 10, -30, 160, 140];
+var testTrialStimuli = [160, -150, 120, -50, -150, 130, -80, -10, -40, 170, -120, 20, 20, -50, -170];
+
+// CONDITION 
+// experimental conditions
+var colourCondition;
+
+
+// begin the experiment, initialize canvas, slider, subjectID, 
 function start () {
     // initialize canvas drawing
     initializeCanvas();
