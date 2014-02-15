@@ -1,4 +1,4 @@
-/*global $, document, console, alert */
+/*global $, console */
 
 // participant variables
 var subjectID;
