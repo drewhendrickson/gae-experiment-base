@@ -242,10 +242,12 @@ function trainTrial() {
 
     divButtons.show();
     divNext.show();
-    if(currTrial < maxTrainTrial)
+    if(currTrial < maxTrainTrial) {
         divNext.click(trainTrial); // go to next training trial
-    else
+    }
+    else {
         currTrial = 0; // reset trial counter
         divNext.click(testTrial); // proceed to test trial
+    }
 };
 
