@@ -3,20 +3,20 @@
 // canvas functions
 function initializeCanvas() {
     canvas = document.getElementById("drawing");
-    canvas.width = $('#imageSpace').width();
-    canvas.height = $('#imageSpace').height();
+    canvas.width = divImageSpace.width();
+    canvas.height = divImageSpace.height();
     context = canvas.getContext("2d");
 }
 
 function initializeSlider(max) {
     // initialize slider if one is being used
-    $('#slider').slider({
+    divSlider.slider({
         min: 0,
         max: 100,
         step: 1,
         value: default_slider_value,
         slide: function (event, ui) {
-            $("#slider-info").html(ui.value + '%');
+            divSliderInfo.html(ui.value + '%');
         }
     });
 };
@@ -53,22 +53,23 @@ function hideCanvas() {
     imageClear();
 
     // hides the canvas drawing
-    $('#imageSpace').hide();
+    divImageSpace.hide();
 }
 
 function hideSlider() {
-    $('#sliderStuff').hide();
+    divSliderStuff.hide();
 }
 
 function showInputOptions() {
     // first present the input options for the experiment (for debugging purposes)
     // allows you to set the experimental conditions instead of randomly assigning them above
-    $('#input-options').show();
-    $('#input-options').load('html/input-options.html');
+    var divInputOptions = $('#input-options');
+    divInputOptions.show();
+    divInputOptions.load('html/input-options.html');
 
-    $('#buttons').show();
-    $('#next').show();
-    $('#next').click(function () {
+    divButtons.show();
+    divNext.show();
+    divNext.click(function () {
         // CONDITION
         // process color option here
         colourCondition = $('#colour').val();
@@ -98,12 +99,12 @@ function showInputOptions() {
 function showIntro() {
     hideElements();
 
-    $('#instructions').show();
-    $('#instructions').load('html/intro.html');
+    divInstructions.show();
+    divInstructions.load('html/intro.html');
 
-    $('#buttons').show();
-    $('#next').show();
-    $('#next').click(showDemographics);
+    divButtons.show();
+    divNext.show();
+    divNext.click(showDemographics);
 }
 
 function showDemographics() {
@@ -111,12 +112,13 @@ function showDemographics() {
 
     // modify here if you want to get different demographic information
     // DEFAULT: subjectID, age, gender, country
-    $('#demographics').show();
-    $('#demographics').load('html/demographics.html');
+    var divDemographics = $('#demographics');
+    divDemographics.show();
+    divDemographics.load('html/demographics.html');
 
-    $('#buttons').show();
-    $('#next').show();
-    $('#next').click(validateDemographics);
+    divButtons.show();
+    divNext.show();
+    divNext.click(validateDemographics);
 }
 
 function validateDemographics() {
@@ -170,33 +172,34 @@ function validateDemographics() {
 function showInstructions() {
     hideElements();
 
-    $('#instructions').show();
+    divInstructions.show();
     
     // CONDITION 
     if(colourCondition == 'red') {
-    $('#instructions').load('html/instructions-red.html');
+    divInstructions.load('html/instructions-red.html');
     }
     else if(colourCondition == 'blue') {
-    $('#instructions').load('html/instructions-blue.html');
+    divInstructions.load('html/instructions-blue.html');
     }
 
-    $('#buttons').show();
-    $('#next').show();
-    $('#next').click(showInstructionChecks);
+    divButtons.show();
+    divNext.show();
+    divNext.click(showInstructionChecks);
 }
 
 function showInstructionChecks() {
     hideElements();
 
-    $('#instructions').show();
-    $('#instructions').text('Here are some questions to check if you have read the instructions correctly. If you answer all the questions correct you will begin the experiment, otherwise you will be redirected to the instructions page again.');
+    divInstructions.show();
+    divInstructions.text('Here are some questions to check if you have read the instructions correctly. If you answer all the questions correct you will begin the experiment, otherwise you will be redirected to the instructions page again.');
 
-    $('#instruction-checks').show();
-    $('#instruction-checks').load('html/instruction-checks.html');
+    var divInstructionChecks = $('#instruction-checks');
+    divInstructionChecks.show();
+    divInstructionChecks.load('html/instruction-checks.html');
     
-    $('#buttons').show();
-    $('#next').show();
-    $('#next').click(validateInstructionChecks);
+    divButtons.show();
+    divNext.show();
+    divNext.click(validateInstructionChecks);
 }
 
 function validateInstructionChecks() {
@@ -245,7 +248,7 @@ function saveData(args) {
 function finishExperiment() {
     hideElements();
 
-    $('#instructions').show();
-    $('#instructions').load('html/instruction-finish.html');
+    divInstructions.show();
+    divInstructions.load('html/instruction-finish.html');
 }
 
