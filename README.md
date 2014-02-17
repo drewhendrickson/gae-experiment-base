@@ -26,15 +26,14 @@ Base experiment code for web experiments hosted on Google App Engine For Python 
       - tells the data downloader how the data from Google will be formatted
       - must match backend.py
    - index.html: actual html of the experiment that is loaded by backend.py (often will be changed to add new buttons/sliders/etc)
-- In css folder:
-   - style.css: specifies css for index.html and experiment.s (usually can be left alone)
-- In html folder:
-   - many files that are loaded by experiment.js during the experiment
-- In js folder:
-   - init_exp.js: only javascript file loaded by index.html (except for JQuery), loads all other javascript files. This file is unlikely to require changes.
-   - support_fcns.js: routine javascript functions to handle loading and reading the demographics information, loading the instructions, checking the instruction comprehension questions, writing the data to the server, and clearing/displaying the canvas and buttons. This file is unlikely to require changes.
+   - In css folder:
+      - style.css: specifies css for index.html and experiment.s (usually can be left alone)
+   - In html folder:
+      - many files that are loaded by experiment.js during the experiment
+   - In js folder:
+      - init_exp.js: only javascript file loaded by index.html (except for JQuery), loads all other javascript files. This file is unlikely to require changes.
+      - support_fcns.js: routine javascript functions to handle loading and reading the demographics information, loading the instructions, checking the instruction comprehension questions, writing the data to the server, and clearing/displaying the canvas and buttons. This file is unlikely to require changes.
    - exp_logic.js: guts of the experiment. Will need to be changed for your experiment, see details below.
-      
 - In analysis folder:
    - read.R: read in the raw file downloaded from App Engine and parse the JSON to create (and save) an RData object (calls parser.py). You might need to change input_file (line 2) to match the name of the file you download it from Google App Engine if the name gets changed.
    - parser.py: parses raw GAE result (it assumes a tab-delimited file) into CSV file suitable to be read into R (by read.R). Takes two parameters: the file to read and the name of the file to write the results to.
