@@ -24,6 +24,10 @@ var base_time, rt;
 // slider variables
 var default_slider_value = 50;
 
+// references to divs in the html
+var divImageSpace, divSlider, divInstructions, divBlue, divButtons, divGreen, divSliderStuff, divSliderInfo, divNext;
+
+
 /* Variables you likely will need to change are below */
 
 var maxTrainTrial = 5;
@@ -42,6 +46,9 @@ var colourCondition;
 function start () {
     // initialize canvas drawing
     initializeCanvas();
+    
+    // initialize references to elements in html
+    initDivReferences();
 
     // initialize the slider
     initializeSlider(100);
@@ -59,6 +66,20 @@ function start () {
         initializeCondition();
         showIntro();
     }
+};
+
+function initDivReferences () {
+    divImageSpace = $('#imageSpace');
+    divInstructions = $('#instructions');
+
+    divButtons = $('#buttons');
+    divBlue = $('#blue');
+    divGreen = $('#green');
+    divNext = $('#next');
+
+    divSliderStuff = $('#sliderStuff');
+    divSlider = $('#slider');
+    divSliderInfo = $('#slider-info');
 };
 
 function initializeCondition () {
@@ -111,7 +132,7 @@ function saveTestTrial() {
     exp_data.experiment     = "test_experiment_v1";
     exp_data.button_value   = response;
     // SLIDER
-    exp_data.slider_value = $('#slider').slider('value');
+    exp_data.slider_value = divSlider.slider('value');
 
     // print the data to console for debugging
     console.log(exp_data);
@@ -141,9 +162,9 @@ function testTrial() {
     hideElements();
 
     // draw test stimuli
-    $('#imageSpace').show();
+    divImageSpace.show();
     var currAngle = testTrialStimuli[5 * currBlock + currTrial];
-    drawLine(currAngle, 'black', $('#imageSpace').width(), $('#imageSpace').height());
+    drawLine(currAngle, 'black', divImageSpace.width(), divImageSpace.height());
 
     // increment test trial counter
     currTrial++;
@@ -154,42 +175,42 @@ function testTrial() {
     // reset response variables
     response = -1;
     // SLIDER
-    $('#slider').slider('value', default_slider_value);
+    divSlider.slider('value', default_slider_value);
 
     // response button example
     if (currBlock < 1) {
         // display test trial instructions
-        $('#instructions').show();
-        $('#instructions').load('html/instruction-test-button.html');
+        divInstructions.show();
+        divInstructions.load('html/instruction-test-button.html');
 
         // CONDITION 
         // change text value of response buttons depending on colour condition
         if (colourCondition === "red") {
-            $('#blue').prop('value', 'Red');
+            divBlue.prop('value', 'Red');
         } else if (colourCondition === "blue") {
-            $('#blue').prop('value', 'Blue');
+            divBlue.prop('value', 'Blue');
         }
 
         // show response buttons
-        $('#buttons').show();
-        $('#blue').show();
-        $('#green').show();
+        divButtons.show();
+        divBlue.show();
+        divGreen.show();
 
-        $('#blue').click(function () {response = 0; saveTestTrial();});
-        $('#green').click(function () {response = 1; saveTestTrial();});
+        divBlue.click(function () {response = 0; saveTestTrial();});
+        divGreen.click(function () {response = 1; saveTestTrial();});
     }
     // SLIDER
     // slider example
     else {
-        $('#instructions').show();
-        $('#instructions').load('html/instruction-test-slider.html');
+        divInstructions.show();
+        divInstructions.load('html/instruction-test-slider.html');
 
-        $("#sliderStuff").show();
-        $("#slider-info").html($('#slider').slider('value') + "%"); // update slider value
+        divSliderStuff.show();
+        divSliderInfo.html(divSlider.slider('value') + "%"); // update slider value
 
-        $('#buttons').show();
-        $('#next').show();
-        $('#next').click(saveTestTrial);
+        divButtons.show();
+        divNext.show();
+        divNext.click(saveTestTrial);
     }
 };
 
@@ -197,11 +218,11 @@ function trainTrial() {
     hideElements();
 
     // display training trial instructions
-    $('#instructions').show();
-    $('#instructions').load('html/instruction-train.html');
+    divInstructions.show();
+    divInstructions.load('html/instruction-train.html');
 
     // draw training stimuli in canvas
-    $('#imageSpace').show();
+    divImageSpace.show();
     var currAngle = trainTrialStimuli[5*currBlock + currTrial];
 
     
@@ -210,17 +231,17 @@ function trainTrial() {
     var colour = 'green';
     if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
         colour = colourCondition;
-    drawLine(currAngle, colour, $('#imageSpace').width(), $('#imageSpace').height());
+    drawLine(currAngle, colour, divImageSpace.width(), divImageSpace.height());
 
     // increment training trial counter
     currTrial++;
 
-    $('#buttons').show();
-    $('#next').show();
+    divButtons.show();
+    divNext.show();
     if(currTrial < maxTrainTrial)
-        $('#next').click(trainTrial); // go to next training trial
+        divNext.click(trainTrial); // go to next training trial
     else
         currTrial = 0; // reset trial counter
-        $('#next').click(testTrial); // proceed to test trial
+        divNext.click(testTrial); // proceed to test trial
 };
 
