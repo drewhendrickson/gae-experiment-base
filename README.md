@@ -49,16 +49,16 @@ Base experiment code for web experiments hosted on Google App Engine For Python 
 
 The structure of the code:  
 1. When a user goes to index.html a few things happen  
-    - a number of html divs and buttons are added to the screen  
-    - some support js files (jquery especially) are loaded  
-    - the js file js/init_exp.js is loaded  
+   - a number of html divs and buttons are added to the screen  
+   - some support js files (jquery especially) are loaded  
+   - the js file js/init_exp.js is loaded  
 2. js/init_exp.js loads all other js files needed  
-    - when they are finished loading, it calls the function start (which is in js/exp_logic.js)  
+   - when they are finished loading, it calls the function start (which is in js/exp_logic.js)  
 3. the function start sets up many things for the experiment:  
-    - it builds the canvas the experiment draws stimuli on,  
-    - it builds the slider,  
-    - it generates a random subjectID for this user  
-    - it determines which random condition this subject is in  
+   - it builds the canvas the experiment draws stimuli on,  
+   - it builds the slider,  
+   - it generates a random subjectID for this user  
+   - it determines which random condition this subject is in  
 4. when done initializing everything, start calls showIntro (which is in js/support_fcns.js  
 5. showIntro displays the experiment introduction (html/intro.html) and calls the function  showDemographics when the user clicks next.  
 6. showDemographics displays a form on the screen (html/demographics.html) and calls the function validateDemographics when the user clicks next  
@@ -67,47 +67,47 @@ The structure of the code:
 9. showInstructionChecks displays a form on the screen (html/instruction-checks.html) and calls the function validateInstructionChecks when the user clicks next.  
 10. validateInstructionChecks checks if the user answered all questions correctly, if they did it calls the function trainTrial (js/exp_logic.js), if they did not it calls showInstructions again  
 11. trainTrial does multiple things:  
-    - it determines which line to draw (based on the current trial, block number, and trainTrialStimuli)  
-    - calls the function drawLine to draw that line  
-        - the function drawLine draws a line on the canvas  
-    - displays the next button  
-    - increases the trial number (currTrial variable)  
-    - when the user clicks next either  
-        - calls testTrial if all training trials are done (maxTrainTrial)  
-        - or calls trainTrial (to show the next training trial)  
+   - it determines which line to draw (based on the current trial, block number, and trainTrialStimuli)  
+   - calls the function drawLine to draw that line  
+      - the function drawLine draws a line on the canvas  
+   - displays the next button  
+   - increases the trial number (currTrial variable)  
+   - when the user clicks next either  
+      - calls testTrial if all training trials are done (maxTrainTrial)  
+      - or calls trainTrial (to show the next training trial)  
 12. testTrial does multiple things also:  
-    - it determines which line to draw (based on current trial, block number, and testTrialStimuli)  
-    - calls the function drawLine to draw that line  
-    - displays the next button and either two button options or the slider (depending on which block the user is in)  
-    - increases the trial number (currTrial variable)  
-    - starts a timer to measure RT  
-    - records what response the user makes  
-    - calls the function saveTestTrial  
+   - it determines which line to draw (based on current trial, block number, and testTrialStimuli)  
+   - calls the function drawLine to draw that line  
+   - displays the next button and either two button options or the slider (depending on which block the user is in)  
+   - increases the trial number (currTrial variable)  
+   - starts a timer to measure RT  
+   - records what response the user makes  
+   - calls the function saveTestTrial  
 13. saveTestTrial does multiple things:  
-    - computes the RT of the subject  
-    - builds an object (exp_data) which contains all demographic data of the user, condition info, trial and block number, stimuli info, and response information  
-    - calls the function saveData  
-        - the function saveData takes the data passed to it and writes it to the server  
-    - determines what should happen next:  
-        - if all blocks have been completed, call funishExperiment function  
-            - the function finishExperiment removes all buttons and displays the final thankyou message (html/instruction-finish.html)  
-        - if all trials in the current block have been completed, call trainTrial (to start the next block)  
-        - otherwise call testTrial to do the next trial in this block  
+   - computes the RT of the subject  
+   - builds an object (exp_data) which contains all demographic data of the user, condition info, trial and block number, stimuli info, and response information  
+   - calls the function saveData  
+      - the function saveData takes the data passed to it and writes it to the server  
+   - determines what should happen next:  
+      - if all blocks have been completed, call funishExperiment function  
+         - the function finishExperiment removes all buttons and displays the final thankyou message (html/instruction-finish.html)  
+      - if all trials in the current block have been completed, call trainTrial (to start the next block)  
+      - otherwise call testTrial to do the next trial in this block  
 
 ### To modify this code for your own experiment:
 
 This project is designed so you need to modify the fewest number of files to change the experiment for your own task. These files will likely need to be changed:
-    - most files in the html folder to reflect your instructions, conditions, thanks, etc.
-    - the file js/exp_logic.js
-        - you will likely need to change some of the global variables at the top of the file
-        - you will likely need to change the functions testTrial and trainTrial
-        - you will probably need to replace drawLine with a function to draw your stimuli
-        - you might need to add different information being written to the data in the saveTestTrial function  
-    - you might need to modify index.html if you add new buttons or input types
+   - most files in the html folder to reflect your instructions, conditions, thanks, etc.
+   - the file js/exp_logic.js
+      - you will likely need to change some of the global variables at the top of the file
+      - you will likely need to change the functions testTrial and trainTrial
+      - you will probably need to replace drawLine with a function to draw your stimuli
+      - you might need to add different information being written to the data in the saveTestTrial function  
+   - you might need to modify index.html if you add new buttons or input types
 
 Notes: 
-    - all locations in the javascript files where the slider is referenced are marked with a comment SLIDER comment.
-    - all locations in the javascript files where between-subject conditions are referenced are marked with CONDITION comment.
+   - all locations in the javascript files where the slider is referenced are marked with a comment SLIDER comment.
+   - all locations in the javascript files where between-subject conditions are referenced are marked with CONDITION comment.
 
 
 # Running the experiment code:
