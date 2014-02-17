@@ -44,12 +44,12 @@ var colourCondition;
 
 // begin the experiment, initialize canvas, slider, subjectID, 
 function start () {
-    // initialize canvas drawing
-    initializeCanvas();
-    
     // initialize references to elements in html
     initDivReferences();
 
+    // initialize canvas drawing
+    initializeCanvas();
+    
     // initialize the slider
     initializeSlider(100);
     
