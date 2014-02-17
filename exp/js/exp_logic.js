@@ -7,7 +7,6 @@ var demographics = [];
 
 // experimental variables 
 var currTrial = 0;
-var currTrial = 0;
 var currBlock = 0;
 
 // canvas variables
@@ -29,10 +28,6 @@ var divImageSpace, divSlider, divInstructions, divBlue, divButtons, divGreen, di
 
 
 /* Variables you likely will need to change are below */
-
-var maxTrainTrial = 5;
-var maxTestTrial = 5;
-var maxBlock = 2;
 
 var trainTrialStimuli = [130, -130, -20, 50, -10, -20, 70, 170, 120, 100, -120, 10, -30, 160, 140];
 var testTrialStimuli = [160, -150, 120, -50, -150, 130, -80, -10, -40, 170, -120, 20, 20, -50, -170];
@@ -113,6 +108,12 @@ function drawLine(degrees, colour, width, height) {
 
 function saveTestTrial() {
     rt = new Date().getTime() - base_time;
+    
+    // how many test trials to do per block
+    var maxTestTrial = 5;
+    
+    // how many blocks to do total
+    var maxBlock = 2;
 
     // all of the data from this trial will go into this object
     var exp_data = {};
@@ -216,6 +217,9 @@ function testTrial() {
 
 function trainTrial() {
     hideElements();
+    
+    // how many training trials to do in each block
+    var maxTrainTrial = 5;
 
     // display training trial instructions
     divInstructions.show();
