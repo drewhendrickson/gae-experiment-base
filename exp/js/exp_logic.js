@@ -109,12 +109,6 @@ function drawLine(degrees, colour, width, height) {
 function saveTestTrial() {
     rt = new Date().getTime() - base_time;
     
-    // how many test trials to do per block
-    var maxTestTrial = 5;
-    
-    // how many blocks to do total
-    var maxBlock = 2;
-
     // all of the data from this trial will go into this object
     var exp_data = {};
 
@@ -140,6 +134,16 @@ function saveTestTrial() {
 
     // save trial data
     saveData(exp_data);
+
+    selectNextTrial();
+}
+
+function selectNextTrial () {
+    // how many test trials to do per block
+    var maxTestTrial = 5;
+    
+    // how many blocks to do total
+    var maxBlock = 2;
 
     // determine which section to go to next
     if(currTrial < maxTestTrial) {

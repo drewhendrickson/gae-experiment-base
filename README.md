@@ -85,11 +85,12 @@ The structure of the code:
    - builds an object (exp_data) which contains all demographic data of the user, condition info, trial and block number, stimuli info, and response information  
    - calls the function saveData  
       - the function saveData takes the data passed to it and writes it to the server  
-   - determines what should happen next:  
-      - if all blocks have been completed, call funishExperiment function  
-         - the function finishExperiment removes all buttons and displays the final thankyou message (html/instruction-finish.html)  
-      - if all trials in the current block have been completed, call trainTrial (to start the next block)  
-      - otherwise call testTrial to do the next trial in this block  
+   - calls the function selectNextTrial
+14. selectNextTrial determines what should happen next:  
+   - if all blocks have been completed, call funishExperiment function  
+      - the function finishExperiment removes all buttons and displays the final thankyou message (html/instruction-finish.html)  
+   - if all trials in the current block have been completed, call trainTrial (to start the next block)  
+   - otherwise call testTrial to do the next trial in this block  
 
 ### To modify this code for your own experiment:
 
