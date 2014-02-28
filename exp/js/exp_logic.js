@@ -116,7 +116,10 @@ function saveTestTrial() {
     for (var i = 0; i < demographics.length; i++) {
         exp_data[demographics[i].name] = demographics[i].value;
     }
-    exp_data.age = parseInt(exp_data.age, 10);
+    
+    // fix type of age if it exists (from demographics)
+    if ("age" in exp_data)
+        exp_data.age = parseInt(exp_data.age, 10);
 
     // add trial data to trial output
     exp_data.subjectID      = subjectID;
