@@ -191,7 +191,7 @@ function showInstructionChecks() {
     hideElements();
 
     divInstructions.show();
-    divInstructions.text('Here are some questions to check if you have read the instructions correctly. If you answer all the questions correct you will begin the experiment, otherwise you will be redirected to the instructions page again.');
+    divInstructions.text('Here are some questions to check if you have read the instructions correctly. If you answer all the questions correctly you will begin the experiment, otherwise you will be redirected to the instructions page again.');
 
     var divInstructionChecks = $('#instruction-checks');
     divInstructionChecks.show();
