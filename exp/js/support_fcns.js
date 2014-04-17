@@ -162,7 +162,7 @@ function validateDemographics() {
         showDemographics();
     }
     else {
-    // remove demographics form
+        // remove demographics form
         $('#demographics').html('');
         showInstructions();
     }
@@ -234,6 +234,8 @@ function validateInstructionChecks() {
         showInstructions(); // go back to instruction screen
     }
     else {
+        // remove instruction checks form
+        $('#instruction-checks').html('');
         trainTrial(); // start experiment
     }
 }
