@@ -209,9 +209,19 @@ function showInstructionChecks() {
     divInstructions.text('Here are some questions to check if you have read the instructions correctly. If you answer all the questions correctly you will begin the experiment, otherwise you will be redirected to the instructions page again.');
 
     var divInstructionChecks = $('#instruction-checks');
+    divInstructionChecks.html('<form> \
+                                <label for="question1">Question 1:</label> \
+                                <input type="radio" name="question1" value="correct" /> Correct <br /> \
+                                <input type="radio" name="question1" value="incorrect" /> Incorrect<br /><br /> \
+                                <label for="question2">Question 2:</label> \
+                                <input type="radio" name="question2" value="correct" /> Correct <br /> \
+                                <input type="radio" name="question2" value="incorrect" /> Incorrect<br /><br /> \
+                                <label for="question3">Question 3:</label> \
+                                <input type="radio" name="question3" value="correct" /> Correct <br /> \
+                                <input type="radio" name="question3" value="incorrect" /> Incorrect<br /> \
+                              </form>');
     divInstructionChecks.show();
-    divInstructionChecks.load('html/instruction-checks.html');
-    
+
     divButtons.show();
     divNext.show();
     divNext.click(validateInstructionChecks);
