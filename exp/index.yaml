@@ -1,0 +1,6 @@
+indexes:
+
+- kind: DataObject
+  properties:
+  - name: __key__
+    direction: desc
