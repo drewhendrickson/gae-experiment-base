@@ -1,4 +1,5 @@
 /*global $, document, console, alert */
+/*jshint multistr: true */
 
 // canvas functions
 function initializeCanvas() {
@@ -192,16 +193,9 @@ function validateDemographics() {
 // displays experiment instructions
 function showInstructions() {
     hideElements();
-
-    divInstructions.show();
     
-    // CONDITION 
-    if(colourCondition == 'red') {
-    divInstructions.load('html/instructions-red.html');
-    }
-    else if(colourCondition == 'blue') {
-    divInstructions.load('html/instructions-blue.html');
-    }
+    divInstructions.html('In this task you will see ' + colorCondition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.');
+    divInstructions.show();
 
     divButtons.show();
     divNext.show();
