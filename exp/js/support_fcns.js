@@ -70,8 +70,8 @@ function showInputOptions() {
                           <p>Stimuli Colour</p> \
 													<select id="colour"> \
 														<option value="red">Red</option> \
-  													<option value="blue">Blue</option> \
- 												 	</select> \
+                            <option value="blue">Blue</option> \
+                          </select> \
                           <p>What section should we start in?</p> \
                           <select id="section"> \
                             <option value="intro">Introduction</option> \
