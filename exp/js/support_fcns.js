@@ -194,7 +194,7 @@ function validateDemographics() {
 function showInstructions() {
     hideElements();
     
-    divInstructions.html('In this task you will see ' + colorCondition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.');
+    divInstructions.html('In this task you will see ' + colourCondition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.');
     divInstructions.show();
 
     divButtons.show();
