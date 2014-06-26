@@ -65,7 +65,20 @@ function showInputOptions() {
     // allows you to set the experimental conditions instead of randomly assigning them above
     var divInputOptions = $('#input-options');
     divInputOptions.show();
-    divInputOptions.load('html/input-options.html');
+    divInputOptions.html('<h3>Experiment options</h3> \
+                          <p>Stimuli Colour</p> \
+													<select id="colour"> \
+														<option value="red">Red</option> \
+  													<option value="blue">Blue</option> \
+ 												 	</select> \
+                          <p>What section should we start in?</p> \
+                          <select id="section"> \
+                            <option value="intro">Introduction</option> \
+                            <option value="demographics">Demographics</option> \
+                            <option value="instructions">Instructions</option> \
+                            <option value="training">Training</option> \
+                            <option value="testing">Testing</option> \
+                          </select>');
 
     divButtons.show();
     divNext.show();
