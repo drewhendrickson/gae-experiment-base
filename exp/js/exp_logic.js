@@ -1,4 +1,4 @@
-/*global $, console */
+/*global $, console, initializeCanvas, initializeSlider, hideElements, showInputOptions, showIntro, saveData, finishExperiment */
 
 // participant variables
 var subjectID;
@@ -61,7 +61,7 @@ function start () {
         initializeCondition();
         showIntro();
     }
-};
+}
 
 function initDivReferences () {
     divImageSpace = $('#imageSpace');
@@ -75,7 +75,7 @@ function initDivReferences () {
     divSliderStuff = $('#sliderStuff');
     divSlider = $('#slider');
     divSliderInfo = $('#slider-info');
-};
+}
 
 function initializeCondition () {
     var r = Math.ceil(Math.random() * 2); // generate random number
@@ -84,7 +84,7 @@ function initializeCondition () {
     } else if (r === 2) {
         colourCondition = 'blue';
     }
-};
+}
     
 
 // draw experimental stimuli using canvas functions
@@ -220,7 +220,7 @@ function testTrial() {
         divNext.show();
         divNext.click(saveTestTrial);
     }
-};
+}
 
 function trainTrial() {
     hideElements();
@@ -256,5 +256,5 @@ function trainTrial() {
         currTrial = 0; // reset trial counter
         divNext.click(testTrial); // proceed to test trial
     }
-};
+}
 
