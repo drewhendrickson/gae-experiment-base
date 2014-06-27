@@ -212,7 +212,7 @@ function selectNextTrial () {
   * selectNextTrial determines based on the currTrial and currBlock variables
   * what the next type of trial should be or if the experiment is done
   * 
-  * the appropriate next function is called
+  * the appropriate function is called next
   */
   
   // determine which section to go to next
@@ -292,10 +292,22 @@ function testTrial() {
 }
 
 function trainTrial() {
+  /* 
+  * display a training trial in which a colored line is shown on the screen
+  * and subjects are asked to press next when done studying it
+  *
+  * which stimuli to display from trainingTrialStimuli is determined
+  * by the current block (currentBlock) and current trial number (currTrial)
+  *
+  * after each Next click, checks if the correct number of training trials have been shown
+  * if so, proceed to test trials
+  * otherwise, show another training trial
+  */
+
   hideElements();
 
   // display training trial instructions
-  divInstructions.html('Here are some lines.');
+  divInstructions.html('Here is a colored line. Study it and press Next when done.');
   divInstructions.show();
 
   // draw training stimuli in canvas
@@ -303,7 +315,7 @@ function trainTrial() {
 
   // if the line has a positive slope, draw it green
   // otherwise draw it with the color of the condition
-  var currAngle = trainTrialStimuli[5*currBlock + currTrial];
+  var currAngle = trainTrialStimuli[maxTrainTrial * currBlock + currTrial];
   var colour = 'green';
   if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
     colour = condition;
@@ -323,6 +335,11 @@ function trainTrial() {
 }
 
 function finishExperiment() {
+  /* 
+  * finishExperiment is called when all trials are complete and subjects are done
+  * removes everything from the screen and thanks the subject
+  */
+  
   hideElements();
 
   divInstructions.html('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
