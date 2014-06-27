@@ -189,7 +189,7 @@ function testTrial() {
     if (currBlock < 1) {
         // display test trial instructions
         divInstructions.show();
-        divInstructions.load('html/instruction-test-button.html');
+        divInstructions.html('What colour should this line be?');
 
         // CONDITION 
         // change text value of response buttons depending on colour condition
@@ -211,7 +211,7 @@ function testTrial() {
     // slider example
     else {
         divInstructions.show();
-        divInstructions.load('html/instruction-test-slider.html');
+        divInstructions.html('What is the probability this line is green?');
 
         divSliderStuff.show();
         divSliderInfo.html(divSlider.slider('value') + "%"); // update slider value
@@ -230,7 +230,7 @@ function trainTrial() {
 
     // display training trial instructions
     divInstructions.show();
-    divInstructions.load('html/instruction-train.html');
+    divInstructions.html('Here are some lines.');
 
     // draw training stimuli in canvas
     divImageSpace.show();
