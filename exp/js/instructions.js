@@ -1,3 +1,5 @@
+/*global $, alert, hideElements, divInstructions, divButtons, divNext, trainTrial, colourCondition, showDemographics */
+/*jshint multistr: true */
 
 
 function showIntro() {
