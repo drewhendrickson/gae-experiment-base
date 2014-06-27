@@ -115,9 +115,3 @@ function saveData(args) {
   })(args);
 }
 
-function finishExperiment() {
-  hideElements();
-
-  divInstructions.html('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
-  divInstructions.show();
-}
