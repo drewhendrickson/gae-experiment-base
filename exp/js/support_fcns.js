@@ -1,4 +1,4 @@
-/*global $, document, console, alert, demographics:true, divImageSpace, canvas:true, context:true, divInstructions, divSlider, divSliderInfo, divSliderStuff, buttonNext, default_slider_value:true, condition:true, initializeTask, showIntro, showDemographics, showInstructions */
+/*global $, document, divImageSpace,  divSlider, divSliderInfo, divSliderStuff, default_slider_value:true, canvas:true, context:true */
 /*jshint multistr: true */
 
 function initializeCanvas() {
@@ -93,59 +93,6 @@ function hideSlider() {
   */
 
   divSliderStuff.hide();
-}
-
-function showInputOptions() {
-  /*
-  * allow the user to specify which condition they are in
-  * as well as which aspect of the experiment to start in
-  *
-  * this function is particularly useful for debugging and testing
-  */
-
-  hideElements();
-  
-  // first present the input options for the experiment (for debugging purposes)
-  // allows you to set the experimental conditions instead of randomly assigning them above
-  var divInputOptions = $('#input-options');
-  divInputOptions.show();
-  divInputOptions.html('<h3>Experiment options</h3> \
-                        <p>Stimuli Colour</p> \
-                        <select id="condition"> \
-                          <option value="red">Red</option> \
-                          <option value="blue">Blue</option> \
-                        </select> \
-                        <p>What section should we start in?</p> \
-                        <select id="section"> \
-                          <option value="intro">Introduction</option> \
-                          <option value="demographics">Demographics</option> \
-                          <option value="instructions">Instructions</option> \
-                          <option value="training">Training</option> \
-                        </select><br /><br />');
-
-  buttonNext.show();
-  buttonNext.click(function () {
-    
-    // read color option
-    condition = $('#condition').val();
-
-    // determinewhich section to start with:
-    switch ($('#section').val()) {
-      case "intro":
-        showIntro();
-        break;
-      case "demographics":
-        showDemographics();
-        break;
-      case "instructions":
-        showInstructions();
-        break;
-      case "training":
-        initializeTask();
-        break;
-    }
-  });
-
 }
 
 function saveData(data) {

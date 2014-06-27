@@ -93,3 +93,57 @@ function validateInstructionChecks() {
   }
 }
 
+function showInputOptions() {
+  /*
+  * allow the user to specify which condition they are in
+  * as well as which aspect of the experiment to start in
+  *
+  * this function is particularly useful for debugging and testing
+  */
+
+  // remove all elements from the screen
+  // reset all buttons so they do not have any functions bound to them
+  hideElements();
+  
+  // first present the input options for the experiment (for debugging purposes)
+  // allows you to set the experimental conditions instead of randomly assigning them above
+  var divInputOptions = $('#input-options');
+  divInputOptions.show();
+  divInputOptions.html('<h3>Experiment options</h3> \
+                        <p>Stimuli Colour</p> \
+                        <select id="condition"> \
+                          <option value="red">Red</option> \
+                          <option value="blue">Blue</option> \
+                        </select> \
+                        <p>What section should we start in?</p> \
+                        <select id="section"> \
+                          <option value="intro">Introduction</option> \
+                          <option value="demographics">Demographics</option> \
+                          <option value="instructions">Instructions</option> \
+                          <option value="training">Training</option> \
+                        </select><br /><br />');
+
+  buttonNext.show();
+  buttonNext.click(function () {
+    
+    // read color option
+    condition = $('#condition').val();
+
+    // determinewhich section to start with:
+    switch ($('#section').val()) {
+      case "intro":
+        showIntro();
+        break;
+      case "demographics":
+        showDemographics();
+        break;
+      case "instructions":
+        showInstructions();
+        break;
+      case "training":
+        initializeTask();
+        break;
+    }
+  });
+
+}
