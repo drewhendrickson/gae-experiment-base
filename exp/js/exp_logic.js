@@ -39,217 +39,216 @@ var colourCondition;
 
 // begin the experiment, initialize canvas, slider, subjectID, 
 function start () {
-    // initialize references to elements in html
-    initDivReferences();
+  // initialize references to elements in html
+  initDivReferences();
 
-    // initialize canvas drawing
-    initializeCanvas();
-    
-    // initialize the slider
-    initializeSlider(100);
-    
-    hideElements();
-    
-    // generate a subject ID by generating a random number between 1 and 1000000
-    subjectID = Math.round(Math.random() * 1000000);
-    
-    if (false) {
-        // allow user to select where to start the experiment
-        showInputOptions();
-    } else {
-        // randomize experimental conditions
-        initializeCondition();
-        showIntro();
-    }
+  // initialize canvas drawing
+  initializeCanvas();
+
+  // initialize the slider
+  initializeSlider(100);
+
+  hideElements();
+
+  // generate a subject ID by generating a random number between 1 and 1000000
+  subjectID = Math.round(Math.random() * 1000000);
+
+  if (false) {
+    // allow user to select where to start the experiment
+    showInputOptions();
+  } else {
+    // randomize experimental conditions
+    initializeCondition();
+    showIntro();
+  }
 }
 
 function initDivReferences () {
-    divImageSpace = $('#imageSpace');
-    divInstructions = $('#instructions');
+  divImageSpace = $('#imageSpace');
+  divInstructions = $('#instructions');
 
-    divBlue = $('#blue');
-    divGreen = $('#green');
-    divNext = $('#next');
+  divBlue = $('#blue');
+  divGreen = $('#green');
+  divNext = $('#next');
 
-    divSliderStuff = $('#sliderStuff');
-    divSlider = $('#slider');
-    divSliderInfo = $('#slider-info');
+  divSliderStuff = $('#sliderStuff');
+  divSlider = $('#slider');
+  divSliderInfo = $('#slider-info');
 }
 
 function initializeCondition () {
-    var r = Math.ceil(Math.random() * 2); // generate random number
-    if (r === 1) {
-        colourCondition = 'red';
-    } else if (r === 2) {
-        colourCondition = 'blue';
-    }
+  var r = Math.ceil(Math.random() * 2); // generate random number
+  if (r === 1) {
+    colourCondition = 'red';
+  } else if (r === 2) {
+    colourCondition = 'blue';
+  }
 }
-    
+
 
 // draw experimental stimuli using canvas functions
 function drawLine(degrees, colour, width, height) {
-    var radians = degrees * (Math.PI / 180);
-    var length = 200;
+  var radians = degrees * (Math.PI / 180);
+  var length = 200;
 
-    // set width of line
-    context.lineWidth = 5;
+  // set width of line
+  context.lineWidth = 5;
 
-    // set line colour
-    context.strokeStyle = colour;
+  // set line colour
+  context.strokeStyle = colour;
 
-    // draw line
-    context.beginPath();
-    context.moveTo(width / 2 - length * Math.cos(radians), height / 2 - length * Math.sin(radians));
-    context.lineTo(width / 2 + length * Math.cos(radians), height / 2 + length * Math.sin(radians));
-    context.closePath();
-    context.stroke();
+  // draw line
+  context.beginPath();
+  context.moveTo(width / 2 - length * Math.cos(radians), height / 2 - length * Math.sin(radians));
+  context.lineTo(width / 2 + length * Math.cos(radians), height / 2 + length * Math.sin(radians));
+  context.closePath();
+  context.stroke();
 }
 
 function saveTestTrial() {
-    rt = new Date().getTime() - base_time;
-    
-    // all of the data from this trial will go into this object
-    var exp_data = {};
+  rt = new Date().getTime() - base_time;
 
-    // add demographics data to trial output
-    for (var i = 0; i < demographics.length; i++) {
-        exp_data[demographics[i].name] = demographics[i].value;
-    }
-    
-    // fix type of age if it exists (from demographics)
-    if ("age" in exp_data)
-        exp_data.age = parseInt(exp_data.age, 10);
+  // all of the data from this trial will go into this object
+  var exp_data = {};
 
-    // add trial data to trial output
-    exp_data.subjectID      = subjectID;
-    exp_data.testTrial      = currTrial;
-    exp_data.block          = currBlock;
-    exp_data.condition      = condition;
-    exp_data.rt             = rt;
-    exp_data.experiment     = "test_experiment_v1";
-    exp_data.button_value   = response;
-    // SLIDER
-    exp_data.slider_value = divSlider.slider('value');
+  // add demographics data to trial output
+  for (var i = 0; i < demographics.length; i++) {
+    exp_data[demographics[i].name] = demographics[i].value;
+  }
 
-    // print the data to console for debugging
-    console.log(exp_data);
+  // fix type of age if it exists (from demographics)
+  if ("age" in exp_data)
+    exp_data.age = parseInt(exp_data.age, 10);
 
-    // save trial data
-    saveData(exp_data);
+  // add trial data to trial output
+  exp_data.subjectID      = subjectID;
+  exp_data.testTrial      = currTrial;
+  exp_data.block          = currBlock;
+  exp_data.condition      = condition;
+  exp_data.rt             = rt;
+  exp_data.experiment     = "test_experiment_v1";
+  exp_data.button_value   = response;
+  // SLIDER
+  exp_data.slider_value = divSlider.slider('value');
 
-    selectNextTrial();
+  // print the data to console for debugging
+  console.log(exp_data);
+
+  // save trial data
+  saveData(exp_data);
+
+  selectNextTrial();
 }
 
 function selectNextTrial () {
-    // how many test trials to do per block
-    var maxTestTrial = 5;
-    
-    // how many blocks to do total
-    var maxBlock = 2;
+  // how many test trials to do per block
+  var maxTestTrial = 5;
 
-    // determine which section to go to next
-    if(currTrial < maxTestTrial) {
-        testTrial(); // next test trial
+  // how many blocks to do total
+  var maxBlock = 2;
+
+  // determine which section to go to next
+  if(currTrial < maxTestTrial) {
+    testTrial(); // next test trial
+  }
+  else {
+    // increment block 
+    currBlock++;
+
+    if(currBlock < maxBlock) {
+      currTrial = 0; // reset trial counter
+      trainTrial(); // next training block
     }
     else {
-        // increment block 
-        currBlock++;
-
-        if(currBlock < maxBlock) {
-            currTrial = 0; // reset trial counter
-            trainTrial(); // next training block
-        }
-        else {
-            finishExperiment(); // end of experiment
-        }
+      finishExperiment(); // end of experiment
     }
+  }
 }
 
 function testTrial() {
-    hideElements();
+  hideElements();
 
-    // draw test stimuli
-    var currAngle = testTrialStimuli[5 * currBlock + currTrial];
-    drawLine(currAngle, 'black', divImageSpace.width(), divImageSpace.height());
-    divImageSpace.show();
+  // draw test stimuli
+  var currAngle = testTrialStimuli[5 * currBlock + currTrial];
+  drawLine(currAngle, 'black', divImageSpace.width(), divImageSpace.height());
+  divImageSpace.show();
 
-    // increment test trial counter
-    currTrial++;
+  // increment test trial counter
+  currTrial++;
 
-    // get time of beginning of trial
-    base_time = new Date().getTime();
+  // get time of beginning of trial
+  base_time = new Date().getTime();
 
-    // reset response variables
-    response = -1;
-    // SLIDER
-    divSlider.slider('value', default_slider_value);
+  // reset response variables
+  response = -1;
+  // SLIDER
+  divSlider.slider('value', default_slider_value);
 
-    // response button example
-    if (currBlock < 1) {
-        // display test trial instructions
-        divInstructions.html('What colour should this line be?');
-        divInstructions.show();
+  // response button example
+  if (currBlock < 1) {
+    // display test trial instructions
+    divInstructions.html('What colour should this line be?');
+    divInstructions.show();
 
-        // CONDITION 
-        // change text value of response buttons depending on colour condition
-        if (colourCondition === "red") {
-            divBlue.prop('value', 'Red');
-        } else if (colourCondition === "blue") {
-            divBlue.prop('value', 'Blue');
-        }
-
-        // show response buttons
-        divBlue.show();
-        divGreen.show();
-
-        divBlue.click(function () {response = 0; saveTestTrial();});
-        divGreen.click(function () {response = 1; saveTestTrial();});
+    // CONDITION 
+    // change text value of response buttons depending on colour condition
+    if (colourCondition === "red") {
+      divBlue.prop('value', 'Red');
+    } else if (colourCondition === "blue") {
+      divBlue.prop('value', 'Blue');
     }
-    // SLIDER
-    // slider example
-    else {
-        divInstructions.html('What is the probability this line is green?');
-        divInstructions.show();
 
-        divSliderInfo.html(divSlider.slider('value') + "%"); // update slider value
-        divSliderStuff.show();
+    // show response buttons
+    divBlue.show();
+    divGreen.show();
 
-        divNext.show();
-        divNext.click(saveTestTrial);
-    }
+    divBlue.click(function () {response = 0; saveTestTrial();});
+    divGreen.click(function () {response = 1; saveTestTrial();});
+  }
+  // SLIDER
+  // slider example
+  else {
+    divInstructions.html('What is the probability this line is green?');
+    divInstructions.show();
+
+    divSliderInfo.html(divSlider.slider('value') + "%"); // update slider value
+    divSliderStuff.show();
+
+    divNext.show();
+    divNext.click(saveTestTrial);
+  }
 }
 
 function trainTrial() {
-    hideElements();
-    
-    // how many training trials to do in each block
-    var maxTrainTrial = 5;
+  hideElements();
 
-    // display training trial instructions
-    divInstructions.html('Here are some lines.');
-    divInstructions.show();
+  // how many training trials to do in each block
+  var maxTrainTrial = 5;
 
-    // draw training stimuli in canvas
-    divImageSpace.show();
+  // display training trial instructions
+  divInstructions.html('Here are some lines.');
+  divInstructions.show();
 
-    // if the line has a positive slope, draw it green
-    // otherwise draw it with the color of the condition
-    var currAngle = trainTrialStimuli[5*currBlock + currTrial];
-    var colour = 'green';
-    if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
-        colour = colourCondition;
-    drawLine(currAngle, colour, divImageSpace.width(), divImageSpace.height());
+  // draw training stimuli in canvas
+  divImageSpace.show();
 
-    // increment training trial counter
-    currTrial++;
+  // if the line has a positive slope, draw it green
+  // otherwise draw it with the color of the condition
+  var currAngle = trainTrialStimuli[5*currBlock + currTrial];
+  var colour = 'green';
+  if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
+    colour = colourCondition;
+  drawLine(currAngle, colour, divImageSpace.width(), divImageSpace.height());
 
-    divNext.show();
-    if(currTrial < maxTrainTrial) {
-        divNext.click(trainTrial); // go to next training trial
-    }
-    else {
-        currTrial = 0; // reset trial counter
-        divNext.click(testTrial); // proceed to test trial
-    }
+  // increment training trial counter
+  currTrial++;
+
+  divNext.show();
+  if(currTrial < maxTrainTrial) {
+    divNext.click(trainTrial); // go to next training trial
+  }
+  else {
+    currTrial = 0; // reset trial counter
+    divNext.click(testTrial); // proceed to test trial
+  }
 }
-
