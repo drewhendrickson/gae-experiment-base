@@ -16,7 +16,7 @@ function showIntro() {
 function showInstructions() {
   hideElements();
 
-  divInstructions.html('In this task you will see ' + condition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.');
+  divInstructions.html('<p>In this task you will see ' + condition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.<\p>');
   divInstructions.show();
 
   buttonNext.show();
@@ -27,20 +27,20 @@ function showInstructionChecks() {
   hideElements();
 
   divInstructions.show();
-  divInstructions.text('Here are some questions to check if you have read the instructions correctly. If you answer all the questions correctly you will begin the experiment, otherwise you will be redirected to the instructions page again.');
+  divInstructions.html('<p>Here are some questions to check if you have read the instructions correctly. If you answer all the questions correctly you will begin the experiment, otherwise you will be redirected to the instructions page again.<\p>');
 
   var divInstructionChecks = $('#instruction-checks');
   divInstructionChecks.html('<form> \
-                              <label for="question1">Question 1:</label> \
+                              <label for="question1">Question 1:</label><br /> \
                               <input type="radio" name="question1" value="correct" /> Correct <br /> \
                               <input type="radio" name="question1" value="incorrect" /> Incorrect<br /><br /> \
-                              <label for="question2">Question 2:</label> \
+                              <label for="question2">Question 2:</label><br /> \
                               <input type="radio" name="question2" value="correct" /> Correct <br /> \
                               <input type="radio" name="question2" value="incorrect" /> Incorrect<br /><br /> \
-                              <label for="question3">Question 3:</label> \
+                              <label for="question3">Question 3:</label><br /> \
                               <input type="radio" name="question3" value="correct" /> Correct <br /> \
                               <input type="radio" name="question3" value="incorrect" /> Incorrect<br /> \
-                            </form>');
+                            </form><br /><br />');
   divInstructionChecks.show();
 
   buttonNext.show();
