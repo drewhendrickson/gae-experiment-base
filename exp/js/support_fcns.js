@@ -1,4 +1,4 @@
-/*global $, document, console, alert */
+/*global $, document, console, alert, demographics:true, divImageSpace, canvas:true, context:true, divInstructions, divSlider, divSliderInfo, divSliderStuff, divButtons, divNext, default_slider_value, colourCondition:true, trainTrial, testTrial */
 /*jshint multistr: true */
 
 // canvas functions
@@ -20,7 +20,7 @@ function initializeSlider(max) {
             divSliderInfo.html(ui.value + '%');
         }
     });
-};
+}
 
 // clears the whole canvas area
 function imageClear() {
