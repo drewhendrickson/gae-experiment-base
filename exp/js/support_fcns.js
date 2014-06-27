@@ -91,7 +91,7 @@ function showInputOptions() {
     // read color option
     condition = $('#colour').val();
 
-    // which section to start with:
+    // determinewhich section to start with:
     switch ($('#section').val()) {
       case "intro":
         showIntro();
