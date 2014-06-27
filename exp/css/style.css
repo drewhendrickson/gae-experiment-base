@@ -37,14 +37,17 @@ body {
 }
 
 #buttons {
-    text-align: center;
-    display: none;
+  text-align: center;
+  display: none;
 }
 
 .text {
-    width: 700px ;
-    margin-left: auto ;
-    margin-right: auto ;
-    text-align: center;
+  width: 700px ;
+  margin-left: auto ;
+  margin-right: auto ;
+  text-align: center;
 }
 
+.form-horizontal {
+  text-align: left;
+}
