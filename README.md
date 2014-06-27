@@ -9,6 +9,69 @@ Base experiment code for web experiments hosted on Google App Engine For Python 
 - Google AppEngineLauncher for Python: [here](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python)
 - Google App command line tools (for downloading data from server). This must be done when starting Google AppEngineLauncher
 
+# Getting started:
+
+### How to run locally for testing (in Chrome):
+
+1. Install AppEngineLauncher if you haven't already - [click here](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python)
+2. Clone this project
+```bash
+git clone git@github.com:drewhendrickson/gae-experiment-base.git
+```
+3. Open Google AppEngineLauncher
+4. File -> Add Existing Application
+5. Choose to the exp folder inside the cloned folder
+6. Click Add
+7. Click Run in AppEngineLauncher
+8. Navigate in browser to [localhost:8080](http://localhost:8080)
+9. Generate some data
+10. To inspect the data you created, in the App Engine Launcher click on SDK Console and then on Datastore Viewer
+
+### How to upload your experiment to the google server
+
+1. Go to https://appengine.google.com/ and click Create Application
+2. Application Identifier - only you use it but you need to know it for later
+3. Application Title - this will appear as the label on the tab in the web browser of your experiment
+4. Edit the first line of app.yaml to match your Application Identifier
+5. In Google App Engine, click on Deploy and then enter the necessary credentials
+
+### How to upload a new version of your experiment
+
+1. change whatever you needed to change in the experiment
+2. Edit app.yaml to have a new version number (usually by adding one)
+3. In Google App Engine, click Deploy
+4. click Dashboard
+5. On the dashboard, click Versions (under Main in the left bar)
+6. Set your new version as Default
+
+### How to check on the data once deployed to the web
+
+1. Open the dashboard for your experiment (via Google App Engine)
+2. Click Datastore Viewer (under Data in the left bar)
+3. Enjoy
+
+# After running the experiment:
+
+### How to download data from the GAE webpage:
+
+enter this at the command line:
+
+```
+appcfg.py download_data --config_file=bulkloader.yaml --filename=data.csv --kind=DataObject --url=http://<app_name>.appspot.com/_ah/remote_api
+```
+
+Note: The local testing in Google App Engine currently doesn't support batch download
+
+#### If you change the data being written:
+
+- you'll have to re-create the download data file (bulkloader.yaml)
+
+```
+appcfg.py create_bulkloader_config --filename=bulkloader.yaml --url=http://<app_name>.appspot.com/_ah/remote_api
+```
+
+- Then set the line in the new bulkloader.yaml `connector:` to `connector: csv` and set the delimiter to tab-based.
+
 ### Files and what they do:
 
 - In exp folder:
@@ -106,63 +169,3 @@ This project is designed so you need to modify the fewest number of files to cha
 Notes:
    - all locations in the javascript files where the slider is referenced are marked with a comment SLIDER comment.
    - all locations in the javascript files where between-subject conditions are referenced are marked with CONDITION comment.
-
-
-# Running the experiment code:
-
-### How to run locally for testing (in Chrome):
-
-1. Open Google AppEngineLauncher
-2. File -> Add Existing Application
-3. Navigate to this folder
-4. Click Add
-5. Click Run in AppEngineLauncher
-6. Navigate in browser to localhost:8080
-7. Generate some data
-7. To inspect the data you created, in the App Engine Launcher click on SDK Console and then on Datastore Viewer
-
-### How to upload your experiment to the google server
-
-1. Go to https://appengine.google.com/ and click Create Application
-2. Application Identifier - only you use it but you need to know it for later
-3. Application Title - this will appear as the label on the tab in the web browser of your experiment
-4. Edit the first line of app.yaml to match your Application Identifier
-5. In Google App Engine, click on Deploy and then enter the necessary credentials
-
-### How to upload a new version of your experiment
-
-1. change whatever you needed to change in the experiment
-2. Edit app.yaml to have a new version number (usually by adding one)
-3. In Google App Engine, click Deploy
-4. click Dashboard
-5. On the dashboard, click Versions (under Main in the left bar)
-6. Set your new version as Default
-
-### How to check on the data once deployed to the web
-
-1. Open the dashboard for your experiment (via Google App Engine)
-2. Click Datastore Viewer (under Data in the left bar)
-3. Enjoy
-
-# After running the experiment:
-
-### How to download data from the GAE webpage:
-
-enter this at the command line:
-
-```
-appcfg.py download_data --config_file=bulkloader.yaml --filename=data.csv --kind=DataObject --url=http://<app_name>.appspot.com/_ah/remote_api
-```
-
-Note: The local testing in Google App Engine currently doesn't support batch download
-
-#### If you change the data being written:
-
-- you'll have to re-create the download data file (bulkloader.yaml)
-
-```
-appcfg.py create_bulkloader_config --filename=bulkloader.yaml --url=http://<app_name>.appspot.com/_ah/remote_api
-```
-
-- Then set the line in the new bulkloader.yaml `connector:` to `connector: csv` and set the delimiter to tab-based.
-
