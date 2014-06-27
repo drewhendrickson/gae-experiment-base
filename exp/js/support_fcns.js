@@ -112,9 +112,9 @@ function showInputOptions() {
 
 // save experiment data with ajax
 function saveData(args) {
-    (function (d) {
-        $.post('submit',  {"content": JSON.stringify(d)});
-    })(args);
+  (function (d) {
+    $.post('submit',  {"content": JSON.stringify(d)});
+  })(args);
 }
 
 function finishExperiment() {
@@ -123,4 +123,3 @@ function finishExperiment() {
     divInstructions.html('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
     divInstructions.show();
 }
-
