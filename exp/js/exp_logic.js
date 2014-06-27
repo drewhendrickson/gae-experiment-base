@@ -234,6 +234,18 @@ function selectNextTrial () {
 }
 
 function testTrial() {
+  /* 
+  * display a test trial in which a black line is shown on the screen
+  * and subjects are asked to respond to it
+  *
+  * which stimuli to display from testTrialStimuli is determined
+  * by the current block (currentBlock) and current trial number (currTrial)
+  *
+  * in the first test block, participants respond by pressing one of two buttons
+  * in the second test block, they respond by moving a slider to indicate belief
+  *
+  * after subjects have selected their response, the function saveTestTrial is called
+  */
   hideElements();
 
   // draw test stimuli
@@ -252,8 +264,9 @@ function testTrial() {
   // SLIDER
   divSlider.slider('value', default_slider_value);
 
-  // response button example
   if (currBlock < 1) {
+    // show a trial in which subjects respond by pressing one of two buttons
+
     // display test trial instructions
     divInstructions.html('What colour should this line be?');
     divInstructions.show();
@@ -265,9 +278,8 @@ function testTrial() {
     buttonA.click(function () {response = 0; saveTestTrial();});
     buttonB.click(function () {response = 1; saveTestTrial();});
   }
-  // SLIDER
-  // slider example
   else {
+    // show a trial in which subjects respond by moving a slider
     divInstructions.html('What is the probability this line is green?');
     divInstructions.show();
 
