@@ -59,9 +59,6 @@ function start () {
   // initialize html canvas object
   initializeCanvas();
 
-  // initialize the slider
-  initializeSlider(100);
-
   // generate a subject ID by generating a random number between 1 and 1000000
   subjectID = Math.round(Math.random() * 1000000);
 
@@ -112,13 +109,26 @@ function initializeCondition () {
   } else if (r === 2) {
     condition = 'blue';
   }
+}
+
+function initializeTask () {
+  /* 
+  * initializeTask does all the configuration before beginning training and testing
+  * when done, start training by calling trainTrial
+  */
   
+  // initialize the slider
+  initializeSlider(100);
+
   // change text value of response buttons depending on colour condition
   buttonB.prop('value', 'Green');
   buttonA.prop('value', 'Blue');
   if (condition === "red") {
     buttonA.prop('value', 'Red');
   }
+  
+  // start the training
+  trainTrial();
 }
 
 function drawLine(degrees, colour, width, height) {

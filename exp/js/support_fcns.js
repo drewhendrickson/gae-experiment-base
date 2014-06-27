@@ -1,4 +1,4 @@
-/*global $, document, console, alert, demographics:true, divImageSpace, canvas:true, context:true, divInstructions, divSlider, divSliderInfo, divSliderStuff, buttonNext, default_slider_value:true, condition:true, trainTrial, testTrial, showIntro, showDemographics, showInstructions */
+/*global $, document, console, alert, demographics:true, divImageSpace, canvas:true, context:true, divInstructions, divSlider, divSliderInfo, divSliderStuff, buttonNext, default_slider_value:true, condition:true, initializeTask, showIntro, showDemographics, showInstructions */
 /*jshint multistr: true */
 
 // canvas functions
@@ -82,8 +82,7 @@ function showInputOptions() {
                           <option value="demographics">Demographics</option> \
                           <option value="instructions">Instructions</option> \
                           <option value="training">Training</option> \
-                          <option value="testing">Testing</option> \
-                        </select>');
+                        </select><br /><br />');
 
   buttonNext.show();
   buttonNext.click(function () {
@@ -103,10 +102,7 @@ function showInputOptions() {
         showInstructions();
         break;
       case "training":
-        trainTrial();
-        break;
-      case "testing":
-        testTrial();
+        initializeTask();
         break;
     }
   });
