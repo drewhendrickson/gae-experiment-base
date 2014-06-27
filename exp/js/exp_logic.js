@@ -63,7 +63,7 @@ function start () {
   subjectID = Math.round(Math.random() * 1000000);
 
   // if you set this to true, it allow user to select conditions and where to start
-  if (randomizeConditions) {
+  if (!randomizeConditions) {
     showInputOptions();
   } else {
     // randomize experimental conditions
