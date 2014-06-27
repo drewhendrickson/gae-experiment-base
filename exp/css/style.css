@@ -1,6 +1,6 @@
 body {
-    margin: 20px;
-    padding: 0px;
+  margin: 20px;
+  padding: 0px;
 }
 
 #instructions {
@@ -8,19 +8,19 @@ body {
 }
 
 #instruction-checks {
-    width: 700px ;
-    margin-left: auto ;
-    margin-right: auto ;
+  width: 700px ;
+  margin-left: auto ;
+  margin-right: auto ;
 }
 
 #sliderStuff {
-    text-align: center;
-    display: none;
+  text-align: center;
+  display: none;
 }
 
 #slider {
-    width: 400px;
-    margin: auto;
+  width: 400px;
+  margin: auto;
 }
 
 #imageSpace {
@@ -37,13 +37,12 @@ body {
 }
 
 #buttons {
-    text-align: center;
+  text-align: center;
 }
 
 .text {
-    width: 700px ;
-    margin-left: auto ;
-    margin-right: auto ;
-    text-align: center;
+  width: 700px ;
+  margin-left: auto ;
+  margin-right: auto ;
+  text-align: center;
 }
-
