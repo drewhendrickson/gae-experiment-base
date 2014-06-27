@@ -48,3 +48,6 @@ body {
   text-align: center;
 }
 
+.form-horizontal {
+  text-align: left;
+}
