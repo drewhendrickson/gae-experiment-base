@@ -24,7 +24,7 @@ var base_time, rt;
 var default_slider_value = 50;
 
 // references to divs in the html
-var divImageSpace, divSlider, divInstructions, divBlue, divButtons, divGreen, divSliderStuff, divSliderInfo, divNext;
+var divImageSpace, divSlider, divInstructions, divBlue, divGreen, divSliderStuff, divSliderInfo, divNext;
 
 
 /* Variables you likely will need to change are below */
@@ -67,7 +67,6 @@ function initDivReferences () {
     divImageSpace = $('#imageSpace');
     divInstructions = $('#instructions');
 
-    divButtons = $('#buttons');
     divBlue = $('#blue');
     divGreen = $('#green');
     divNext = $('#next');
@@ -200,7 +199,6 @@ function testTrial() {
         }
 
         // show response buttons
-        divButtons.show();
         divBlue.show();
         divGreen.show();
 
@@ -216,7 +214,6 @@ function testTrial() {
         divSliderStuff.show();
         divSliderInfo.html(divSlider.slider('value') + "%"); // update slider value
 
-        divButtons.show();
         divNext.show();
         divNext.click(saveTestTrial);
     }
@@ -247,7 +244,6 @@ function trainTrial() {
     // increment training trial counter
     currTrial++;
 
-    divButtons.show();
     divNext.show();
     if(currTrial < maxTrainTrial) {
         divNext.click(trainTrial); // go to next training trial

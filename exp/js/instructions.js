@@ -1,16 +1,15 @@
-/*global $, alert, hideElements, divInstructions, divButtons, divNext, trainTrial, colourCondition, showDemographics */
+/*global $, alert, hideElements, divInstructions, divNext, trainTrial, colourCondition, showDemographics */
 /*jshint multistr: true */
 
 
 function showIntro() {
-    hideElements();
+  hideElements();
+  
+  divInstructions.show();
+  divInstructions.html('<p>This is part of a study being run at the University of Adelaide. By clicking "Next" below you consent to take part in it.</p><p>Details of the study: The principal investigator is Prof Me (my.email.address). For any questions regarding the ethics of the study, please contact CONTACT INFO. Please direct any questions about this study to Prof Me. Although any data gained from this study may be published, you will not be identified and your personal details will not be divulged, nor will anything be linked to your Amazon ID. We use your Amazon ID merely to ensure you successfully completed the experiment and are paid. You may withdraw at any time, although you will not be paid unless you complete the study.</p>');
 
-    divInstructions.show();
-    divInstructions.html('<p>This is part of a study being run at the University of Adelaide. By clicking "Next" below you consent to take part in it.</p><p>Details of the study: The principal investigator is Prof Me (my.email.address). For any questions regarding the ethics of the study, please contact CONTACT INFO. Please direct any questions about this study to Prof Me. Although any data gained from this study may be published, you will not be identified and your personal details will not be divulged, nor will anything be linked to your Amazon ID. We use your Amazon ID merely to ensure you successfully completed the experiment and are paid. You may withdraw at any time, although you will not be paid unless you complete the study.</p>');
-
-    divButtons.show();
-    divNext.show();
-    divNext.click(showDemographics);
+  divNext.show();
+  divNext.click(showDemographics);
 }
 
 // displays experiment instructions
@@ -20,7 +19,6 @@ function showInstructions() {
   divInstructions.html('In this task you will see ' + colourCondition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.');
   divInstructions.show();
 
-  divButtons.show();
   divNext.show();
   divNext.click(showInstructionChecks);
 }
@@ -45,7 +43,6 @@ function showInstructionChecks() {
                             </form>');
   divInstructionChecks.show();
 
-  divButtons.show();
   divNext.show();
   divNext.click(validateInstructionChecks);
 }
@@ -74,7 +71,7 @@ function validateInstructionChecks() {
 
   // where this is the number of questions in the instruction check
   if (instructionChecks.length != 3) {
-      ok = false;
+    ok = false;
   }
 
   if(!ok) {

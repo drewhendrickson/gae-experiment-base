@@ -1,4 +1,4 @@
-/*global $, document, console, alert, demographics:true, divImageSpace, canvas:true, context:true, divInstructions, divSlider, divSliderInfo, divSliderStuff, divButtons, divNext, default_slider_value, colourCondition:true, trainTrial, testTrial */
+/*global $, document, console, alert, demographics:true, divImageSpace, canvas:true, context:true, divInstructions, divSlider, divSliderInfo, divSliderStuff, divNext, default_slider_value, colourCondition:true, trainTrial, testTrial, showIntro, showDemographics, showInstructions */
 /*jshint multistr: true */
 
 // canvas functions
@@ -81,7 +81,6 @@ function showInputOptions() {
                             <option value="testing">Testing</option> \
                           </select>');
 
-    divButtons.show();
     divNext.show();
     divNext.click(function () {
         // CONDITION
