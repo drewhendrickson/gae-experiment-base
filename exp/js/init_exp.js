@@ -10,9 +10,10 @@ $(document).ready(function () {
 
     // load all scrips then begin the experiment
     $.when(
-        $.getScript( "http://code.jquery.com/ui/jquery-ui-git.js" ),
-        $.getScript( "http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js" ),
-        $.getScript( "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js" ),
+//        $.getScript( "http://code.jquery.com/ui/jquery-ui-git.js" ), // needed for the slider
+        $.getScript( "js/offline_testing_tools/jquery-ui-git.js" ), // needed for the slider
+        
+        
         $.getScript( "/js/support_fcns.js" ),
         $.getScript( "/js/exp_logic.js" ),
 
