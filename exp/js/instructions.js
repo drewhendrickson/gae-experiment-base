@@ -20,7 +20,7 @@ function showInstructions() {
   // reset all buttons so they do not have any functions bound to them
   hideElements();
 
-  divInstructions.html('<p>In this task you will see ' + condition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.<\p>');
+  divInstructions.html('<p>In this task you will see ' + condition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.</p>');
   divInstructions.show();
 
   buttonNext.show();
@@ -33,7 +33,7 @@ function showInstructionChecks() {
   hideElements();
 
   divInstructions.show();
-  divInstructions.html('<p>Here are some questions to check if you have read the instructions correctly. If you answer all the questions correctly you will begin the experiment, otherwise you will be redirected to the instructions page again.<\p>');
+  divInstructions.html('<p>Here are some questions to check if you have read the instructions correctly. If you answer all the questions correctly you will begin the experiment, otherwise you will be redirected to the instructions page again.</p>');
 
   var divInstructionChecks = $('#instruction-checks');
   divInstructionChecks.html('<form> \
