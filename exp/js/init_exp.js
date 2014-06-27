@@ -16,6 +16,8 @@ $(document).ready(function () {
         
         $.getScript( "/js/support_fcns.js" ),
         $.getScript( "/js/exp_logic.js" ),
+        $.getScript( "/js/instructions.js" ),
+        $.getScript( "/js/demographics.js" ),
 
         $.Deferred(function( deferred ){
             $( deferred.resolve );
