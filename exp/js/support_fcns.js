@@ -1,8 +1,11 @@
 /*global $, document, console, alert, demographics:true, divImageSpace, canvas:true, context:true, divInstructions, divSlider, divSliderInfo, divSliderStuff, buttonNext, default_slider_value:true, condition:true, initializeTask, showIntro, showDemographics, showInstructions */
 /*jshint multistr: true */
 
-// canvas functions
 function initializeCanvas() {
+  /*
+  * initialize the canvas and context variables
+  */
+  
   canvas = document.getElementById("drawing");
   canvas.width = divImageSpace.width();
   canvas.height = divImageSpace.height();
@@ -10,7 +13,10 @@ function initializeCanvas() {
 }
 
 function initializeSlider(max) {
-  
+  /*
+  * initialize the slider and slider variables
+  */
+
   // set the default slider value
   default_slider_value = Math.floor(max / 2);
   
@@ -26,15 +32,22 @@ function initializeSlider(max) {
   });
 }
 
-// clears the whole canvas area
 function imageClear() {
+  /*
+  * clear the html canvas
+  */
+
   context.fillStyle = '#ffffff'; // work around for Chrome
   context.fillRect(0, 0, canvas.width, canvas.height); // fill in the canvas with white
   canvas.width = canvas.width; // clears the canvas 
 }
 
-// hides all DOM elements from the screen and clears the canvas
 function hideElements() {
+  /*
+  * hide all buttons, slider, and text
+  * clear the canvas and hide it
+  */
+  
   hideButtons();
   hideCanvas();
   hideSlider();
@@ -42,11 +55,19 @@ function hideElements() {
 }
 
 function hideText() {
-  // hides all text divs
+  /*
+  * hide all text elements
+  */
+
   $('.text').hide();
 }
 
 function hideButtons() {
+  /*
+  * hide all button elements
+  * unbind them so any functions previously attached to them are no longer attached
+  */
+
   // hides all buttons
   $(':button').hide();
 
@@ -55,6 +76,11 @@ function hideButtons() {
 }
 
 function hideCanvas() {
+  /*
+  * clear the canvas and then hide it
+  */
+
+  // clear the canvas
   imageClear();
 
   // hides the canvas drawing
@@ -62,10 +88,21 @@ function hideCanvas() {
 }
 
 function hideSlider() {
+  /*
+  * hide all slider elements
+  */
+
   divSliderStuff.hide();
 }
 
 function showInputOptions() {
+  /*
+  * allow the user to specify which condition they are in
+  * as well as which aspect of the experiment to start in
+  *
+  * this function is particularly useful for debugging and testing
+  */
+
   hideElements();
   
   // first present the input options for the experiment (for debugging purposes)
@@ -111,10 +148,21 @@ function showInputOptions() {
 
 }
 
-// save experiment data with ajax
-function saveData(args) {
+function saveData(data) {
+  /*
+  * write a new row to the database
+  *
+  * data: a dictionary composed of key, value pairs
+  *       containing all the info to write to the database
+  *
+  * an anonymous function is used because it creates a
+  * copy of all information in the data variable, 
+  * thus if any other functions change the data object after this function executes
+  * then the information written to the database does not change
+  */
+
   (function (d) {
     $.post('submit',  {"content": JSON.stringify(d)});
-  })(args);
+  })(data);
 }
 
