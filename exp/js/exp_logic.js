@@ -10,8 +10,7 @@ var currTrial = 0;
 var currBlock = 0;
 
 // variables that will store references to the html canvas used to display stimuli
-var context;
-var canvas;
+var context, canvas;
 
 // variables that will store what response subjects select and response time information
 var response, base_time, rt;
@@ -56,7 +55,7 @@ function start () {
   
   // initialize references to elements in html
   initDivReferences();
-
+  
   // initialize html canvas object
   initializeCanvas();
 
@@ -106,6 +105,7 @@ function initializeCondition () {
   * if you have more than 2 conditions, you might want to add more functionality here
   */
   
+  // randomly assign condition
   var r = Math.ceil(Math.random() * 2); // generate random number
   if (r === 1) {
     condition = 'red';
