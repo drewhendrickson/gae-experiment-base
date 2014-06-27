@@ -3,6 +3,8 @@
 
 
 function showDemographics() {
+  // remove all elements from the screen
+  // reset all buttons so they do not have any functions bound to them
   hideElements();
 
   // modify here if you want to get different demographic information

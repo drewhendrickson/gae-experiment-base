@@ -1,8 +1,10 @@
-/*global $, alert, hideElements, divInstructions, buttonNext, trainTrial, condition, showDemographics */
+/*global $, alert, hideElements, divInstructions, buttonNext, trainTrial, condition:true, showDemographics, initializeTask */
 /*jshint multistr: true */
 
 
 function showIntro() {
+  // remove all elements from the screen
+  // reset all buttons so they do not have any functions bound to them
   hideElements();
   
   divInstructions.show();
@@ -14,6 +16,8 @@ function showIntro() {
 
 // displays experiment instructions
 function showInstructions() {
+  // remove all elements from the screen
+  // reset all buttons so they do not have any functions bound to them
   hideElements();
 
   divInstructions.html('<p>In this task you will see ' + condition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.<\p>');
@@ -24,6 +28,8 @@ function showInstructions() {
 }
 
 function showInstructionChecks() {
+  // remove all elements from the screen
+  // reset all buttons so they do not have any functions bound to them
   hideElements();
 
   divInstructions.show();
@@ -48,6 +54,8 @@ function showInstructionChecks() {
 }
 
 function validateInstructionChecks() {
+  // remove all elements from the screen
+  // reset all buttons so they do not have any functions bound to them
   hideElements();
 
   $('form').show();
