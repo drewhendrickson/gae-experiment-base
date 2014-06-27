@@ -1,4 +1,4 @@
-/*global $, console, initializeCanvas, initializeSlider, hideElements, showInputOptions, showIntro, saveData, finishExperiment */
+/*global $, console, initializeCanvas, initializeSlider, hideElements, showInputOptions, showIntro, saveData */
 
 // participant variables
 var subjectID;
@@ -251,4 +251,11 @@ function trainTrial() {
     currTrial = 0; // reset trial counter
     divNext.click(testTrial); // proceed to test trial
   }
+}
+
+function finishExperiment() {
+  hideElements();
+
+  divInstructions.html('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
+  divInstructions.show();
 }
