@@ -10,10 +10,14 @@ function initializeCanvas() {
 }
 
 function initializeSlider(max) {
+  
+  // set the default slider value
+  default_slider_value = Math.floor(max / 2);
+  
   // initialize slider if one is being used
   divSlider.slider({
     min: 0,
-    max: 100,
+    max: max,
     step: 1,
     value: default_slider_value,
     slide: function (event, ui) {
