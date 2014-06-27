@@ -20,7 +20,7 @@ var response, base_time, rt;
 var default_slider_value;
 
 // references to divs in the html
-var divImageSpace, divSlider, divInstructions, divBlue, divGreen, divSliderStuff, divSliderInfo, divNext;
+var divImageSpace, divSlider, divInstructions, buttonA, buttonB, buttonNext, divSliderStuff, divSliderInfo;
 
 /* Variables you likely will need to change are below */
 
@@ -86,9 +86,9 @@ function initDivReferences () {
   divImageSpace = $('#imageSpace');
   divInstructions = $('#instructions');
 
-  divBlue = $('#blue');
-  divGreen = $('#green');
-  divNext = $('#next');
+  buttonA = $('#a');
+  buttonB = $('#b');
+  buttonNext = $('#next');
 
   divSliderStuff = $('#sliderStuff');
   divSlider = $('#slider');
@@ -108,6 +108,13 @@ function initializeCondition () {
     condition = 'red';
   } else if (r === 2) {
     condition = 'blue';
+  }
+  
+  // change text value of response buttons depending on colour condition
+  buttonB.prop('value', 'Green');
+  buttonA.prop('value', 'Blue');
+  if (condition === "red") {
+    buttonA.prop('value', 'Red');
   }
 }
 
@@ -248,20 +255,12 @@ function testTrial() {
     divInstructions.html('What colour should this line be?');
     divInstructions.show();
 
-    // CONDITION 
-    // change text value of response buttons depending on colour condition
-    if (condition === "red") {
-      divBlue.prop('value', 'Red');
-    } else if (condition === "blue") {
-      divBlue.prop('value', 'Blue');
-    }
-
     // show response buttons
-    divBlue.show();
-    divGreen.show();
+    buttonA.show();
+    buttonB.show();
 
-    divBlue.click(function () {response = 0; saveTestTrial();});
-    divGreen.click(function () {response = 1; saveTestTrial();});
+    buttonA.click(function () {response = 0; saveTestTrial();});
+    buttonB.click(function () {response = 1; saveTestTrial();});
   }
   // SLIDER
   // slider example
@@ -272,8 +271,8 @@ function testTrial() {
     divSliderInfo.html(divSlider.slider('value') + "%"); // update slider value
     divSliderStuff.show();
 
-    divNext.show();
-    divNext.click(saveTestTrial);
+    buttonNext.show();
+    buttonNext.click(saveTestTrial);
   }
 }
 
@@ -301,13 +300,13 @@ function trainTrial() {
   // increment training trial counter
   currTrial++;
 
-  divNext.show();
+  buttonNext.show();
   if(currTrial < maxTrainTrial) {
-    divNext.click(trainTrial); // go to next training trial
+    buttonNext.click(trainTrial); // go to next training trial
   }
   else {
     currTrial = 0; // reset trial counter
-    divNext.click(testTrial); // proceed to test trial
+    buttonNext.click(testTrial); // proceed to test trial
   }
 }
 
