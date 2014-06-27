@@ -246,6 +246,9 @@ function testTrial() {
   *
   * after subjects have selected their response, the function saveTestTrial is called
   */
+  
+  // remove all elements from the screen
+  // reset all buttons so they do not have any functions bound to them
   hideElements();
 
   // draw test stimuli
@@ -304,6 +307,8 @@ function trainTrial() {
   * otherwise, show another training trial
   */
 
+  // remove all elements from the screen
+  // reset all buttons so they do not have any functions bound to them
   hideElements();
 
   // display training trial instructions
@@ -340,6 +345,8 @@ function finishExperiment() {
   * removes everything from the screen and thanks the subject
   */
   
+  // remove all elements from the screen
+  // reset all buttons so they do not have any functions bound to them
   hideElements();
 
   divInstructions.html('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
