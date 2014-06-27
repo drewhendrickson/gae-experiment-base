@@ -1,4 +1,4 @@
-/*global $, document, console, alert, demographics:true, divImageSpace, canvas:true, context:true, divInstructions, divSlider, divSliderInfo, divSliderStuff, divNext, default_slider_value, colourCondition:true, trainTrial, testTrial, showIntro, showDemographics, showInstructions */
+/*global $, document, console, alert, demographics:true, divImageSpace, canvas:true, context:true, divInstructions, divSlider, divSliderInfo, divSliderStuff, divNext, default_slider_value:true, condition:true, trainTrial, testTrial, showIntro, showDemographics, showInstructions */
 /*jshint multistr: true */
 
 // canvas functions
@@ -83,9 +83,8 @@ function showInputOptions() {
 
   divNext.show();
   divNext.click(function () {
-    // CONDITION
     // process color option here
-    colourCondition = $('#colour').val();
+    condition = $('#colour').val();
 
     // which section to start with:
     switch ($('#section').val()) {

@@ -1,4 +1,4 @@
-/*global $, alert, hideElements, divInstructions, divNext, trainTrial, colourCondition, showDemographics */
+/*global $, alert, hideElements, divInstructions, divNext, trainTrial, condition, showDemographics */
 /*jshint multistr: true */
 
 
@@ -16,7 +16,7 @@ function showIntro() {
 function showInstructions() {
   hideElements();
 
-  divInstructions.html('In this task you will see ' + colourCondition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.');
+  divInstructions.html('In this task you will see ' + condition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.');
   divInstructions.show();
 
   divNext.show();

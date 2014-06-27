@@ -192,9 +192,9 @@ function testTrial() {
 
     // CONDITION 
     // change text value of response buttons depending on colour condition
-    if (colourCondition === "red") {
+    if (condition === "red") {
       divBlue.prop('value', 'Red');
-    } else if (colourCondition === "blue") {
+    } else if (condition === "blue") {
       divBlue.prop('value', 'Blue');
     }
 
@@ -237,7 +237,7 @@ function trainTrial() {
   var currAngle = trainTrialStimuli[5*currBlock + currTrial];
   var colour = 'green';
   if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
-    colour = colourCondition;
+    colour = condition;
   drawLine(currAngle, colour, divImageSpace.width(), divImageSpace.height());
 
   // increment training trial counter
