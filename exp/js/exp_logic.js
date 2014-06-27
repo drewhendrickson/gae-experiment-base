@@ -169,9 +169,9 @@ function testTrial() {
     hideElements();
 
     // draw test stimuli
-    divImageSpace.show();
     var currAngle = testTrialStimuli[5 * currBlock + currTrial];
     drawLine(currAngle, 'black', divImageSpace.width(), divImageSpace.height());
+    divImageSpace.show();
 
     // increment test trial counter
     currTrial++;
@@ -187,8 +187,8 @@ function testTrial() {
     // response button example
     if (currBlock < 1) {
         // display test trial instructions
-        divInstructions.show();
         divInstructions.html('What colour should this line be?');
+        divInstructions.show();
 
         // CONDITION 
         // change text value of response buttons depending on colour condition
@@ -208,11 +208,11 @@ function testTrial() {
     // SLIDER
     // slider example
     else {
-        divInstructions.show();
         divInstructions.html('What is the probability this line is green?');
+        divInstructions.show();
 
-        divSliderStuff.show();
         divSliderInfo.html(divSlider.slider('value') + "%"); // update slider value
+        divSliderStuff.show();
 
         divNext.show();
         divNext.click(saveTestTrial);
@@ -226,16 +226,15 @@ function trainTrial() {
     var maxTrainTrial = 5;
 
     // display training trial instructions
-    divInstructions.show();
     divInstructions.html('Here are some lines.');
+    divInstructions.show();
 
     // draw training stimuli in canvas
     divImageSpace.show();
-    var currAngle = trainTrialStimuli[5*currBlock + currTrial];
 
-    
     // if the line has a positive slope, draw it green
     // otherwise draw it with the color of the condition
+    var currAngle = trainTrialStimuli[5*currBlock + currTrial];
     var colour = 'green';
     if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
         colour = colourCondition;
