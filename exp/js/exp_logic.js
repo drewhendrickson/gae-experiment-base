@@ -261,8 +261,6 @@ function testTrial() {
 
   // reset response variables
   response = -1;
-  // SLIDER
-  divSlider.slider('value', default_slider_value);
 
   if (currBlock < 1) {
     // show a trial in which subjects respond by pressing one of two buttons
@@ -282,6 +280,8 @@ function testTrial() {
     // show a trial in which subjects respond by moving a slider
     divInstructions.html('What is the probability this line is green?');
     divInstructions.show();
+    
+    divSlider.slider('value', default_slider_value);
 
     divSliderInfo.html(divSlider.slider('value') + "%"); // update slider value
     divSliderStuff.show();
