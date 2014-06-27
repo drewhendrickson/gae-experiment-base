@@ -111,7 +111,7 @@ function showInputOptions() {
   divInputOptions.show();
   divInputOptions.html('<h3>Experiment options</h3> \
                         <p>Stimuli Colour</p> \
-                        <select id="colour"> \
+                        <select id="condition"> \
                           <option value="red">Red</option> \
                           <option value="blue">Blue</option> \
                         </select> \
@@ -127,7 +127,7 @@ function showInputOptions() {
   buttonNext.click(function () {
     
     // read color option
-    condition = $('#colour').val();
+    condition = $('#condition').val();
 
     // determinewhich section to start with:
     switch ($('#section').val()) {
