@@ -27,6 +27,9 @@ var divImageSpace, divSlider, divInstructions, buttonA, buttonB, buttonNext, div
 // how many test trials to do per block
 var maxTestTrial = 5;
 
+// how many training trials to do in each block
+var maxTrainTrial = 5;
+
 // how many blocks to do total
 var maxBlock = 2;
 
@@ -234,7 +237,7 @@ function testTrial() {
   hideElements();
 
   // draw test stimuli
-  var currAngle = testTrialStimuli[5 * currBlock + currTrial];
+  var currAngle = testTrialStimuli[maxTestTrial * currBlock + currTrial];
   drawLine(currAngle, 'black', divImageSpace.width(), divImageSpace.height());
   divImageSpace.show();
 
@@ -278,9 +281,6 @@ function testTrial() {
 
 function trainTrial() {
   hideElements();
-
-  // how many training trials to do in each block
-  var maxTrainTrial = 5;
 
   // display training trial instructions
   divInstructions.html('Here are some lines.');
