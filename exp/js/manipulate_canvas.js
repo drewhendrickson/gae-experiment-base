@@ -1,6 +1,7 @@
 /*global $, document, divImageSpace */
 
 // variables that will store references to the html canvas used to display stimuli
+// these are global to increase speed of javascript
 var context, canvas;
 
 function drawLine(degrees, colour, width, height) {
