@@ -1,3 +1,7 @@
+/*global $, document, divImageSpace */
+
+// variables that will store references to the html canvas used to display stimuli
+var context, canvas;
 
 function drawLine(degrees, colour, width, height) {
   /*

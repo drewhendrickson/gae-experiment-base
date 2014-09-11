@@ -9,8 +9,6 @@ var demographics = [];
 var currTrial = 0;
 var currBlock = 0;
 
-// variables that will store references to the html canvas used to display stimuli
-var context, canvas;
 
 // the default value of the slider
 var default_slider_value;
