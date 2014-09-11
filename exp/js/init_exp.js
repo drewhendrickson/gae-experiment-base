@@ -10,9 +10,9 @@ $(document).ready(function () {
 
   // load all scrips then begin the experiment
   $.when(
-//        $.getScript( "http://code.jquery.com/ui/jquery-ui-git.js" ), // needed for the slider
-    $.getScript( "js/offline_testing_tools/jquery-ui-git.js" ), // needed for the slider
-
+    $.getScript( "/js/lib/jquery-ui.1.11.0.min.js" ), // needed for the slider
+    // if you want your code to run faster over the internet,
+    // you can use http://code.jquery.com/ui/1.11.0/jquery-ui.min.js instead
 
     $.getScript( "/js/exp_logic.js" ),
     $.getScript( "/js/instructions.js" ),
