@@ -176,3 +176,23 @@ function saveTestTrial(exp_data, response, base_time) {
   // determine what type of trial to run next
   selectNextTrial();
 }
+
+
+function saveData(data) {
+  /*
+  * write a new row to the database
+  *
+  * data: a dictionary composed of key, value pairs
+  *       containing all the info to write to the database
+  *
+  * an anonymous function is used because it creates a
+  * copy of all information in the data variable, 
+  * thus if any other functions change the data object after this function executes
+  * then the information written to the database does not change
+  */
+
+  (function (d) {
+    $.post('submit',  {"content": JSON.stringify(d)});
+  })(data);
+}
+
