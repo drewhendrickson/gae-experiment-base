@@ -1,4 +1,4 @@
-/*global $, console, hideElements, maxTestTrial, currBlock, currTrial:true, drawLine, selectNextTrial, divImageSpace, demographics, subjectID, condition, buttonA, buttonB, buttonNext, divSlider, default_slider_value, divSliderStuff, divSliderInfo, divInstructions */
+/*global $, console, hideElements, maxTestTrial, currBlock, currTrial:true, drawLine, selectNextTrial, divImageSpace, demographics, subjectID, condition, buttonA, buttonB, buttonNext, divSlider, default_slider_value, divSliderStuff, divSliderInfo, divInstructions, hideCanvas, hideSlider */
 
 function testTrial() {
   /* 
