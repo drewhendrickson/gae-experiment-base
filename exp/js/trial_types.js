@@ -1,3 +1,5 @@
+/*global $, hideElements */
+
 function testTrial() {
   /* 
   * display a test trial in which a black line is shown on the screen
@@ -66,8 +68,16 @@ function testTrial() {
     buttonA.show();
     buttonB.show();
 
-    buttonA.click(function () {exp_data.response = 0; saveTestTrial(exp_data);});
-    buttonB.click(function () {exp_data.response = 1; saveTestTrial(exp_data);});
+    buttonA.click(function () {  
+      exp_data.rt = new Date().getTime() - base_time;
+      exp_data.response = 0; 
+      saveTestTrial(exp_data);
+    });
+    buttonB.click(function () {
+      exp_data.rt = new Date().getTime() - base_time;
+      exp_data.response = 1; 
+      saveTestTrial(exp_data);
+    });
   }
   else {
     // show a trial in which subjects respond by moving a slider
@@ -82,8 +92,11 @@ function testTrial() {
     divSliderStuff.show();
 
     buttonNext.show();
-    buttonNext.click(function () {exp_data.response = divSlider.slider('value'); 
-                                  saveTestTrial(exp_data);});
+    buttonNext.click(function () {
+      exp_data.rt = new Date().getTime() - base_time;
+      exp_data.response = divSlider.slider('value'); 
+      saveTestTrial(exp_data);
+    });
   }
 }
 
@@ -147,8 +160,6 @@ function saveTestTrial(exp_data) {
   */
   
   // record the response time and include it in the object to write to file
-  rt = new Date().getTime() - base_time;
-  exp_data.rt = rt;
   
   // print the data to console for debugging
   console.log(exp_data);
