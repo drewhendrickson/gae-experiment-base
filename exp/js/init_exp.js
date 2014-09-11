@@ -14,12 +14,12 @@ $(document).ready(function () {
     $.getScript( "js/offline_testing_tools/jquery-ui-git.js" ), // needed for the slider
 
 
-    $.getScript( "/js/support_fcns.js" ),
     $.getScript( "/js/exp_logic.js" ),
     $.getScript( "/js/instructions.js" ),
     $.getScript( "/js/demographics.js" ),
     $.getScript( "/js/trial_types.js" ),
-    $.getScript( "/js/manipulate_canvas.js" ),
+    $.getScript( "/js/canvas_fcns.js" ),
+    $.getScript( "/js/slider_fcns.js" ),
 
     $.Deferred(function( deferred ){
       $( deferred.resolve );
