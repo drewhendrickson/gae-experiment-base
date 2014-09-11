@@ -1,4 +1,4 @@
-/*global $, divImageSpace, divSlider, divSliderInfo, divSliderStuff, default_slider_value:true, imageClear */
+/*global $ */
 /*jshint multistr: true */
 
 function hideElements() {
