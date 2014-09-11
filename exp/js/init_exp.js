@@ -17,7 +17,7 @@ $(document).ready(function () {
     $.getScript( "/js/exp_logic.js" ),
     $.getScript( "/js/instructions.js" ),
     $.getScript( "/js/demographics.js" ),
-    $.getScript( "/js/trial_types.js" ),
+    $.getScript( "/js/trial_fcns.js" ),
     $.getScript( "/js/canvas_fcns.js" ),
     $.getScript( "/js/slider_fcns.js" ),
 
