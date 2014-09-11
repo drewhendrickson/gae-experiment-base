@@ -1,4 +1,4 @@
-/*global $, console, initializeCanvas, initializeSlider, hideElements, showInputOptions, showIntro, saveData */
+/*global $, console, initializeCanvas, initializeSlider, hideElements, showInputOptions, showIntro, trainTrial, testTrial */
 
 // variables that will store information about the subject and the experiment condition
 var subjectID;
