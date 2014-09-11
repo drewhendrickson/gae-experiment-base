@@ -55,3 +55,17 @@ function imageClear() {
   context.fillRect(0, 0, canvas.width, canvas.height); // fill in the canvas with white
   canvas.width = canvas.width; // clears the canvas 
 }
+
+
+function hideCanvas() {
+  /*
+  * clear the canvas and then hide it
+  */
+
+  // clear the canvas
+  imageClear();
+
+  // hides the canvas drawing
+  divImageSpace.hide();
+}
+
