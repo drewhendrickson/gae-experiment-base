@@ -29,8 +29,6 @@ var maxTestTrial = 5;
 // how many training trials to do in each block
 var maxTrainTrial = 5;
 
-// how many blocks to do total
-var maxBlock = 2;
 
 // set this to false if you want the user to determine which condition to start in
 // set this to true if you want to randomize the condition
@@ -134,6 +132,9 @@ function selectNextTrial () {
   * the appropriate function is called next
   */
   
+  // how many blocks to do total
+  var maxBlock = 2;
+
   // determine which section to go to next
   if(currTrial < maxTestTrial) {
     testTrial(); // next test trial
