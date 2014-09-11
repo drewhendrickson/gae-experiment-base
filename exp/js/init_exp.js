@@ -18,6 +18,8 @@ $(document).ready(function () {
     $.getScript( "/js/exp_logic.js" ),
     $.getScript( "/js/instructions.js" ),
     $.getScript( "/js/demographics.js" ),
+    $.getScript( "/js/trial_types.js" ),
+    $.getScript( "/js/manipulate_canvas.js" ),
 
     $.Deferred(function( deferred ){
       $( deferred.resolve );
