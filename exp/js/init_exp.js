@@ -1,4 +1,4 @@
-/*global $, document, window, console, alert, start */
+/*global $, document, window, start */
 
 // this function runs automatically when the page is loaded
 $(document).ready(function () {
