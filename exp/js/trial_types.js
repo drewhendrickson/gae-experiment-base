@@ -64,20 +64,12 @@ function testTrial() {
     
     exp_data.responseType = "categorize";
 
+    buttonA.click(function () {saveTestTrial(exp_data, 0);});
+    buttonB.click(function () {saveTestTrial(exp_data, 1);});
+
     // show response buttons
     buttonA.show();
     buttonB.show();
-
-    buttonA.click(function () {  
-      exp_data.rt = new Date().getTime() - base_time;
-      exp_data.response = 0; 
-      saveTestTrial(exp_data);
-    });
-    buttonB.click(function () {
-      exp_data.rt = new Date().getTime() - base_time;
-      exp_data.response = 1; 
-      saveTestTrial(exp_data);
-    });
   }
   else {
     // show a trial in which subjects respond by moving a slider
@@ -88,15 +80,15 @@ function testTrial() {
     
     exp_data.responseType = "slider";
 
+    // determine what to do when the next button is clicked
+    buttonNext.click(function () {saveTestTrial(exp_data, divSlider.slider('value'));});
+
+    // setup the slider
+    divSlider.slider('value', default_slider_value);
     divSliderInfo.html(divSlider.slider('value') + "%"); // update slider value
     divSliderStuff.show();
 
     buttonNext.show();
-    buttonNext.click(function () {
-      exp_data.rt = new Date().getTime() - base_time;
-      exp_data.response = divSlider.slider('value'); 
-      saveTestTrial(exp_data);
-    });
   }
 }
 
@@ -145,7 +137,7 @@ function trainTrial() {
   }
 }
 
-function saveTestTrial(exp_data) {
+function saveTestTrial(exp_data, response) {
   /*
   * saveTestTrial should be passed an object (exp_data) containing all of the
   * data from the current trial to save to the database
@@ -160,7 +152,10 @@ function saveTestTrial(exp_data) {
   */
   
   // record the response time and include it in the object to write to file
-  
+  exp_data.rt = new Date().getTime() - base_time;
+
+  exp_data.response = response; 
+
   // print the data to console for debugging
   console.log(exp_data);
 
