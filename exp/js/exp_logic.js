@@ -1,4 +1,4 @@
-/*global $, console, initializeCanvas, initializeSlider, hideElements, showInputOptions, showIntro, trainTrial, testTrial */
+/*global $, console, initializeCanvas, initializeSlider, hideElements, showInputOptions, showIntro, trainTrial, testTrial, hideCanvas, hideSlider */
 
 // variables that will store information about the subject and the experiment condition
 var subjectID;
@@ -154,4 +154,37 @@ function finishExperiment() {
 
   divInstructions.html('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
   divInstructions.show();
+}
+
+function hideElements() {
+  /*
+  * hide all buttons, slider, and text
+  * clear the canvas and hide it
+  */
+  
+  hideButtons();
+  hideCanvas();
+  hideSlider();
+  hideText();
+}
+
+function hideText() {
+  /*
+  * hide all text elements
+  */
+
+  $('.text').hide();
+}
+
+function hideButtons() {
+  /*
+  * hide all button elements
+  * unbind them so any functions previously attached to them are no longer attached
+  */
+
+  // hides all buttons
+  $(':button').hide();
+
+  // unbinds all buttons
+  $(':button').unbind();
 }
