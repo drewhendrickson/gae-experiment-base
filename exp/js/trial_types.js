@@ -62,6 +62,7 @@ function testTrial() {
     divInstructions.html('What colour should this line be?');
     divInstructions.show();
     
+    // set the type of this trial
     exp_data.responseType = "categorize";
 
     buttonA.click(function () {saveTestTrial(exp_data, 0);});
@@ -76,8 +77,7 @@ function testTrial() {
     divInstructions.html('What is the probability this line is green?');
     divInstructions.show();
     
-    divSlider.slider('value', default_slider_value);
-    
+    // set the type of this trial
     exp_data.responseType = "slider";
 
     // determine what to do when the next button is clicked
@@ -86,8 +86,9 @@ function testTrial() {
     // setup the slider
     divSlider.slider('value', default_slider_value);
     divSliderInfo.html(divSlider.slider('value') + "%"); // update slider value
-    divSliderStuff.show();
 
+    // show the slider and the next button
+    divSliderStuff.show();
     buttonNext.show();
   }
 }
