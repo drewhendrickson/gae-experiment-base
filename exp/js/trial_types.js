@@ -9,6 +9,13 @@ function testTrial() {
   * in the first test block, participants respond by pressing one of two buttons
   * in the second test block, they respond by moving a slider to indicate belief
   *
+  * all of the information to save to the database needs to be added to exp_data.
+  * 
+  * exp_data is a javascript dictionary, which consists of [key, value] pairs
+  * To add a new pair to exp_data, do:
+  * exp_data.KEY = VALUE;
+  * you can see examples of how this is done below
+  *
   * after subjects have selected their response, the function saveTestTrial is called
   */
   
@@ -26,9 +33,25 @@ function testTrial() {
 
   // get time of beginning of trial
   base_time = new Date().getTime();
+  
+  // all of the data from this trial will go into this object
+  var exp_data = {};
 
-  // reset response variables
-  response = -1;
+  // add demographics data to trial output
+  for (var i = 0; i < demographics.length; i++) {
+    exp_data[demographics[i].name] = demographics[i].value;
+  }
+
+  // fix type of age if it exists (from demographics)
+  if ("age" in exp_data)
+    exp_data.age = parseInt(exp_data.age, 10);
+
+  // add trial data to trial output
+  exp_data.subjectID      = subjectID;
+  exp_data.testTrial      = currTrial;
+  exp_data.block          = currBlock;
+  exp_data.condition      = condition;
+  exp_data.experiment     = "test_experiment_v1";
 
   if (currBlock < 1) {
     // show a trial in which subjects respond by pressing one of two buttons
@@ -36,13 +59,15 @@ function testTrial() {
     // display test trial instructions
     divInstructions.html('What colour should this line be?');
     divInstructions.show();
+    
+    exp_data.responseType = "categorize";
 
     // show response buttons
     buttonA.show();
     buttonB.show();
 
-    buttonA.click(function () {response = 0; saveTestTrial();});
-    buttonB.click(function () {response = 1; saveTestTrial();});
+    buttonA.click(function () {exp_data.response = 0; saveTestTrial(exp_data);});
+    buttonB.click(function () {exp_data.response = 1; saveTestTrial(exp_data);});
   }
   else {
     // show a trial in which subjects respond by moving a slider
@@ -50,12 +75,15 @@ function testTrial() {
     divInstructions.show();
     
     divSlider.slider('value', default_slider_value);
+    
+    exp_data.responseType = "slider";
 
     divSliderInfo.html(divSlider.slider('value') + "%"); // update slider value
     divSliderStuff.show();
 
     buttonNext.show();
-    buttonNext.click(saveTestTrial);
+    buttonNext.click(function () {exp_data.response = divSlider.slider('value'); 
+                                  saveTestTrial(exp_data);});
   }
 }
 
@@ -102,4 +130,32 @@ function trainTrial() {
     currTrial = 0; // reset trial counter
     buttonNext.click(testTrial); // proceed to test trial
   }
+}
+
+function saveTestTrial(exp_data) {
+  /*
+  * saveTestTrial should be passed an object (exp_data) containing all of the
+  * data from the current trial to save to the database
+  * 
+  * when exp_data is completely built, it is passed as a paramter to saveData
+  * which actually writes the information to the database on Google App Engine
+  * 
+  * after writing the data, this function calls selectNextTrial to determine
+  * what the next type of trial should be
+  *
+  * to see how to retrieve all data, please look at the documentation in README.md
+  */
+  
+  // record the response time and include it in the object to write to file
+  rt = new Date().getTime() - base_time;
+  exp_data.rt = rt;
+  
+  // print the data to console for debugging
+  console.log(exp_data);
+
+  // save trial data
+  saveData(exp_data);
+
+  // determine what type of trial to run next
+  selectNextTrial();
 }

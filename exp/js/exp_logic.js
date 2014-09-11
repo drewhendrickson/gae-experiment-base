@@ -131,60 +131,6 @@ function initializeTask () {
   trainTrial();
 }
 
-function saveTestTrial() {
-  /*
-  * saveTestTrial builds up an object (exp_data) containing all of the
-  * data from the current trial to save to the database
-  * 
-  * all of the information to save to the database needs to be added to exp_data. 
-  * exp_data is a javascript dictionary, which consists of [key, value] pairs
-  * To add a new pair to exp_data, do:
-  * exp_data.KEY = VALUE;
-  * you can see multiple examples of how this is done below
-  *
-  * when exp_data is completely built, it is passed as a paramter to saveData
-  * which actually writes the information to the database on Google App Engine
-  * 
-  * after writing the data, this function calls selectNextTrial to determine
-  * what the next type of trial should be
-  *
-  * to see how to retrieve all data, please look at the documentation in README.md
-  */
-  
-  rt = new Date().getTime() - base_time;
-
-  // all of the data from this trial will go into this object
-  var exp_data = {};
-
-  // add demographics data to trial output
-  for (var i = 0; i < demographics.length; i++) {
-    exp_data[demographics[i].name] = demographics[i].value;
-  }
-
-  // fix type of age if it exists (from demographics)
-  if ("age" in exp_data)
-    exp_data.age = parseInt(exp_data.age, 10);
-
-  // add trial data to trial output
-  exp_data.subjectID      = subjectID;
-  exp_data.testTrial      = currTrial;
-  exp_data.block          = currBlock;
-  exp_data.condition      = condition;
-  exp_data.rt             = rt;
-  exp_data.experiment     = "test_experiment_v1";
-  exp_data.button_value   = response;
-  exp_data.slider_value = divSlider.slider('value');
-
-  // print the data to console for debugging
-  console.log(exp_data);
-
-  // save trial data
-  saveData(exp_data);
-
-  // determine what type of trial to run next
-  selectNextTrial();
-}
-
 function selectNextTrial () {
   /*
   * selectNextTrial determines based on the currTrial and currBlock variables
@@ -210,8 +156,6 @@ function selectNextTrial () {
     }
   }
 }
-
-
 
 function finishExperiment() {
   /* 
