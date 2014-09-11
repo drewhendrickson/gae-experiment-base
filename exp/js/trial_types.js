@@ -112,6 +112,9 @@ function trainTrial() {
   // the angle of the line to draw (in degrees) for testing
   var trainTrialStimuli = [130, -130, -20, 50, -10, -20, 70, 170, 120, 100, -120, 10, -30, 160, 140];
 
+  // how many training trials to do in each block
+  var maxTrainTrial = 5;
+
   // remove all elements from the screen
   // reset all buttons so they do not have any functions bound to them
   hideElements();

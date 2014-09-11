@@ -26,9 +26,6 @@ var divImageSpace, divSlider, divInstructions, buttonA, buttonB, buttonNext, div
 // how many test trials to do per block
 var maxTestTrial = 5;
 
-// how many training trials to do in each block
-var maxTrainTrial = 5;
-
 
 // set this to false if you want the user to determine which condition to start in
 // set this to true if you want to randomize the condition
