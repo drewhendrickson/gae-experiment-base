@@ -20,6 +20,9 @@ function testTrial() {
   *
   * after subjects have selected their response, the function saveTestTrial is called
   */
+
+  // the angle of the line to draw (in degrees) for testing
+  var testTrialStimuli = [160, -150, 120, -50, -150, 130, -80, -10, -40, 170, -120, 20, 20, -50, -170];
   
   // remove all elements from the screen
   // reset all buttons so they do not have any functions bound to them
@@ -106,6 +109,9 @@ function trainTrial() {
   * otherwise, show another training trial
   */
 
+  // the angle of the line to draw (in degrees) for testing
+  var trainTrialStimuli = [130, -130, -20, 50, -10, -20, 70, 170, 120, 100, -120, 10, -30, 160, 140];
+
   // remove all elements from the screen
   // reset all buttons so they do not have any functions bound to them
   hideElements();
@@ -155,6 +161,7 @@ function saveTestTrial(exp_data, response) {
   // record the response time and include it in the object to write to file
   exp_data.rt = new Date().getTime() - base_time;
 
+  // add the subject's response to the data object
   exp_data.response = response; 
 
   // print the data to console for debugging

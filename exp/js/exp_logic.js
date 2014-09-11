@@ -36,11 +36,6 @@ var maxBlock = 2;
 // set this to true if you want to randomize the condition
 var randomizeConditions = false;
 
-// experimental stimuli
-// in this case, the angle of the line to draw (in degrees)
-var trainTrialStimuli = [130, -130, -20, 50, -10, -20, 70, 170, 120, 100, -120, 10, -30, 160, 140];
-var testTrialStimuli = [160, -150, 120, -50, -150, 130, -80, -10, -40, 170, -120, 20, 20, -50, -170];
-
 function start () {
   /* 
   * start is the first function called (from init_exp.js) when all the files are loaded
