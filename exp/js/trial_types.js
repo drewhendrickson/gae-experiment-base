@@ -37,7 +37,7 @@ function testTrial() {
   currTrial++;
 
   // get time of beginning of trial
-  base_time = new Date().getTime();
+  var base_time = new Date().getTime();
   
   // all of the data from this trial will go into this object
   var exp_data = {};
@@ -68,8 +68,8 @@ function testTrial() {
     // set the type of this trial
     exp_data.responseType = "categorize";
 
-    buttonA.click(function () {saveTestTrial(exp_data, 0);});
-    buttonB.click(function () {saveTestTrial(exp_data, 1);});
+    buttonA.click(function () {saveTestTrial(exp_data, 0, base_time);});
+    buttonB.click(function () {saveTestTrial(exp_data, 1, base_time);});
 
     // show response buttons
     buttonA.show();
@@ -84,7 +84,7 @@ function testTrial() {
     exp_data.responseType = "slider";
 
     // determine what to do when the next button is clicked
-    buttonNext.click(function () {saveTestTrial(exp_data, divSlider.slider('value'));});
+    buttonNext.click(function () {saveTestTrial(exp_data, divSlider.slider('value'), base_time);});
 
     // setup the slider
     divSlider.slider('value', default_slider_value);
@@ -147,7 +147,7 @@ function trainTrial() {
   }
 }
 
-function saveTestTrial(exp_data, response) {
+function saveTestTrial(exp_data, response, base_time) {
   /*
   * saveTestTrial should be passed an object (exp_data) containing all of the
   * data from the current trial to save to the database

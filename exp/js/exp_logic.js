@@ -12,9 +12,6 @@ var currBlock = 0;
 // variables that will store references to the html canvas used to display stimuli
 var context, canvas;
 
-// variable that will store when a trial started
-var base_time;
-
 // the default value of the slider
 var default_slider_value;
 
