@@ -34,3 +34,24 @@ function drawLine(degrees, colour, width, height) {
   context.closePath();
   context.stroke();
 }
+
+function initializeCanvas() {
+  /*
+  * initialize the canvas and context variables
+  */
+  
+  canvas = document.getElementById("drawing");
+  canvas.width = divImageSpace.width();
+  canvas.height = divImageSpace.height();
+  context = canvas.getContext("2d");
+}
+
+function imageClear() {
+  /*
+  * clear the html canvas
+  */
+
+  context.fillStyle = '#ffffff'; // work around for Chrome
+  context.fillRect(0, 0, canvas.width, canvas.height); // fill in the canvas with white
+  canvas.width = canvas.width; // clears the canvas 
+}

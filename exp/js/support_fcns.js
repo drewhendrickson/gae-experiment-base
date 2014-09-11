@@ -1,17 +1,6 @@
 /*global $, document, divImageSpace,  divSlider, divSliderInfo, divSliderStuff, default_slider_value:true, canvas:true, context:true */
 /*jshint multistr: true */
 
-function initializeCanvas() {
-  /*
-  * initialize the canvas and context variables
-  */
-  
-  canvas = document.getElementById("drawing");
-  canvas.width = divImageSpace.width();
-  canvas.height = divImageSpace.height();
-  context = canvas.getContext("2d");
-}
-
 function initializeSlider(max) {
   /*
   * initialize the slider and slider variables
@@ -30,16 +19,6 @@ function initializeSlider(max) {
       divSliderInfo.html(ui.value + '%');
     }
   });
-}
-
-function imageClear() {
-  /*
-  * clear the html canvas
-  */
-
-  context.fillStyle = '#ffffff'; // work around for Chrome
-  context.fillRect(0, 0, canvas.width, canvas.height); // fill in the canvas with white
-  canvas.width = canvas.width; // clears the canvas 
 }
 
 function hideElements() {
