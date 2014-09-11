@@ -18,11 +18,8 @@ var default_slider_value;
 // references to divs in the html
 var divImageSpace, divSlider, divInstructions, buttonA, buttonB, buttonNext, divSliderStuff, divSliderInfo;
 
-/* Variables you likely will need to change are below */
-
 // how many test trials to do per block
 var maxTestTrial = 5;
-
 
 // set this to false if you want the user to determine which condition to start in
 // set this to true if you want to randomize the condition
