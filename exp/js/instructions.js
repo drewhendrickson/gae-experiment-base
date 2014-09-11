@@ -89,7 +89,7 @@ function validateInstructionChecks() {
   else {
     // remove instruction checks form
     $('#instruction-checks').html('');
-    trainTrial(); // start experiment
+    initializeTask(); // start experiment
   }
 }
 
