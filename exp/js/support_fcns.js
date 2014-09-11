@@ -1,4 +1,4 @@
-/*global $, document, divImageSpace,  divSlider, divSliderInfo, divSliderStuff, default_slider_value:true, canvas:true, context:true */
+/*global $, divImageSpace, divSlider, divSliderInfo, divSliderStuff, default_slider_value:true, imageClear */
 /*jshint multistr: true */
 
 function initializeSlider(max) {
