@@ -138,6 +138,8 @@ Notes:
 5. On the dashboard, click Versions (under Main in the left bar)
 6. Set your new version as Default
 
+Note: If you upload a new version of your experiment, it will still share the same datastore as your previous experiments. To remove the existing data in the datastore, either create a new experiment (with a different application identifier) or delete all data in the datastore.
+
 ### How to check on the data once deployed to the web
 
 1. Open the dashboard for your experiment (via Google App Engine)
