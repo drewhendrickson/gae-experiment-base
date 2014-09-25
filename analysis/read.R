@@ -9,7 +9,7 @@ system(paste('python parser.py', input_file, output_file))
 # should print: Done parsing!
 
 # read the results of parsing into R
-parsed_gae_data <- read.csv(file=output_file, header=T)
+parsed_gae_data <- read.csv(file=output_file, header=T, stringsAsFactors=F)
 
 # save data as a compressed RData file
 saveRDS(parsed_gae_data, file="gae_data.RData")
