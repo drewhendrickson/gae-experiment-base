@@ -1,4 +1,4 @@
-/*global $, alert, hideElements, divInstructions, buttonNext, trainTrial, condition:true, showDemographics, initializeTask */
+/*global $, alert, hideElements, htmlElements, trainTrial, experimentInfo:true, showDemographics, initializeTask */
 /*jshint multistr: true */
 
 
@@ -7,11 +7,11 @@ function showIntro() {
   // reset all buttons so they do not have any functions bound to them
   hideElements();
   
-  divInstructions.show();
-  divInstructions.html('<p>This is part of a study being run at the University of Adelaide. By clicking "Next" below you consent to take part in it.</p><p>Details of the study: The principal investigator is Prof Me (my.email.address). For any questions regarding the ethics of the study, please contact CONTACT INFO. Please direct any questions about this study to Prof Me. Although any data gained from this study may be published, you will not be identified and your personal details will not be divulged, nor will anything be linked to your Amazon ID. We use your Amazon ID merely to ensure you successfully completed the experiment and are paid. You may withdraw at any time, although you will not be paid unless you complete the study.</p>');
+  htmlElements.divInstructions.show();
+  htmlElements.divInstructions.html('<p>This is part of a study being run at the University of Adelaide. By clicking "Next" below you consent to take part in it.</p><p>Details of the study: The principal investigator is Prof Me (my.email.address). For any questions regarding the ethics of the study, please contact CONTACT INFO. Please direct any questions about this study to Prof Me. Although any data gained from this study may be published, you will not be identified and your personal details will not be divulged, nor will anything be linked to your Amazon ID. We use your Amazon ID merely to ensure you successfully completed the experiment and are paid. You may withdraw at any time, although you will not be paid unless you complete the study.</p>');
 
-  buttonNext.show();
-  buttonNext.click(showDemographics);
+  htmlElements.buttonNext.show();
+  htmlElements.buttonNext.click(showDemographics);
 }
 
 // displays experiment instructions
@@ -20,11 +20,11 @@ function showInstructions() {
   // reset all buttons so they do not have any functions bound to them
   hideElements();
 
-  divInstructions.html('<p>In this task you will see ' + condition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.</p>');
-  divInstructions.show();
+  htmlElements.divInstructions.html('<p>In this task you will see ' + experimentInfo.condition + ' and green coloured lines. The colour of the lines depends on their orientation. Your task will be to learn to classify the colour of new lines based on the orientation of them. When you are ready, please press the Next button.</p>');
+  htmlElements.divInstructions.show();
 
-  buttonNext.show();
-  buttonNext.click(showInstructionChecks);
+  htmlElements.buttonNext.show();
+  htmlElements.buttonNext.click(showInstructionChecks);
 }
 
 function showInstructionChecks() {
@@ -32,8 +32,8 @@ function showInstructionChecks() {
   // reset all buttons so they do not have any functions bound to them
   hideElements();
 
-  divInstructions.show();
-  divInstructions.html('<p>Here are some questions to check if you have read the instructions correctly. If you answer all the questions correctly you will begin the experiment, otherwise you will be redirected to the instructions page again.</p>');
+  htmlElements.divInstructions.show();
+  htmlElements.divInstructions.html('<p>Here are some questions to check if you have read the instructions correctly. If you answer all the questions correctly you will begin the experiment, otherwise you will be redirected to the instructions page again.</p>');
 
   var divInstructionChecks = $('#instruction-checks');
   divInstructionChecks.html('<form> \
@@ -49,8 +49,8 @@ function showInstructionChecks() {
                             </form><br /><br />');
   divInstructionChecks.show();
 
-  buttonNext.show();
-  buttonNext.click(validateInstructionChecks);
+  htmlElements.buttonNext.show();
+  htmlElements.buttonNext.click(validateInstructionChecks);
 }
 
 function validateInstructionChecks() {
@@ -123,11 +123,11 @@ function showInputOptions() {
                           <option value="training">Training</option> \
                         </select><br /><br />');
 
-  buttonNext.show();
-  buttonNext.click(function () {
+  htmlElements.buttonNext.show();
+  htmlElements.buttonNext.click(function () {
     
     // read color option
-    condition = $('#condition').val();
+    experimentInfo.condition = $('#condition').val();
 
     // determinewhich section to start with:
     switch ($('#section').val()) {

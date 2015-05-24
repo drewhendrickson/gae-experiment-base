@@ -1,4 +1,4 @@
-/*global divSlider, divSliderInfo, divSliderStuff, default_slider_value:true */
+/*global htmlElements, experimentInfo:true */
 
 function initializeSlider(max) {
   /*
@@ -6,16 +6,16 @@ function initializeSlider(max) {
   */
 
   // set the default slider value
-  default_slider_value = Math.floor(max / 2);
+  experimentInfo.default_slider_value = Math.floor(max / 2);
   
   // initialize slider if one is being used
-  divSlider.slider({
+  htmlElements.divSlider.slider({
     min: 0,
     max: max,
     step: 1,
-    value: default_slider_value,
+    value: experimentInfo.default_slider_value,
     slide: function (event, ui) {
-      divSliderInfo.html(ui.value + '%');
+      htmlElements.divSliderInfo.html(ui.value + '%');
     }
   });
 }
@@ -25,5 +25,5 @@ function hideSlider() {
   * hide all slider elements
   */
 
-  divSliderStuff.hide();
+  htmlElements.divSliderStuff.hide();
 }

@@ -1,27 +1,15 @@
 /*global $, console, initializeCanvas, initializeSlider, hideElements, showInputOptions, showIntro, trainTrial, testTrial, hideCanvas, hideSlider */
 
-// variables that will store information about the subject and the experiment condition
-var subjectID;
-var condition;
-var demographics = [];
-
-// variables that will store the current trial number and current block number
-var currTrial = 0;
-var currBlock = 0;
-
-
-// the default value of the slider
-var default_slider_value;
-
-// references to divs in the html
-var divImageSpace, divSlider, divInstructions, buttonA, buttonB, buttonNext, divSliderStuff, divSliderInfo;
-
-// how many test trials to do per block
-var maxTestTrial = 5;
 
 // set this to false if you want the user to determine which condition to start in
 // set this to true if you want to randomize the condition
 var randomizeConditions = false;
+
+// all experiment details will go into this object
+var experimentInfo = {};
+
+// all html elements that must be manipulated will go into this object
+var htmlElements = {};
 
 function start () {
   /* 
@@ -35,6 +23,13 @@ function start () {
   * this function finishes by calling showIntro to begin the experiment
   */
   
+  // variables that will store the current trial number and current block number
+  experimentInfo.currTrial = 0;
+  experimentInfo.currBlock = 0;
+
+  // how many test trials to do per block
+  experimentInfo.maxTestTrial = 5;
+
   // initialize references to elements in html
   initDivReferences();
   
@@ -42,7 +37,7 @@ function start () {
   initializeCanvas();
 
   // generate a subject ID by generating a random number between 1 and 1000000
-  subjectID = Math.round(Math.random() * 1000000);
+  experimentInfo.subjectID = Math.round(Math.random() * 1000000);
 
   // if you set this to true, it allow user to select conditions and where to start
   if (!randomizeConditions) {
@@ -64,16 +59,16 @@ function initDivReferences () {
   * to your index.html file. Be sure you declare new ones as is done above for these variables
   */
   
-  divImageSpace = $('#imageSpace');
-  divInstructions = $('#instructions');
+  htmlElements.divImageSpace = $('#imageSpace');
+  htmlElements.divInstructions = $('#instructions');
 
-  buttonA = $('#a');
-  buttonB = $('#b');
-  buttonNext = $('#next');
+  htmlElements.buttonA = $('#a');
+  htmlElements.buttonB = $('#b');
+  htmlElements.buttonNext = $('#next');
 
-  divSliderStuff = $('#sliderStuff');
-  divSlider = $('#slider');
-  divSliderInfo = $('#slider-info');
+  htmlElements.divSliderStuff = $('#sliderStuff');
+  htmlElements.divSlider = $('#slider');
+  htmlElements.divSliderInfo = $('#slider-info');
 }
 
 function initializeCondition () {
@@ -87,9 +82,9 @@ function initializeCondition () {
   // randomly assign condition
   var r = Math.ceil(Math.random() * 2); // generate random number
   if (r === 1) {
-    condition = 'red';
+    experimentInfo.condition = 'red';
   } else if (r === 2) {
-    condition = 'blue';
+    experimentInfo.condition = 'blue';
   }
 }
 
@@ -103,10 +98,10 @@ function initializeTask () {
   initializeSlider(100);
 
   // change text value of response buttons depending on colour condition
-  buttonB.prop('value', 'Green');
-  buttonA.prop('value', 'Blue');
-  if (condition === "red") {
-    buttonA.prop('value', 'Red');
+  htmlElements.buttonB.prop('value', 'Green');
+  htmlElements.buttonA.prop('value', 'Blue');
+  if (experimentInfo.condition === "red") {
+    htmlElements.buttonA.prop('value', 'Red');
   }
   
   // start the training
@@ -125,15 +120,15 @@ function selectNextTrial () {
   var maxBlock = 2;
 
   // determine which section to go to next
-  if(currTrial < maxTestTrial) {
+  if(experimentInfo.currTrial < experimentInfo.maxTestTrial) {
     testTrial(); // next test trial
   }
   else {
     // increment block 
-    currBlock++;
+    experimentInfo.currBlock++;
 
-    if(currBlock < maxBlock) {
-      currTrial = 0; // reset trial counter
+    if(experimentInfo.currBlock < experimentInfo.maxBlock) {
+      experimentInfo.currTrial = 0; // reset trial counter
       trainTrial(); // next training block
     }
     else {
@@ -152,8 +147,8 @@ function finishExperiment() {
   // reset all buttons so they do not have any functions bound to them
   hideElements();
 
-  divInstructions.html('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
-  divInstructions.show();
+  htmlElements.divInstructions.html('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
+  htmlElements.divInstructions.show();
 }
 
 function hideElements() {

@@ -1,4 +1,4 @@
-/*global $, console, hideElements, maxTestTrial, currBlock, currTrial:true, drawLine, selectNextTrial, divImageSpace, demographics, subjectID, condition, buttonA, buttonB, buttonNext, divSlider, default_slider_value, divSliderStuff, divSliderInfo, divInstructions */
+/*global $, console, hideElements, drawLine, selectNextTrial, htmlElements, experimentInfo */
 
 function testTrial() {
   /* 
@@ -29,12 +29,12 @@ function testTrial() {
   hideElements();
 
   // draw test stimuli
-  var currAngle = testTrialStimuli[maxTestTrial * currBlock + currTrial];
-  drawLine(currAngle, 'black', divImageSpace.width(), divImageSpace.height());
-  divImageSpace.show();
+  var currAngle = testTrialStimuli[experimentInfo.maxTestTrial * experimentInfo.currBlock + experimentInfo.currTrial];
+  drawLine(currAngle, 'black', htmlElements.divImageSpace.width(), htmlElements.divImageSpace.height());
+  htmlElements.divImageSpace.show();
 
   // increment test trial counter
-  currTrial++;
+  experimentInfo.currTrial++;
 
   // get time of beginning of trial
   var base_time = new Date().getTime();
@@ -43,8 +43,8 @@ function testTrial() {
   var exp_data = {};
 
   // add demographics data to trial output
-  for (var i = 0; i < demographics.length; i++) {
-    exp_data[demographics[i].name] = demographics[i].value;
+  for (var i = 0; i < experimentInfo.demographics.length; i++) {
+    exp_data[experimentInfo.demographics[i].name] = experimentInfo.demographics[i].value;
   }
 
   // fix type of age if it exists (from demographics)
@@ -52,47 +52,47 @@ function testTrial() {
     exp_data.age = parseInt(exp_data.age, 10);
 
   // add trial data to trial output
-  exp_data.subjectID      = subjectID;
-  exp_data.testTrial      = currTrial;
-  exp_data.block          = currBlock;
-  exp_data.condition      = condition;
+  exp_data.subjectID      = experimentInfo.subjectID;
+  exp_data.testTrial      = experimentInfo.currTrial;
+  exp_data.block          = experimentInfo.currBlock;
+  exp_data.condition      = experimentInfo.condition;
   exp_data.experiment     = "test_experiment_v1";
 
-  if (currBlock < 1) {
+  if (experimentInfo.currBlock < 1) {
     // show a trial in which subjects respond by pressing one of two buttons
 
     // display test trial instructions
-    divInstructions.html('What colour should this line be?');
-    divInstructions.show();
+    htmlElements.divInstructions.html('What colour should this line be?');
+    htmlElements.divInstructions.show();
     
     // set the type of this trial
     exp_data.responseType = "categorize";
 
-    buttonA.click(function () {saveTestTrial(exp_data, 0, base_time);});
-    buttonB.click(function () {saveTestTrial(exp_data, 1, base_time);});
+    htmlElements.buttonA.click(function () {saveTestTrial(exp_data, 0, base_time);});
+    htmlElements.buttonB.click(function () {saveTestTrial(exp_data, 1, base_time);});
 
     // show response buttons
-    buttonA.show();
-    buttonB.show();
+    htmlElements.buttonA.show();
+    htmlElements.buttonB.show();
   }
   else {
     // show a trial in which subjects respond by moving a slider
-    divInstructions.html('What is the probability this line is green?');
-    divInstructions.show();
+    htmlElements.divInstructions.html('What is the probability this line is green?');
+    htmlElements.divInstructions.show();
     
     // set the type of this trial
     exp_data.responseType = "slider";
 
     // determine what to do when the next button is clicked
-    buttonNext.click(function () {saveTestTrial(exp_data, divSlider.slider('value'), base_time);});
+    htmlElements.buttonNext.click(function () {saveTestTrial(exp_data, htmlElements.divSlider.slider('value'), base_time);});
 
     // setup the slider
-    divSlider.slider('value', default_slider_value);
-    divSliderInfo.html(divSlider.slider('value') + "%"); // update slider value
+    htmlElements.divSlider.slider('value', experimentInfo.default_slider_value);
+    htmlElements.divSliderInfo.html(htmlElements.divSlider.slider('value') + "%"); // update slider value
 
     // show the slider and the next button
-    divSliderStuff.show();
-    buttonNext.show();
+    htmlElements.divSliderStuff.show();
+    htmlElements.buttonNext.show();
   }
 }
 
@@ -120,30 +120,30 @@ function trainTrial() {
   hideElements();
 
   // display training trial instructions
-  divInstructions.html('Here is a colored line. Study it and press Next when done.');
-  divInstructions.show();
+  htmlElements.divInstructions.html('Here is a colored line. Study it and press Next when done.');
+  htmlElements.divInstructions.show();
 
   // draw training stimuli in canvas
-  divImageSpace.show();
+  htmlElements.divImageSpace.show();
 
   // if the line has a positive slope, draw it green
   // otherwise draw it with the color of the condition
-  var currAngle = trainTrialStimuli[maxTrainTrial * currBlock + currTrial];
+  var currAngle = trainTrialStimuli[maxTrainTrial * experimentInfo.currBlock + experimentInfo.currTrial];
   var colour = 'green';
   if(currAngle > 0 && currAngle < 90 || currAngle > -180 && currAngle < -90)
-    colour = condition;
-  drawLine(currAngle, colour, divImageSpace.width(), divImageSpace.height());
+    colour = experimentInfo.condition;
+  drawLine(currAngle, colour, htmlElements.divImageSpace.width(), htmlElements.divImageSpace.height());
 
   // increment training trial counter
-  currTrial++;
+  experimentInfo.currTrial++;
 
-  buttonNext.show();
-  if(currTrial < maxTrainTrial) {
-    buttonNext.click(trainTrial); // go to next training trial
+  htmlElements.buttonNext.show();
+  if(experimentInfo.currTrial < maxTrainTrial) {
+    htmlElements.buttonNext.click(trainTrial); // go to next training trial
   }
   else {
-    currTrial = 0; // reset trial counter
-    buttonNext.click(testTrial); // proceed to test trial
+    experimentInfo.currTrial = 0; // reset trial counter
+    htmlElements.buttonNext.click(testTrial); // proceed to test trial
   }
 }
 

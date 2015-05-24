@@ -1,4 +1,4 @@
-/*global $, document, divImageSpace */
+/*global $, document, htmlElements */
 
 // variables that will store references to the html canvas used to display stimuli
 // these are global to increase speed of javascript
@@ -42,8 +42,8 @@ function initializeCanvas() {
   */
   
   canvas = document.getElementById("drawing");
-  canvas.width = divImageSpace.width();
-  canvas.height = divImageSpace.height();
+  canvas.width = htmlElements.divImageSpace.width();
+  canvas.height = htmlElements.divImageSpace.height();
   context = canvas.getContext("2d");
 }
 
@@ -67,6 +67,6 @@ function hideCanvas() {
   imageClear();
 
   // hides the canvas drawing
-  divImageSpace.hide();
+  htmlElements.divImageSpace.hide();
 }
 
