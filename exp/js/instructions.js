@@ -64,7 +64,7 @@ function validateInstructionChecks() {
   var ok = true;
   for(var i = 0; i < instructionChecks.length; i++) {
     // check for incorrect responses
-    if(instructionChecks[i].value != "correct") {
+    if(instructionChecks[i].value !== "correct") {
       ok = false;
       break;
     }
@@ -78,7 +78,7 @@ function validateInstructionChecks() {
   }
 
   // where this is the number of questions in the instruction check
-  if (instructionChecks.length != 3) {
+  if (instructionChecks.length !== 3) {
     ok = false;
   }
 
