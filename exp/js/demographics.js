@@ -11,7 +11,6 @@ function showDemographics() {
   var divDemographics = $('#demographics');
   divDemographics.show();
   divDemographics.html('<form> \
-                          <label for="user">Subject ID:</label><input name="uniqueID" /><br /><br /> \
                           <label for="age">Age:</label><input name="age" /><br /><br /> \
                           <label for="gender">Gender:</label> \
                             <input type="radio" name="gender" value="male" /> Male &nbsp; \
