@@ -1,4 +1,4 @@
-/*global $, document, htmlElements, experimentInfo */
+/*global $, document, htmlElements, experimentInfo:true */
 
 function drawLine(degrees, colour, width, height) {
   /*
