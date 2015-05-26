@@ -1,8 +1,4 @@
-/*global $, document, htmlElements */
-
-// variables that will store references to the html canvas used to display stimuli
-// these are global to increase speed of javascript
-var context, canvas;
+/*global $, document, htmlElements, experimentInfo */
 
 function drawLine(degrees, colour, width, height) {
   /*
@@ -23,17 +19,17 @@ function drawLine(degrees, colour, width, height) {
   var length = 200;
 
   // set width of line
-  context.lineWidth = 5;
+  experimentInfo.context.lineWidth = 5;
 
   // set line colour
-  context.strokeStyle = colour;
+  experimentInfo.context.strokeStyle = colour;
 
   // draw line
-  context.beginPath();
-  context.moveTo(width / 2 - length * Math.cos(radians), height / 2 - length * Math.sin(radians));
-  context.lineTo(width / 2 + length * Math.cos(radians), height / 2 + length * Math.sin(radians));
-  context.closePath();
-  context.stroke();
+  experimentInfo.context.beginPath();
+  experimentInfo.context.moveTo(width / 2 - length * Math.cos(radians), height / 2 - length * Math.sin(radians));
+  experimentInfo.context.lineTo(width / 2 + length * Math.cos(radians), height / 2 + length * Math.sin(radians));
+  experimentInfo.context.closePath();
+  experimentInfo.context.stroke();
 }
 
 function initializeCanvas() {
@@ -41,10 +37,11 @@ function initializeCanvas() {
   * initialize the canvas and context variables
   */
   
-  canvas = document.getElementById("drawing");
-  canvas.width = htmlElements.divImageSpace.width();
-  canvas.height = htmlElements.divImageSpace.height();
-  context = canvas.getContext("2d");
+  // define the canvas and context objects in experimentInfo from the contents of the html canvas element
+  experimentInfo.canvas = document.getElementById("drawing");
+  experimentInfo.canvas.width = htmlElements.divImageSpace.width();
+  experimentInfo.canvas.height = htmlElements.divImageSpace.height();
+  experimentInfo.context = experimentInfo.canvas.getContext("2d");
 }
 
 function imageClear() {
@@ -52,9 +49,9 @@ function imageClear() {
   * clear the html canvas
   */
 
-  context.fillStyle = '#ffffff'; // work around for Chrome
-  context.fillRect(0, 0, canvas.width, canvas.height); // fill in the canvas with white
-  canvas.width = canvas.width; // clears the canvas 
+  experimentInfo.context.fillStyle = '#ffffff'; // work around for Chrome
+  experimentInfo.context.fillRect(0, 0, experimentInfo.canvas.width, experimentInfo.canvas.height); // fill in the canvas with white
+  experimentInfo.canvas.width = experimentInfo.canvas.width; // clears the canvas 
 }
 
 
