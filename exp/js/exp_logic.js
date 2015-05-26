@@ -166,7 +166,7 @@ function finishExperiment() {
   // reset all buttons so they do not have any functions bound to them
   hideElements();
 
-  htmlElements.divInstructions.html('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code " + experimentInfo.completionCode + " to complete the HIT.');
+  htmlElements.divInstructions.html('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code ' + experimentInfo.completionCode + ' to complete the HIT.');
   htmlElements.divInstructions.show();
 }
 
