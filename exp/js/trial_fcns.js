@@ -57,6 +57,7 @@ function testTrial() {
   exp_data.block          = experimentInfo.currBlock;
   exp_data.condition      = experimentInfo.condition;
   exp_data.experiment     = "test_experiment_v1";
+  exp_data.completionCode = experimentInfo.completionCode;
 
   if (experimentInfo.currBlock < 1) {
     // show a trial in which subjects respond by pressing one of two buttons

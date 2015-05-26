@@ -23,6 +23,23 @@ function start () {
   * this function finishes by calling showIntro to begin the experiment
   */
   
+  // this function builds a unique completion code for this particpant
+  function makecode() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    text += "#-";
+
+    for( var j=0; j < 5; j++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+  }
+  
+  
   // variables that will store the current trial number and current block number
   experimentInfo.currTrial = 0;
   experimentInfo.currBlock = 0;
@@ -38,6 +55,8 @@ function start () {
 
   // generate a subject ID by generating a random number between 1 and 1000000
   experimentInfo.subjectID = Math.round(Math.random() * 1000000);
+  
+  experimentInfo.completionCode = makecode();
 
   // if you set this to true, it allow user to select conditions and where to start
   if (!randomizeConditions) {
@@ -147,7 +166,7 @@ function finishExperiment() {
   // reset all buttons so they do not have any functions bound to them
   hideElements();
 
-  htmlElements.divInstructions.html('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code 92nF72zm0 to complete the HIT.');
+  htmlElements.divInstructions.html('You have completed the experiment! If you are doing the experiment from Mechanical Turk, please enter the code " + experimentInfo.completionCode + " to complete the HIT.');
   htmlElements.divInstructions.show();
 }
 
